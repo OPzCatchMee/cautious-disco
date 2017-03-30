@@ -7,5 +7,4 @@ RewriteBase /
 DirectoryIndex index.php index.cgi index.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ zyro/$1 [L,QSA]
 
