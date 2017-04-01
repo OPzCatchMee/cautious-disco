@@ -43,6 +43,11 @@ body {
 	letter-spacing:-2px;
 	text-align:right;
 }
+#header h5 {
+	color:#AAA;
+	font-size:200%;
+	text-align:right;
+}
 
 /* navigation */
 #navigation {

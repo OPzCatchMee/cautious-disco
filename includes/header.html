@@ -9,6 +9,11 @@
 	<div id="header">
 		<h1>Gymnastics</h1>
 		<h2>Database</h2>
+		<?php // Check if logged in and say name:
+		if (isset($_SESSION['ID_Login'])) {
+			echo <h5>'Logged in as '</h5>;
+		}
+		?>
 	</div>
 	<div id="navigation">
 		<ul>
