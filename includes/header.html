@@ -9,6 +9,17 @@
 	<div id="header">
 		<h1>Gymnastics</h1>
 		<h2>Database</h2>
+		<?php // Check if logged in and say name:
+		if (isset($_SESSION['ID_Login'])) {
+			require('./mysqli_connect.php');
+			$q = "SELECT First_Name, Last_Name, Competitor_ID FROM LOGIN WHERE ID_Login=$_SESSION['ID_Login']";
+			$r = @mysqli_query ($dbc, $q); // Run the query.
+			$row = mysqli_fetch_array($r, MYSQLI_NUM);
+			echo 'Logged in as ' . $row[0] . ' ' . $row[1];
+			
+			mysqli_close($dbc); // Close the database connection.
+		}
+		?>
 	</div>
 	<div id="navigation">
 		<ul>
