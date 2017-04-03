@@ -2,7 +2,7 @@
 
 // Include the header:
 $page_title = 'Admin Page';
-include ('.includesAdmin/header.html');
+include ('includesAdmin/adminHeader.html');
 
 // Print any error messages, if they exist:
 if (isset($errors) && !empty($errors)) {
@@ -13,6 +13,6 @@ if (isset($errors) && !empty($errors)) {
 	}
 	echo '</p><p>Please try again.</p>';
 }
-?>
 
-<?php include ('includesAdmin/footer.html'); ?>
+include ('includesAdmin/adminFooter.html');
+?>
