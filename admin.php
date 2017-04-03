@@ -2,7 +2,7 @@
 
 // Include the header:
 $page_title = 'Admin Page';
-include ('includesAdmin/header.html');
+include ('.includesAdmin/header.html');
 
 // Print any error messages, if they exist:
 if (isset($errors) && !empty($errors)) {
