@@ -12,23 +12,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Check the login:
 	list ($check, $data) = check_login($dbc, $_POST['Email'], $_POST['Password']);
 
-	if ($check) { // OK!
+if ($check) { // OK!
 
-		// Set the session data:
-		session_start();
-		$_SESSION['ID_Login'] = $data['ID_Login'];
-		$_SESSION['First_Name'] = $data['First_Name'];
+	// Set the session data:
+	session_start();
+	$_SESSION['ID_Login'] = $data['ID_Login'];
+	$_SESSION['First_Name'] = $data['First_Name'];
 
-		// Store the HTTP_USER_AGENT:
-		$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
+	// Store the HTTP_USER_AGENT:
+	$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
 
-		// Redirect:
-		redirect_user('loggedin.php');
+	// Redirect:
+	redirect_user('loggedin.php');
 
-	} else { // Unsuccessful!
+} else { // Unsuccessful!
 
-		// Assign $data to $errors for login_page.inc.php:
-		$errors = $data;
+	// Assign $data to $errors for login_page.inc.php:
+	$errors = $data;
 
 	}
 }
