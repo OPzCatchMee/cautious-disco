@@ -11,30 +11,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	// Check the login:
 	list ($check, $data) = check_login($dbc, $_POST['Email'], $_POST['Password']);
-	
-	if(($_POST['Email'] == 'Admin') && ($_POST['Password'] == 'password13')) {
-		redirect_user('admin.php');
-	}else {
-		if ($check) { // OK!
 
-			// Set the session data:
-			session_start();
-			$_SESSION['ID_Login'] = $data['ID_Login'];
-			$_SESSION['First_Name'] = $data['First_Name'];
+	if ($check) { // OK!
 
-			// Store the HTTP_USER_AGENT:
-			$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
+		// Set the session data:
+		session_start();
+		$_SESSION['ID_Login'] = $data['ID_Login'];
+		$_SESSION['First_Name'] = $data['First_Name'];
 
-			// Redirect:
-			redirect_user('loggedin.php');
+		// Store the HTTP_USER_AGENT:
+		$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
 
-		} else { // Unsuccessful!
+		// Redirect:
+		redirect_user('loggedin.php');
 
-			// Assign $data to $errors for login_page.inc.php:
-			$errors = $data;
+	} else { // Unsuccessful!
 
-		}
+		// Assign $data to $errors for login_page.inc.php:
+		$errors = $data;
+
 	}
+}
 
 	mysqli_close($dbc); // Close the database connection.
 
