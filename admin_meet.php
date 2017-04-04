@@ -71,7 +71,7 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT Location_Name, Street, City, State, ZIP, Date, Time, Competition_Name AS 'date', ID FROM MEET ORDER BY $order_by LIMIT $start, $display";
+$q = "SELECT Location_Name, Street, City, State, ZIP, 'Date', 'Time', Competition_Name AS 'date', ID FROM MEET ORDER BY $order_by LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
