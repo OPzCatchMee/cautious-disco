@@ -2,7 +2,7 @@
 
 $page_title = 'View the Meets';
 include ('./includesAdmin/adminHeader.html');
-echo '<h1><center>Events</center></h1>';
+echo '<h1><center>Meets</center></h1>';
 
 require ('./mysqli_connect.php');
 
@@ -104,7 +104,7 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td align="left">' . $row['ZIP'] . '</td>
 		<td align="left">' . $row['Date'] . '</td>
 		<td align="left">' . $row['Time'] . '</td>
-		<td align="left">' . $row['name'] . '</td>
+		<td align="left">' . $row['Competition_Name'] . '</td>
 	</tr>
 	';
 } // End of WHILE loop.
