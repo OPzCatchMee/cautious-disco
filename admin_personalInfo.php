@@ -2,7 +2,7 @@
 
 $page_title = 'View the Current Users';
 include ('./includesAdmin/adminHeader.html');
-echo '<h1>Registered Users</h1>';
+echo '<h1><center>Registered Users</center></h1>';
 
 require ('./mysqli_connect.php');
 
