@@ -71,7 +71,7 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT Location_Name, Street, City, State, ZIP, 'Date', 'Time', Competition_Name AS 'date', ID FROM MEET ORDER BY $order_by LIMIT $start, $display";
+$q = "SELECT Location_Name, Street, City, State, ZIP, 'Time' AS 'time', Competition_Name 'Date' AS 'date' , ID FROM MEET ORDER BY $order_by LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
@@ -102,8 +102,8 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td align="left">' . $row['City'] . '</td>
 		<td align="left">' . $row['State'] . '</td>
 		<td align="left">' . $row['ZIP'] . '</td>
-		<td align="left">' . $row['Date'] . '</td>
-		<td align="left">' . $row['Time'] . '</td>
+		<td align="left">' . $row['date'] . '</td>
+		<td align="left">' . $row['time'] . '</td>
 		<td align="left">' . $row['Competition_Name'] . '</td>
 	</tr>
 	';
