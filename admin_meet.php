@@ -104,7 +104,7 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td align="left">' . $row['ZIP'] . '</td>
 		<td align="left">' . $row['Date'] . '</td>
 		<td align="left">' . $row['Time'] . '</td>
-		<td align="left">' . $row['Competition_Name'] . '</td>
+		<td align="left">' . $row['name'] . '</td>
 	</tr>
 	';
 } // End of WHILE loop.
