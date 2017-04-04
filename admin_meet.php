@@ -36,7 +36,7 @@ if (isset($_GET['s']) && is_numeric($_GET['s'])) {
 
 // Determine the sort...
 // Default is by registration date.
-$sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'rd';
+$sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'date';
 
 // Determine the sorting order:
 switch ($sort) {
@@ -102,9 +102,9 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td align="left">' . $row['City'] . '</td>
 		<td align="left">' . $row['State'] . '</td>
 		<td align="left">' . $row['ZIP'] . '</td>
-		<td align="left">' . $row['Competition_Name'] . '</td>
 		<td align="left">' . $row['Date'] . '</td>
 		<td align="left">' . $row['Time'] . '</td>
+		<td align="left">' . $row['Competition_Name'] . '</td>
 	</tr>
 	';
 } // End of WHILE loop.
