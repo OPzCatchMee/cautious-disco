@@ -1,18 +1,21 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><?php echo $page_title></title>
-    <link rel = "stylesheet" href = "../includesAdmin/styles.css" type="text/css" />
-  </head>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title><?php echo $page_title; ?></title>
+	<link rel="stylesheet" href="./includesAdmin/style.css" type="text/css" media="screen" />
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+</head>
 
-  <body>
-    <!--header of the webpage-->
-  	<h1><center>Admin</center></h1>
+<body>
+  <!--header of the webpage-->
+	<h1><center>Admin</center></h1>
 
-    <!--Creating the navigation for the website-->
+  <!--Creating the navigation for the website-->
+  <div id="navigation">
     <ul>
       <li><a href="admin_personalInfo.php">Track Participant Details</a></li>
       <li><a href="#EventDetails">Event Details</a></li>
       <li><a href="#Scores">Scores</a></li>
       <li><a href="#Contact">Contact</a></li>
     </ul>
+  </div>
