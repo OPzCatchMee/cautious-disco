@@ -30,11 +30,13 @@
 			<li><a href="view_users.php">View Users</a></li>
 			<?php // Create a login/logout link:
 			if (isset($_SESSION['ID_Login'])) {
-				echo '<li><a href="pay_fee.php">Pay Fees</a></li>';
-				echo '<li><a href="password.php">Change Password</a></li>';
-				echo '<li><a href="logout.php">Logout</a></li>';
+				echo '<li><a href="pay_fee.php">Pay Fees</a></li>
+				<li><a href="password.php">Change Password</a></li>
+				<li><a href="logout.php">Logout</a></li>
+';
 			} else {
-				echo '<li><a href="login.php">Login</a></li>';
+				echo '<li><a href="login.php">Login</a></li>
+';
 			}
 			?>
 			<li><a href="public.php">Upcoming Events</a></li>
