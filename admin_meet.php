@@ -77,8 +77,6 @@ $r = @mysqli_query ($dbc, $q); // Run the query.
 // Table header:
 echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
 <tr>
-	<td align="left"><b>Edit</b></td>
-	<td align="left"><b>Delete</b></td>
 	<td align="left"><b><a href="admin_meet.php?sort=ln">Location Name</a></b></td>
 	<td align="left"><b><a href="admin_meet.php?sort=fn">Street</a></b></td>
 	<td align="left"><b><a href="admin_meet.php?sort=rd">City</a></b></td>
@@ -95,8 +93,6 @@ $bg = '#eeeeee';
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
 		echo '<tr bgcolor="' . $bg . '">
-		<td align="left"><a href="edit_meet.php?id=' . $row['ID'] . '">Edit</a></td>
-		<td align="left"><a href="delete_meet.php?id=' . $row['ID'] . '">Delete</a></td>
 		<td align="left">' . $row['Location_Name'] . '</td>
 		<td align="left">' . $row['Street'] . '</td>
 		<td align="left">' . $row['City'] . '</td>
@@ -105,6 +101,7 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td align="left">' . $row['Date'] . '</td>
 		<td align="left">' . $row['Time'] . '</td>
 		<td align="left">' . $row['Competition_Name'] . '</td>
+		<td align="left"><a href="edit_meet.php?id=' . $row['ID'] . '"><strong>Edit</strong>";
 	</tr>
 	';
 } // End of WHILE loop.
