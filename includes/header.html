@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 	<title><?php echo $page_title; ?></title>	
 	<link rel="stylesheet" href="./includes/style.css" type="text/css" media="screen" />
@@ -30,13 +30,14 @@
 			<li><a href="view_users.php">View Users</a></li>
 			<?php // Create a login/logout link:
 			if (isset($_SESSION['ID_Login'])) {
+				echo '<li><a href="pay_fee.php">Pay Fees</a></li>';
 				echo '<li><a href="password.php">Change Password</a></li>';
 				echo '<li><a href="logout.php">Logout</a></li>';
 			} else {
 				echo '<li><a href="login.php">Login</a></li>';
 			}
 			?>
-                       <li><a href="public.php">Upcoming Events</a></li>
+			<li><a href="public.php">Upcoming Events</a></li>
 		</ul>
 	</div>
 	<div id="content"><!-- Start of the page-specific content. --><br />
