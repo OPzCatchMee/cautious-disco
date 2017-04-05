@@ -101,7 +101,7 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td align="left">' . $row['Date'] . '</td>
 		<td align="left">' . $row['Time'] . '</td>
 		<td align="left">' . $row['Competition_Name'] . '</td>
-		<td align="left"><a href="edit_meet.php?id=' . $row['ID'] . '"><strong>Edit</strong>";
+		<td align="left"><a href="edit_meet.php?id=' . $row['ID'] . '">Edit</a></td>
 	</tr>
 	';
 } // End of WHILE loop.
