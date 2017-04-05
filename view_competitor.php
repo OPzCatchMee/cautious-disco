@@ -3,18 +3,18 @@
 
 $page_title = 'View a Competitor';
 include ('includes/header.html');
-//~echo '<br /><br />';
+echo '<br /><br />';
 
 require ('mysqli_connect.php');
 
 function age($birth_date) // thanks to Peter Hamilton https://stackoverflow.com/a/5938386
 {
-    list($y,$m,$d) = explode(",",$birth_date);
-    $y_diff  = date("Y") - $y;
-    $m_diff = date("m") - $m;
-    $d_diff   = date("d") - $d;
-    if ($m_diff < 0 || $d_diff < 0) { $y_diff--; }
-    return $y_diff;
+	list($y,$m,$d) = explode("-",$birth_date);
+	$y_diff  = date("Y") - $y;
+	$m_diff = date("m") - $m;
+	$d_diff   = date("d") - $d;
+	if ($m_diff < 0 || $d_diff < 0) { $y_diff--; }
+	return $y_diff;
 }
 
 if(isset($_GET['id']))
