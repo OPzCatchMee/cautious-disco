@@ -3,7 +3,7 @@
 
 $page_title = 'View a Team';
 include ('includes/header.html');
-//~echo '<br /><br />';
+echo '<br /><br />';
 
 require ('mysqli_connect.php');
 
