@@ -3,7 +3,7 @@
 // This new version allows the results to be sorted in different ways.
 
 $page_title = 'View the Current Users';
-include ('./includes/header.html');
+include ('includes/header.html');
 echo '<h1>Registered Users</h1>';
 
 require ('./mysqli_connect.php');
@@ -16,7 +16,7 @@ if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
 	$pages = $_GET['p'];
 } else { // Need to determine.
  	// Count the number of records:
-	$q = "SELECT COUNT(ID_Login) FROM Login";
+	$q = "SELECT COUNT(ID_Login) FROM LOGIN";
 	$r = @mysqli_query ($dbc, $q);
 	$row = @mysqli_fetch_array ($r, MYSQLI_NUM);
 	$records = $row[0];
@@ -118,5 +118,5 @@ if ($pages > 1) {
 	
 } // End of links section.
 	
-include ('./includes/footer.html');
+include ('includes/footer.html');
 ?>
