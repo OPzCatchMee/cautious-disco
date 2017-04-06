@@ -61,8 +61,6 @@ $r = @mysqli_query ($dbc, $q); // Run the query.
 // Table header:
 echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
 <tr>
-	<td align="left"><b>Edit</b></td>
-	<td align="left"><b>Delete</b></td>
 	<td align="left"><b><a href="admin_personalInfo.php?sort=ln">Last Name</a></b></td>
 	<td align="left"><b><a href="admin_personalInfo.php?sort=fn">First Name</a></b></td>
 	<td align="left"><b><a href="admin_personalInfo.php?sort=rd">Date Registered</a></b></td>
@@ -74,11 +72,11 @@ $bg = '#eeeeee';
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
 		echo '<tr bgcolor="' . $bg . '">
-		<td align="left"><a href="edit_user.php?id=' . $row['ID_Login'] . '">Edit</a></td>
-		<td align="left"><a href="delete_user.php?id=' . $row['ID_Login'] . '">Delete</a></td>
 		<td align="left">' . $row['Last_Name'] . '</td>
 		<td align="left">' . $row['First_Name'] . '</td>
 		<td align="left">' . $row['dr'] . '</td>
+		<td align="left"><a href="edit_user.php?id=' . $row['ID_Login'] . '">Edit</a></td>
+		<td align="left"><a href="delete_user.php?id=' . $row['ID_Login'] . '">Delete</a></td>
 	</tr>
 	';
 } // End of WHILE loop.
