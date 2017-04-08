@@ -42,9 +42,9 @@ switch ($sort) {
 	case 'ssn':
 		$order_by = 'SSN ASC';
 		break;
-  case 'fn':
-  	$order_by = 'Staff_F_Name ASC';
-  	break;
+	case 'fn':
+		$order_by = 'Staff_F_Name ASC';
+	  	break;
 	case 'mn':
 		$order_by = 'Staff_MI ASC';
 		break;
@@ -82,24 +82,27 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT SSN, Staff_F_Name, Staff_MI, Staff_L_Name, Job_Title, Hourly_Wage, Street, City, State, Home_Phone, Date_of_Birth, Staff_ID FROM STAFF ORDER BY $order_by LIMIT $start, $display";
+$q = "SELECT SSN, Staff_F_Name, Staff_MI, Staff_L_Name, Job_Title, Hourly_Wage, Street, City, State, Home_Phone, Date_of_Birth, Staff_ID
+	FROM STAFF
+	ORDER BY $order_by
+	LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
 echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
 <tr>
-	<td align="left"><b><a href="admin_staff.php.php?sort=ssn">SSN</a></b></td>
-	<td align="left"><b><a href="admin_staff.php.php?sort=fn">First Name</a></b></td>
-	<td align="left"><b><a href="admin_staff.php.php?sort=mn">Midde Name</a></b></td>
-	<td align="left"><b><a href="admin_staff.php.php?sort=ln">Last Name</a></b></td>
-	<td align="left"><b><a href="admin_staff.php.php?sort=title">Job Title</a></b></td>
-	<td align="left"><b><a href="admin_staff.php.php?sort=wage">Hourly Wage</a></b></td>
-	<td align="left"><b><a href="admin_staff.php.php?sort=street">Street</a></b></td>
-  <td align="left"><b><a href="admin_staff.php.php?sort=city">City</a></b></td>
-	<td align="left"><b><a href="admin_staff.php.php?sort=state">State</a></b></td>
-	<td align="left"><b><a href="admin_staff.php.php?sort=hphone">Phone</a></b></td>
-	<td align="left"><b><a href="admin_staff.php.php?sort=birth">Date of Birth</a></b></td>
-	<td align="left"><b><a href="admin_staff.php.php?sort=id">Staff ID</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=ssn">SSN</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=fn">First Name</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=mn">Midde Name</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=ln">Last Name</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=title">Job Title</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=wage">Hourly Wage</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=street">Street</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=city">City</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=state">State</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=hphone">Phone</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=birth">Date of Birth</a></b></td>
+	<td align="left"><b><a href="admin_staff.php?sort=id">Staff ID</a></b></td>
 </tr>
 ';
 
@@ -109,19 +112,19 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
 		echo '<tr bgcolor="' . $bg . '">
 		<td align="left">' . $row['SSN'] . '</td>
-    <td align="left">' . $row['Staff_F_Name'] . '</td>
+		<td align="left">' . $row['Staff_F_Name'] . '</td>
 		<td align="left">' . $row['Staff_MI'] . '</td>
 		<td align="left">' . $row['Staff_L_Name'] . '</td>
 		<td align="left">' . $row['Job_Title'] . '</td>
 		<td align="left">' . $row['Hourly_Wage'] . '</td>
 		<td align="left">' . $row['Street'] . '</td>
-    <td align="left">' . $row['City'] . '</td>
-    <td align="left">' . $row['State'] . '</td>
+		<td align="left">' . $row['City'] . '</td>
+		<td align="left">' . $row['State'] . '</td>
 		<td align="left">' . $row['Home_Phone'] . '</td>
 		<td align="left">' . $row['Date_of_Birth'] . '</td>
 		<td align="left">' . $row['Staff_ID'] . '</td>
 		<td align="left"><a href="edit_staff.php?ID=' . $row['ID'] . '">Edit</a></td>
-    <td align="left"><a href="delete_staff.php?ID=' . $row['ID'] . '">Delete</a></td>
+	<td align="left"><a href="delete_staff.php?ID=' . $row['ID'] . '">Delete</a></td>
 	</tr>
 	';
 } // End of WHILE loop.
