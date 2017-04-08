@@ -71,20 +71,20 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT Location_Name, Street, City, State, ZIP, Date, Time, Competition_Name FROM MEET ORDER BY $order_by LIMIT $start, $display";
+$q = "SELECT Location_Name, Street, City, State, ZIP, Date, Time, Competition_Name, ID FROM MEET ORDER BY $order_by LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
 echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
 <tr>
 	<td align="left"><b><a href="admin_meet.php?sort=ln">Location Name</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=fn">Street</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=rd">City</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=rd">State</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=rd">ZIP</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=rd">Date</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=rd">Time</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=rd">Competition Name</a></b></td>
+	<td align="left"><b><a href="admin_meet.php?sort=street">Street</a></b></td>
+	<td align="left"><b><a href="admin_meet.php?sort=city">City</a></b></td>
+	<td align="left"><b><a href="admin_meet.php?sort=state">State</a></b></td>
+	<td align="left"><b><a href="admin_meet.php?sort=zip">ZIP</a></b></td>
+	<td align="left"><b><a href="admin_meet.php?sort=date">Date</a></b></td>
+	<td align="left"><b><a href="admin_meet.php?sort=time">Time</a></b></td>
+	<td align="left"><b><a href="admin_meet.php?sort=name">Competition Name</a></b></td>
 </tr>
 ';
 
@@ -101,7 +101,7 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td align="left">' . $row['Date'] . '</td>
 		<td align="left">' . $row['Time'] . '</td>
 		<td align="left">' . $row['Competition_Name'] . '</td>
-		<td align="left"><a href="edit_meet.php?ID=' . $row['ID'] . '">Edit</a></td>
+		<td align="left"><a href="edit_meet.php?id=' . $row['ID'] . '">Edit</a></td>
 	</tr>
 	';
 } // End of WHILE loop.
