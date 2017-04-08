@@ -81,26 +81,31 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT Competitor_F_Name, Competitor_MI, Competitor_L_Name, Date_Of_Birth, Street, City, State, ZIP, Phone, Email, Level, Sex, Team_ID FROM COMPETITOR ORDER BY $order_by LIMIT $start, $display";
+$q = "SELECT First_Name, Last_Name, LOGIN.Email, Date_Of_Birth, Street, City, State, ZIP, Phone, Level, Sex, Team_ID
+	FROM (LOGIN INNER JOIN COMPETITOR ON LOGIN.Competitor_ID=COMPETITOR.ID)
+	ORDER BY $order_by
+	LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
+
+// for debugging
+echo '<p>Number of results: '.mysqli_affected_rows($dbc).'</p>';
 
 // Table header:
 echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
-<tr>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=fn">First Name</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=rd">Middle Name</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=rd">Last Name</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=rd">Date of Birth</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=rd">Street</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=rd">City</a></b></td>
-  <td align="left"><b><a href="admin_competitor.php.php?sort=ln">State</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=fn">ZIP</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=rd">Phone</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=rd">Email</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=rd">Level</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=rd">Sex</a></b></td>
-	<td align="left"><b><a href="admin_competitor.php.php?sort=rd">Team ID</a></b></td>
-</tr>
+<thead>
+	<th><b><a href="admin_competitor.php?sort=fn">First Name</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=rd">Last Name</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=rd">Date of Birth</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=rd">Street</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=rd">City</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=ln">State</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=fn">ZIP</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=rd">Phone</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=rd">Email</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=rd">Level</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=rd">Sex</a></b></td>
+	<th><b><a href="admin_competitor.php?sort=rd">Team ID</a></b></td>
+</thead>
 ';
 
 // Fetch and print all the records....
@@ -108,21 +113,20 @@ $bg = '#eeeeee';
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
 		echo '<tr bgcolor="' . $bg . '">
-		<td align="left">' . $row['Competitor_F_Name'] . '</td>
-		<td align="left">' . $row['Competitor_MI'] . '</td>
-		<td align="left">' . $row['Competitor_L_Name'] . '</td>
-		<td align="left">' . $row['Date_Of_Birth'] . '</td>
-		<td align="left">' . $row['Street'] . '</td>
-		<td align="left">' . $row['City'] . '</td>
-		<td align="left">' . $row['State'] . '</td>
-		<td align="left">' . $row['ZIP'] . '</td>
-		<td align="left">' . $row['Phone'] . '</td>
-		<td align="left">' . $row['Email'] . '</td>
-		<td align="left">' . $row['Level'] . '</td>
-		<td align="left">' . $row['Sex'] . '</td>
-		<td align="left">' . $row['Team_ID'] . '</td>
-		<td align="left"><a href="edit_competitor.php?ID=' . $row['ID'] . '">Edit</a></td>
-    <td align="left"><a href="delete_competitor.php?ID=' . $row['ID'] . '">Delete</a></td>
+		<td>' . $row['First_Name'] . '</td>
+		<td>' . $row['Last_Name'] . '</td>
+		<td>' . $row['Date_Of_Birth'] . '</td>
+		<td>' . $row['Street'] . '</td>
+		<td>' . $row['City'] . '</td>
+		<td>' . $row['State'] . '</td>
+		<td>' . $row['ZIP'] . '</td>
+		<td>' . $row['Phone'] . '</td>
+		<td>' . $row['Email'] . '</td>
+		<td>' . $row['Level'] . '</td>
+		<td>' . $row['Sex'] . '</td>
+		<td>' . $row['Team_ID'] . '</td>
+		<td><a href="edit_competitor.php?ID=' . $row['ID'] . '">Edit</a></td>
+		<td><a href="delete_competitor.php?ID=' . $row['ID'] . '">Delete</a></td>
 	</tr>
 	';
 } // End of WHILE loop.
