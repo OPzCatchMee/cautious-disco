@@ -43,13 +43,10 @@ switch ($sort) {
 		$order_by = 'SSN ASC';
 		break;
 	case 'fn':
-		$order_by = 'Staff_F_Name ASC';
+		$order_by = 'First_Name ASC';
 	  	break;
-	case 'mn':
-		$order_by = 'Staff_MI ASC';
-		break;
 	case 'ln':
-		$order_by = 'Staff_L_Name ASC';
+		$order_by = 'Last_Name ASC';
 		break;
 	case 'title':
 		$order_by = 'Job_Title ASC';
@@ -82,8 +79,8 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT SSN, Staff_F_Name, Staff_MI, Staff_L_Name, Job_Title, Hourly_Wage, Street, City, State, Home_Phone, Date_of_Birth, Staff_ID
-	FROM STAFF
+$q = "SELECT SSN, First_Name, Last_Name, Email, Job_Title, Hourly_Wage, Street, City, State, Home_Phone, Date_of_Birth, LOGIN.Staff_ID
+	FROM (LOGIN INNER JOIN STAFF ON LOGIN.Staff_ID=STAFF.Staff_ID)
 	ORDER BY $order_by
 	LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
@@ -93,7 +90,6 @@ echo '<table>
 <thead>
 	<th><a href="admin_staff.php?sort=ssn">SSN</a></th>
 	<th><a href="admin_staff.php?sort=fn">First Name</a></th>
-	<th><a href="admin_staff.php?sort=mn">Midde Name</a></th>
 	<th><a href="admin_staff.php?sort=ln">Last Name</a></th>
 	<th><a href="admin_staff.php?sort=title">Job Title</a></th>
 	<th><a href="admin_staff.php?sort=wage">Hourly Wage</a></th>
@@ -110,9 +106,8 @@ echo '<table>
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	echo '<tr>
 		<td>' . $row['SSN'] . '</td>
-		<td>' . $row['Staff_F_Name'] . '</td>
-		<td>' . $row['Staff_MI'] . '</td>
-		<td>' . $row['Staff_L_Name'] . '</td>
+		<td>' . $row['First_Name'] . '</td>
+		<td>' . $row['Last_Name'] . '</td>
 		<td>' . $row['Job_Title'] . '</td>
 		<td>' . $row['Hourly_Wage'] . '</td>
 		<td>' . $row['Street'] . '</td>
