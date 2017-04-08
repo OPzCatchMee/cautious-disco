@@ -44,16 +44,53 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	} else {
 		$city = mysqli_real_escape_string($dbc, trim($_POST['City']));
 	}
+
+	// Check for state:
+	if (empty($_POST['State'])) {
+		$errors[] = 'You forgot to enter State.';
+	} else {
+		$state = mysqli_real_escape_string($dbc, trim($_POST['State']));
+	}
+
+	// Check for zip:
+	if (empty($_POST['ZIP'])) {
+		$errors[] = 'You forgot to enter a Zip Code.';
+	} else {
+		$zip = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
+	}
+
+	// Check for zip:
+	if (empty($_POST['Date'])) {
+		$errors[] = 'You forgot to enter a Zip Code.';
+	} else {
+		$date = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
+	}
+
+	// Check for time:
+	if (empty($_POST['Time'])) {
+		$errors[] = 'You forgot to enter the time of event.';
+	} else {
+		$time = mysqli_real_escape_string($dbc, trim($_POST['Time']));
+	}
+
+	// Check for competition name:
+	if (empty($_POST['Competition_Name'])) {
+		$errors[] = 'You forgot to enter the name of the competition.';
+	} else {
+		$competition_name = mysqli_real_escape_string($dbc, trim($_POST['Competition_Name']));
+	}
 	
 	if (empty($errors)) { // If everything's OK.
 	
-		//  Test for unique email address:
-		$q = "SELECT ID FROM MEET WHERE City='$city' AND ID != $id";
+		//  Test for unique id:
+		$q = "SELECT ID FROM MEET WHERE ID = $id";
 		$r = @mysqli_query($dbc, $q);
-		if (mysqli_num_rows($r) == 0) {
+		if (mysqli_num_rows($r) == 1) {
 
 			// Make the query:
-			$q = "UPDATE MEET SET Location_Name='$fn', Street='$ln', City='$city' WHERE ID=$id LIMIT 1";
+			$q = "UPDATE MEET 
+			SET Location_Name='$fn', Street='$ln', City='$city', State = '$state', 
+				ZIP='$zip', Date='$date', Time='$time', Competition_Name='$competition_name' WHERE ID=$id LIMIT 1";
 			$r = @mysqli_query ($dbc, $q);
 			if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
 
@@ -64,10 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 				echo '<p class="error">The meet could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
 				echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
 			}
-				
-		} else { // Already registered.
-			echo '<p class="error">The email address has already been registered.</p>';
-		}
 		
 	} else { // Report the errors.
 
