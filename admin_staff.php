@@ -60,7 +60,7 @@ switch ($sort) {
 	case 'street':
 		$order_by = 'Street ASC';
 		break;
-  case 'city':
+	case 'city':
 		$order_by = 'City ASC';
 		break;
 	case 'state':
@@ -72,9 +72,9 @@ switch ($sort) {
 	case 'birth':
 		$order_by = 'Date_of_Birth ASC';
 		break;
-  case 'id':
-  	$order_by = 'Staff_ID ASC';
-  	break;
+	case 'id':
+		$order_by = 'Staff_ID ASC';
+		break;
 	default:
 		$order_by = 'Staff_F_Name ASC';
 		$sort = 'fn';
