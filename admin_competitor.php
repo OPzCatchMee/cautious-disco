@@ -34,7 +34,7 @@ if (isset($_GET['s']) && is_numeric($_GET['s'])) {
 }
 
 // Determine the sort...
-// Default is by registration date.
+// Default is by first name.
 $sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'fn';
 
 // Determine the sorting order:
@@ -79,13 +79,13 @@ switch ($sort) {
 		$order_by = 'Team_ID ASC';
 		break;
 	default:
-		$order_by = 'fn ASC';
+		$order_by = 'Competitor_F_Name ASC';
 		$sort = 'fn';
 		break;
 }
 
 // Define the query:
-$q = "SELECT Competitor_F_Name, Competitor_MI, Competitor_L_Name, Date_Of_Birth, Street, City, State, ZIP, Phone, Email, Level, Sex, Team_ID FROM Competitor ORDER BY $order_by LIMIT $start, $display";
+$q = "SELECT Competitor_F_Name, Competitor_MI, Competitor_L_Name, Date_Of_Birth, Street, City, State, ZIP, Phone, Email, Level, Sex, Team_ID FROM COMPETITOR ORDER BY $order_by LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
@@ -107,20 +107,19 @@ echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
 </tr>
 ';
 
-
 // Fetch and print all the records....
 $bg = '#eeeeee';
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
 		echo '<tr bgcolor="' . $bg . '">
-    <td align="left">' . $row['Competitor_F_Name'] . '</td>
+		<td align="left">' . $row['Competitor_F_Name'] . '</td>
 		<td align="left">' . $row['Competitor_MI'] . '</td>
 		<td align="left">' . $row['Competitor_L_Name'] . '</td>
 		<td align="left">' . $row['Date_Of_Birth'] . '</td>
 		<td align="left">' . $row['Street'] . '</td>
 		<td align="left">' . $row['City'] . '</td>
-    <td align="left">' . $row['State'] . '</td>
-    <td align="left">' . $row['ZIP'] . '</td>
+		<td align="left">' . $row['State'] . '</td>
+		<td align="left">' . $row['ZIP'] . '</td>
 		<td align="left">' . $row['Phone'] . '</td>
 		<td align="left">' . $row['Email'] . '</td>
 		<td align="left">' . $row['Level'] . '</td>
