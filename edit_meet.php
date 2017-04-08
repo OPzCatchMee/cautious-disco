@@ -6,12 +6,12 @@ $page_title = 'Edit a Meet';
 include ('includes/header.html');
 echo '<h1>Edit a Meet</h1>';
 
-// Check for a valid meet ID, through GET or POST:
-if ( (isset($_GET['ID'])) && (is_numeric($_GET['ID'])) ) {
-	$id = $_GET['ID'];
-} elseif ( (isset($_POST['ID'])) && (is_numeric($_POST['ID'])) ) { // Form submission.
-	$id = $_POST['ID'];
-} else { // No valid ID, kill the script.
+// Check for a valid meet id, through GET or POST:
+if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) {
+	$id = $_GET['id'];
+} elseif ( (isset($_POST['id'])) && (is_numeric($_POST['id'])) ) { // Form submission.
+	$id = $_POST['id'];
+} else { // No valid id, kill the script.
 	echo '<p class="error">This page has been accessed in error.</p>';
 	include ('includes/footer.html');
 	exit();
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (mysqli_num_rows($r) == 0) {
 
 			// Make the query:
-			$q = "UPDATE MEET SET Location_Name='$ln', Street='$street', City='$city' WHERE ID=$id LIMIT 1";
+			$q = "UPDATE MEET SET Location_Name='$ln', Street='$street', City='$city', State='$state', ZIP='$zip', Date='$date', Time='$time', Competition_Name='$name' WHERE ID=$id LIMIT 1";
 			$r = @mysqli_query ($dbc, $q);
 			if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
 
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $q = "SELECT Location_Name, Street, City, State, ZIP, Date, Time, Competition_Name FROM MEET WHERE ID=$id";
 $r = @mysqli_query ($dbc, $q);
 
-if (mysqli_num_rows($r) == 1) { // Valid meet ID, show the form.
+if (mysqli_num_rows($r) == 1) { // Valid meet id, show the form.
 
 	// Get the meet's information:
 	$row = mysqli_fetch_array ($r, MYSQLI_NUM);
@@ -138,10 +138,10 @@ if (mysqli_num_rows($r) == 1) { // Valid meet ID, show the form.
 <p>Time: <input type="text" name="Time" size="20" maxlength="60" value="' . $row[6] . '"  /> </p>
 <p>Competition Name: <input type="text" name="Competition_Name" size="20" maxlength="60" value="' . $row[7] . '"  /> </p>
 <p><input type="submit" name="submit" value="Submit" /></p>
-<input type="hidden" name="ID" value="' . $id . '" />
+<input type="hidden" name="id" value="' . $id . '" />
 </form>';
 
-} else { // Not a valid meet ID.
+} else { // Not a valid meet id.
 	echo '<p class="error">Error outputting table.</p>';
 }
 
