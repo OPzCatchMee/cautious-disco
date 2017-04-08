@@ -71,37 +71,38 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT Location_Name, Street, City, State, ZIP, Date, Time, Competition_Name, ID FROM MEET ORDER BY $order_by LIMIT $start, $display";
+$q = "SELECT Location_Name, Street, City, State, ZIP, Date, Time, Competition_Name, ID
+	FROM MEET
+	ORDER BY $order_by
+	LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
-echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
-<tr>
-	<td align="left"><b><a href="admin_meet.php?sort=ln">Location Name</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=street">Street</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=city">City</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=state">State</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=zip">ZIP</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=date">Date</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=time">Time</a></b></td>
-	<td align="left"><b><a href="admin_meet.php?sort=name">Competition Name</a></b></td>
-</tr>
+echo '<table>
+<thead>
+	<th><a href="admin_meet.php?sort=ln">Location Name</a></th>
+	<th><a href="admin_meet.php?sort=street">Street</a></th>
+	<th><a href="admin_meet.php?sort=city">City</a></th>
+	<th><a href="admin_meet.php?sort=state">State</a></th>
+	<th><a href="admin_meet.php?sort=zip">ZIP</a></th>
+	<th><a href="admin_meet.php?sort=date">Date</a></th>
+	<th><a href="admin_meet.php?sort=time">Time</a></th>
+	<th><a href="admin_meet.php?sort=name">Competition Name</a></th>
+</thead>
 ';
 
 // Fetch and print all the records....
-$bg = '#eeeeee';
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
-		echo '<tr bgcolor="' . $bg . '">
-		<td align="left">' . $row['Location_Name'] . '</td>
-		<td align="left">' . $row['Street'] . '</td>
-		<td align="left">' . $row['City'] . '</td>
-		<td align="left">' . $row['State'] . '</td>
-		<td align="left">' . $row['ZIP'] . '</td>
-		<td align="left">' . $row['Date'] . '</td>
-		<td align="left">' . $row['Time'] . '</td>
-		<td align="left">' . $row['Competition_Name'] . '</td>
-		<td align="left"><a href="edit_meet.php?id=' . $row['ID'] . '">Edit</a></td>
+	echo '<tr>
+		<td>' . $row['Location_Name'] . '</td>
+		<td>' . $row['Street'] . '</td>
+		<td>' . $row['City'] . '</td>
+		<td>' . $row['State'] . '</td>
+		<td>' . $row['ZIP'] . '</td>
+		<td>' . $row['Date'] . '</td>
+		<td>' . $row['Time'] . '</td>
+		<td>' . $row['Competition_Name'] . '</td>
+		<td><a href="edit_meet.php?id=' . $row['ID'] . '">Edit</a></td>
 	</tr>
 	';
 } // End of WHILE loop.

@@ -91,28 +91,26 @@ $r = @mysqli_query ($dbc, $q); // Run the query.
 echo '<p>Number of results: '.mysqli_affected_rows($dbc).'</p>';
 
 // Table header:
-echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
+echo '<table>
 <thead>
-	<th><b><a href="admin_competitor.php?sort=fn">First Name</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=rd">Last Name</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=rd">Date of Birth</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=rd">Street</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=rd">City</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=ln">State</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=fn">ZIP</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=rd">Phone</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=rd">Email</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=rd">Level</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=rd">Sex</a></b></td>
-	<th><b><a href="admin_competitor.php?sort=rd">Team ID</a></b></td>
+	<th><a href="admin_competitor.php?sort=fn">First Name</a></th>
+	<th><a href="admin_competitor.php?sort=rd">Last Name</a></th>
+	<th><a href="admin_competitor.php?sort=rd">Date of Birth</a></th>
+	<th><a href="admin_competitor.php?sort=rd">Street</a></th>
+	<th><a href="admin_competitor.php?sort=rd">City</a></th>
+	<th><a href="admin_competitor.php?sort=ln">State</a></th>
+	<th><a href="admin_competitor.php?sort=fn">ZIP</a></th>
+	<th><a href="admin_competitor.php?sort=rd">Phone</a></th>
+	<th><a href="admin_competitor.php?sort=rd">Email</a></th>
+	<th><a href="admin_competitor.php?sort=rd">Level</a></th>
+	<th><a href="admin_competitor.php?sort=rd">Sex</a></th>
+	<th><a href="admin_competitor.php?sort=rd">Team ID</a></th>
 </thead>
 ';
 
 // Fetch and print all the records....
-$bg = '#eeeeee';
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
-		echo '<tr bgcolor="' . $bg . '">
+	echo '<tr>
 		<td>' . $row['First_Name'] . '</td>
 		<td>' . $row['Last_Name'] . '</td>
 		<td>' . $row['Date_Of_Birth'] . '</td>

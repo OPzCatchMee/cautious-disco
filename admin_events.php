@@ -74,32 +74,30 @@ $q = "SELECT Competitor_ID, Meet_ID, Event_Type, Exec_Score, Difficulty_Score, D
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
-echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
-<tr>
-	<td align="left"><b><a href="admin_events.php?sort=ln">Competition</a></b></td>
-	<td align="left"><b><a href="admin_events.php?sort=fn">Meet</a></b></td>
-	<td align="left"><b><a href="admin_events.php?sort=rd">Event Type</a></b></td>
-	<td align="left"><b><a href="admin_events.php?sort=rd">Execution Score</a></b></td>
-	<td align="left"><b><a href="admin_events.php?sort=rd">Execution Difficulty</a></b></td>
-	<td align="left"><b><a href="admin_events.php?sort=rd">Date</a></b></td>
-	<td align="left"><b><a href="admin_events.php?sort=rd">Time</a></b></td>
-</tr>
+echo '<table>
+<thead>
+	<th><a href="admin_events.php?sort=ln">Competition</a></th>
+	<th><a href="admin_events.php?sort=fn">Meet</a></th>
+	<th><a href="admin_events.php?sort=rd">Event Type</a></th>
+	<th><a href="admin_events.php?sort=rd">Execution Score</a></th>
+	<th><a href="admin_events.php?sort=rd">Execution Difficulty</a></th>
+	<th><a href="admin_events.php?sort=rd">Date</a></th>
+	<th><a href="admin_events.php?sort=rd">Time</a></th>
+</thead>
 ';
 
 // Fetch and print all the records....
-$bg = '#eeeeee';
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
-		echo '<tr bgcolor="' . $bg . '">
-		<td align="left">' . $row['Competitor_ID'] . '</td>
-    <td align="left">' . $row['Meet_ID'] . '</td>
-		<td align="left">' . $row['Event_Type'] . '</td>
-		<td align="left">' . $row['Exec_Score'] . '</td>
-		<td align="left">' . $row['Difficulty_Score'] . '</td>
-		<td align="left">' . $row['Date'] . '</td>
-		<td align="left">' . $row['Time'] . '</td>
-		<td align="left"><a href="edit_events.php?ID=' . $row['ID'] . '">Edit</a></td>
-    <td align="left"><a href="delete_events.php?ID=' . $row['ID'] . '">Delete</a></td>
+	echo '<tr>
+		<td>' . $row['Competitor_ID'] . '</td>
+		<td>' . $row['Meet_ID'] . '</td>
+		<td>' . $row['Event_Type'] . '</td>
+		<td>' . $row['Exec_Score'] . '</td>
+		<td>' . $row['Difficulty_Score'] . '</td>
+		<td>' . $row['Date'] . '</td>
+		<td>' . $row['Time'] . '</td>
+		<td><a href="edit_events.php?ID=' . $row['ID'] . '">Edit</a></td>
+		<td><a href="delete_events.php?ID=' . $row['ID'] . '">Delete</a></td>
 	</tr>
 	';
 } // End of WHILE loop.

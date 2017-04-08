@@ -92,6 +92,20 @@ body {
 #content p .padded {
 	padding:20px 20px 0;
 }
+#content table {
+	margin: 0 auto;
+	width:75%;
+	border-collapse:collapse;
+}
+#content td {
+	padding:5px;
+}
+#content tr:nth-child(even) {
+	background-color:#eeeeee;
+}
+#content tr:nth-child(odd) {
+	background-color:#ffffff;
+}
 
 /* footer */
 #footer {

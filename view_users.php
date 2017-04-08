@@ -57,30 +57,32 @@ switch ($sort) {
 }
 	
 // Define the query:
-$q = "SELECT Last_Name, First_Name, DATE_FORMAT(Registration_Date, '%M %d, %Y') AS dr, ID_Login FROM LOGIN ORDER BY $order_by LIMIT $start, $display";		
+$q = "SELECT Last_Name, First_Name, DATE_FORMAT(Registration_Date, '%M %d, %Y') AS dr, ID_Login
+	FROM LOGIN
+	ORDER BY $order_by
+	LIMIT $start, $display";		
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
-echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
-<tr>
-	<td align="left"><b>Edit</b></td>
-	<td align="left"><b>Delete</b></td>
-	<td align="left"><b><a href="view_users.php?sort=ln">Last Name</a></b></td>
-	<td align="left"><b><a href="view_users.php?sort=fn">First Name</a></b></td>
-	<td align="left"><b><a href="view_users.php?sort=rd">Date Registered</a></b></td>
-</tr>
+echo '<table>
+<thead>
+	<th>Edit</th>
+	<th>Delete</th>
+	<th><a href="view_users.php?sort=ln">Last Name</a></th>
+	<th><a href="view_users.php?sort=fn">First Name</a></th>
+	<th><a href="view_users.php?sort=rd">Date Registered</a></th>
+</thead>
 ';
 
 // Fetch and print all the records....
-$bg = '#eeeeee'; 
+ 
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-	$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
-		echo '<tr bgcolor="' . $bg . '">
-		<td align="left"><a href="edit_user.php?id=' . $row['ID_Login'] . '">Edit</a></td>
-		<td align="left"><a href="delete_user.php?id=' . $row['ID_Login'] . '">Delete</a></td>
-		<td align="left">' . $row['Last_Name'] . '</td>
-		<td align="left">' . $row['First_Name'] . '</td>
-		<td align="left">' . $row['dr'] . '</td>
+	echo '<tr>
+		<td><a href="edit_user.php?id=' . $row['ID_Login'] . '">Edit</a></td>
+		<td><a href="delete_user.php?id=' . $row['ID_Login'] . '">Delete</a></td>
+		<td>' . $row['Last_Name'] . '</td>
+		<td>' . $row['First_Name'] . '</td>
+		<td>' . $row['dr'] . '</td>
 	</tr>
 	';
 } // End of WHILE loop.

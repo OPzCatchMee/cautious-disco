@@ -23,35 +23,34 @@ $meet_id = (isset($_GET['meet'])) ? $_GET['meet'] : 'none';
 		$q .= " WHERE Meet_ID=$meet_id";
 	$q .= " ORDER BY Date DESC";
 	$r = @mysqli_query ($dbc, $q); // Run the query.
-	echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
+	echo '<table>
 	<thead>';
 		if ($competitor_id == 'none')
-			echo '<th align="left">Competitor</th>';
+			echo '<th>Competitor</th>';
 		if ($meet_id == 'none')
-			echo '<th align="left">Meet</th>';
-		echo '<th align="left">Event Type</td>
-		<th align="left">Execution Score</td>
-		<th align="left">Difficulty Score</td>
-		<th align="left">Date</td>
-		<th align="left">Time</td>
+			echo '<th>Meet</th>';
+		echo '<th>Event Type</td>
+		<th>Execution Score</td>
+		<th>Difficulty Score</td>
+		<th>Date</td>
+		<th>Time</td>
 	</thead>
 	';
-	$bg = '#eeeeee'; 
+	 
 	$event_ids = array();
 	$x=0;
 	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
         $event_ids[$x] = $row['Event_ID']; // place id of each event in an array
-		$bg = ($bg=='#eeeeee' ? '#ffffff' : '#eeeeee');
-		echo '<tr bgcolor="' . $bg . '">';
+		echo '<tr>';
 			if ($competitor_id == 'none')
-				echo '<td align="left"><a href="view_competitor.php?id=' . $row['Competitor_ID'] . '">' . $row['Competitor_ID'] . '</a></td>';
+				echo '<td><a href="view_competitor.php?id=' . $row['Competitor_ID'] . '">' . $row['Competitor_ID'] . '</a></td>';
 			if ($meet_id == 'none')
-				echo '<td align="left"><a href="view_meet.php?id=' . $row['Meet_ID'] . '">' . $row['Meet_ID'] . '</a></td>';
-			echo '<td align="left">' . $row['Event_Type'] . '</td>
-			<td align="left">' . $row['Exec_Score'] .'</td>
-	        <td align="left">' . $row['Difficulty_Score'] . '</td>
-			<td align="left">' . $row['Date'] . '</td>
-			<td align="left">' . $row['Time'] . '</td>
+				echo '<td><a href="view_meet.php?id=' . $row['Meet_ID'] . '">' . $row['Meet_ID'] . '</a></td>';
+			echo '<td>' . $row['Event_Type'] . '</td>
+			<td>' . $row['Exec_Score'] .'</td>
+	        <td>' . $row['Difficulty_Score'] . '</td>
+			<td>' . $row['Date'] . '</td>
+			<td>' . $row['Time'] . '</td>
 		</tr>
 		';
 		$x++;//increment the array
