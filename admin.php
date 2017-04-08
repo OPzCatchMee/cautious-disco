@@ -1,6 +1,6 @@
 <?php
 // Include the header:
-$page_title = 'Admin Page';
+$page_title = 'Home';
 include ('./includesAdmin/adminHeader.html');
 ?>
 
