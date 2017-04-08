@@ -13,24 +13,24 @@ if ( (isset($_GET['ID'])) && (is_numeric($_GET['ID'])) ) { // From admin_meet.ph
 	$id = $_POST['ID'];
 } else { // No valid ID, kill the script.
 	echo '<p class="error">Error receiving the id. = </p>'.$id;
-	include ('includes/footer.html'); 
+	include ('includes/footer.html');
 	exit();
 }
 
-require ('./mysqli_connect.php'); 
+require ('./mysqli_connect.php');
 
 // Check if the form has been submitted:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$errors = array();
-	
+
 	// Check for a location name:
 	if (empty($_POST['Location_Name'])) {
 		$errors[] = 'You forgot to enter the location name.';
 	} else {
 		$fn = mysqli_real_escape_string($dbc, trim($_POST['Location_Name']));
 	}
-	
+
 	// Check for a street:
 	if (empty($_POST['Street'])) {
 		$errors[] = 'You forgot to enter your last name.';
@@ -44,31 +44,66 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	} else {
 		$city = mysqli_real_escape_string($dbc, trim($_POST['City']));
 	}
-	
+
+	// Check for a State:
+	if (empty($_POST['State'])) {
+		$errors[] = 'You forgot to enter State.';
+	} else {
+		$city = mysqli_real_escape_string($dbc, trim($_POST['State']));
+	}
+
+	// Check for a ZIP:
+	if (empty($_POST['ZIP'])) {
+		$errors[] = 'You forgot to enter ZIP.';
+	} else {
+		$city = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
+	}
+
+	// Check for a Date:
+	if (empty($_POST['Date'])) {
+		$errors[] = 'You forgot to enter Date.';
+	} else {
+		$city = mysqli_real_escape_string($dbc, trim($_POST['Date']));
+	}
+
+	// Check for a Time:
+	if (empty($_POST['Time'])) {
+		$errors[] = 'You forgot to enter Time.';
+	} else {
+		$city = mysqli_real_escape_string($dbc, trim($_POST['Time']));
+	}
+
+	// Check for a competition name:
+	if (empty($_POST['Competition_Name'])) {
+		$errors[] = 'You forgot to enter competition name.';
+	} else {
+		$city = mysqli_real_escape_string($dbc, trim($_POST['Competition_Name']));
+	}
+
 	if (empty($errors)) { // If everything's OK.
-	
+
 		//  Test for unique email address:
 		$q = "SELECT ID FROM MEET WHERE City='$city' AND ID != $id";
 		$r = @mysqli_query($dbc, $q);
 		if (mysqli_num_rows($r) == 0) {
 
 			// Make the query:
-			$q = "UPDATE MEET SET Location_Name='$fn', Street='$ln', City='$city' WHERE ID=$id LIMIT 1";
+			$q = "UPDATE MEET SET Location_Name='$ln', Street='$street', City='$city' WHERE ID=$id LIMIT 1";
 			$r = @mysqli_query ($dbc, $q);
 			if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
 
 				// Print a message:
-				echo '<p>The meet has been edited.</p>';	
-				
+				echo '<p>The meet has been edited.</p>';
+
 			} else { // If it did not run OK.
 				echo '<p class="error">The meet could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
 				echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
 			}
-				
+
 		} else { // Already registered.
 			echo '<p class="error">The email address has already been registered.</p>';
 		}
-		
+
 	} else { // Report the errors.
 
 		echo '<p class="error">The following error(s) occurred:<br />';
@@ -76,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			echo " - $msg<br />\n";
 		}
 		echo '</p><p>Please try again.</p>';
-	
+
 	} // End of if (empty($errors)) IF.
 
 } // End of submit conditional.
@@ -84,19 +119,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Always show the form...
 
 // Retrieve the meet's information:
-$q = "SELECT Location_Name, Street, City FROM MEET WHERE ID=$id";		
+$q = "SELECT Location_Name, Street, City, State, ZIP, Date, Time, Competition_Name FROM MEET WHERE ID=$id";
 $r = @mysqli_query ($dbc, $q);
 
 if (mysqli_num_rows($r) == 1) { // Valid meet ID, show the form.
 
 	// Get the meet's information:
 	$row = mysqli_fetch_array ($r, MYSQLI_NUM);
-	
+
 	// Create the form:
 	echo '<form action="edit_meet.php" method="post">
 <p>Location Name: <input type="text" name="Location_Name" size="15" maxlength="15" value="' . $row[0] . '" /></p>
 <p>Street: <input type="text" name="Street" size="15" maxlength="30" value="' . $row[1] . '" /></p>
-<p>City Address: <input type="text" name="City" size="20" maxlength="60" value="' . $row[2] . '"  /> </p>
+<p>City: <input type="text" name="City" size="20" maxlength="60" value="' . $row[2] . '"  /> </p>
+<p>State: <input type="text" name="State" size="15" maxlength="60" value="' . $row[3] . '"  /> </p>
+<p>ZIP: <input type="text" name="City" size="20" maxlength="60" value="' . $row[4] . '"  /> </p>
+<p>Date: <input type="text" name="City" size="20" maxlength="60" value="' . $row[5] . '"  /> </p>
+<p>Time: <input type="text" name="City" size="20" maxlength="60" value="' . $row[6] . '"  /> </p>
+<p>Competition Name: <input type="text" name="City" size="20" maxlength="60" value="' . $row[7] . '"  /> </p>
 <p><input type="submit" name="submit" value="Submit" /></p>
 <input type="hidden" name="ID" value="' . $id . '" />
 </form>';
@@ -106,6 +146,6 @@ if (mysqli_num_rows($r) == 1) { // Valid meet ID, show the form.
 }
 
 mysqli_close($dbc);
-		
+
 include ('includes/footer.html');
 ?>
