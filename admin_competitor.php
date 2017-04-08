@@ -39,14 +39,11 @@ $sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'fn';
 
 // Determine the sorting order:
 switch ($sort) {
-  case 'fn':
-  	$order_by = 'Competitor_F_Name ASC';
-  	break;
-  case 'mn':
-  	$order_by = 'Competitor_MI ASC';
-  	break;
+	case 'fn':
+	  	$order_by = 'First_Name ASC';
+	  	break;
 	case 'ln':
-		$order_by = 'Competitor_L_Name ASC';
+		$order_by = 'Last_Name ASC';
 		break;
 	case 'birth':
 		$order_by = 'Date_Of_Birth ASC';
@@ -60,27 +57,26 @@ switch ($sort) {
 	case 'state':
 		$order_by = 'State ASC';
 		break;
-  case 'zip':
+	case 'zip':
 		$order_by = 'ZIP ASC';
 		break;
-  case 'phone':
+	case 'phone':
 		$order_by = 'Phone ASC';
 		break;
-  case 'email':
+	case 'email':
 		$order_by = 'Email ASC';
 		break;
-  case 'lvl':
+	case 'lvl':
 		$order_by = 'Level ASC';
 		break;
-  case 'sex':
+	case 'sex':
 		$order_by = 'Sex ASC';
 		break;
-  case 'team_id':
+	case 'team_id':
 		$order_by = 'Team_ID ASC';
 		break;
 	default:
-		$order_by = 'Competitor_F_Name ASC';
-		$sort = 'fn';
+		$order_by = 'First_Name ASC';
 		break;
 }
 
