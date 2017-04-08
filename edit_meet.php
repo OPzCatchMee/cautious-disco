@@ -7,10 +7,10 @@ include ('includes/header.html');
 echo '<h1>Edit a Meet</h1>';
 
 // Check for a valid meet ID, through GET or POST:
-if ( (isset($_GET['ID'])) && (is_numeric($_GET['ID'])) ) { // From admin_meet.php
-	$id = $_GET['ID'];
-} elseif ( (isset($_POST['ID'])) && (is_numeric($_POST['ID'])) ) { // Form submission.
-	$id = $_POST['ID'];
+if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) { // From admin_meet.php
+	$id = $_GET['id'];
+} elseif ( (isset($_POST['id'])) && (is_numeric($_POST['id'])) ) { // Form submission.
+	$id = $_POST['id'];
 } else { // No valid ID, kill the script.
 	echo '<p class="error">Error receiving the id. = </p>'.$id;
 	include ('includes/footer.html');
