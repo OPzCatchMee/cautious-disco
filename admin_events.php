@@ -42,9 +42,9 @@ switch ($sort) {
 	case 'id':
 		$order_by = 'Competitor_ID ASC';
 		break;
-  case 'meet':
-  	$order_by = 'meet ASC';
-  	break;
+	case 'meet':
+		$order_by = 'Meet_ID ASC';
+		break;
 	case 'event':
 		$order_by = 'Event_Type ASC';
 		break;
@@ -67,19 +67,22 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT Competitor_ID, Meet_ID, Event_Type, Exec_Score, Difficulty_Score, DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time FROM EVENT ORDER BY $order_by LIMIT $start, $display";
+$q = "SELECT Competitor_ID, Meet_ID, Event_Type, Exec_Score, Difficulty_Score, DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time
+	FROM EVENT
+	ORDER BY $order_by
+	LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
 echo '<table align="center" cellspacing="0" cellpadding="5" width="75%">
 <tr>
-	<td align="left"><b><a href="admin_events.php.php?sort=ln">Competition</a></b></td>
-	<td align="left"><b><a href="admin_events.php.php?sort=fn">Meet</a></b></td>
-	<td align="left"><b><a href="admin_events.php.php?sort=rd">Event Type</a></b></td>
-	<td align="left"><b><a href="admin_events.php.php?sort=rd">Execution Score</a></b></td>
-	<td align="left"><b><a href="admin_events.php.php?sort=rd">Execution Difficulty</a></b></td>
-	<td align="left"><b><a href="admin_events.php.php?sort=rd">Date</a></b></td>
-	<td align="left"><b><a href="admin_events.php.php?sort=rd">Time</a></b></td>
+	<td align="left"><b><a href="admin_events.php?sort=ln">Competition</a></b></td>
+	<td align="left"><b><a href="admin_events.php?sort=fn">Meet</a></b></td>
+	<td align="left"><b><a href="admin_events.php?sort=rd">Event Type</a></b></td>
+	<td align="left"><b><a href="admin_events.php?sort=rd">Execution Score</a></b></td>
+	<td align="left"><b><a href="admin_events.php?sort=rd">Execution Difficulty</a></b></td>
+	<td align="left"><b><a href="admin_events.php?sort=rd">Date</a></b></td>
+	<td align="left"><b><a href="admin_events.php?sort=rd">Time</a></b></td>
 </tr>
 ';
 
