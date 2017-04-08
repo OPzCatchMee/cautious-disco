@@ -7,12 +7,12 @@ include ('includes/header.html');
 echo '<h1>Edit a Meet</h1>';
 
 // Check for a valid meet ID, through GET or POST:
-if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) { // From admin_meet.php
-	$id = $_GET['id'];
-} elseif ( (isset($_POST['id'])) && (is_numeric($_POST['id'])) ) { // Form submission.
-	$id = $_POST['id'];
+if ( (isset($_GET['ID'])) && (is_numeric($_GET['ID'])) ) {
+	$id = $_GET['ID'];
+} elseif ( (isset($_POST['ID'])) && (is_numeric($_POST['ID'])) ) { // Form submission.
+	$id = $_POST['ID'];
 } else { // No valid ID, kill the script.
-	echo '<p class="error">Error receiving the id. = </p>'.$id;
+	echo '<p class="error">This page has been accessed in error.</p>';
 	include ('includes/footer.html');
 	exit();
 }
@@ -28,14 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (empty($_POST['Location_Name'])) {
 		$errors[] = 'You forgot to enter the location name.';
 	} else {
-		$fn = mysqli_real_escape_string($dbc, trim($_POST['Location_Name']));
+		$ln = mysqli_real_escape_string($dbc, trim($_POST['Location_Name']));
 	}
 
 	// Check for a street:
 	if (empty($_POST['Street'])) {
-		$errors[] = 'You forgot to enter your last name.';
+		$errors[] = 'You forgot to enter your street.';
 	} else {
-		$ln = mysqli_real_escape_string($dbc, trim($_POST['Street']));
+		$street = mysqli_real_escape_string($dbc, trim($_POST['Street']));
 	}
 
 	// Check for a city:
@@ -47,37 +47,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	// Check for a State:
 	if (empty($_POST['State'])) {
-		$errors[] = 'You forgot to enter State.';
+		$errors[] = 'You forgot to enter state.';
 	} else {
-		$city = mysqli_real_escape_string($dbc, trim($_POST['State']));
+		$state = mysqli_real_escape_string($dbc, trim($_POST['State']));
 	}
 
 	// Check for a ZIP:
 	if (empty($_POST['ZIP'])) {
 		$errors[] = 'You forgot to enter ZIP.';
 	} else {
-		$city = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
+		$zip = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
 	}
 
 	// Check for a Date:
 	if (empty($_POST['Date'])) {
-		$errors[] = 'You forgot to enter Date.';
+		$errors[] = 'You forgot to enter date.';
 	} else {
-		$city = mysqli_real_escape_string($dbc, trim($_POST['Date']));
+		$date = mysqli_real_escape_string($dbc, trim($_POST['Date']));
 	}
 
 	// Check for a Time:
 	if (empty($_POST['Time'])) {
-		$errors[] = 'You forgot to enter Time.';
+		$errors[] = 'You forgot to enter time.';
 	} else {
-		$city = mysqli_real_escape_string($dbc, trim($_POST['Time']));
+		$time = mysqli_real_escape_string($dbc, trim($_POST['Time']));
 	}
 
 	// Check for a competition name:
 	if (empty($_POST['Competition_Name'])) {
 		$errors[] = 'You forgot to enter competition name.';
 	} else {
-		$city = mysqli_real_escape_string($dbc, trim($_POST['Competition_Name']));
+		$name = mysqli_real_escape_string($dbc, trim($_POST['Competition_Name']));
 	}
 
 	if (empty($errors)) { // If everything's OK.
@@ -133,10 +133,10 @@ if (mysqli_num_rows($r) == 1) { // Valid meet ID, show the form.
 <p>Street: <input type="text" name="Street" size="15" maxlength="30" value="' . $row[1] . '" /></p>
 <p>City: <input type="text" name="City" size="20" maxlength="60" value="' . $row[2] . '"  /> </p>
 <p>State: <input type="text" name="State" size="15" maxlength="60" value="' . $row[3] . '"  /> </p>
-<p>ZIP: <input type="text" name="City" size="20" maxlength="60" value="' . $row[4] . '"  /> </p>
-<p>Date: <input type="text" name="City" size="20" maxlength="60" value="' . $row[5] . '"  /> </p>
-<p>Time: <input type="text" name="City" size="20" maxlength="60" value="' . $row[6] . '"  /> </p>
-<p>Competition Name: <input type="text" name="City" size="20" maxlength="60" value="' . $row[7] . '"  /> </p>
+<p>ZIP: <input type="text" name="ZIP" size="20" maxlength="60" value="' . $row[4] . '"  /> </p>
+<p>Date: <input type="text" name="Date" size="20" maxlength="60" value="' . $row[5] . '"  /> </p>
+<p>Time: <input type="text" name="Time" size="20" maxlength="60" value="' . $row[6] . '"  /> </p>
+<p>Competition Name: <input type="text" name="Competition_Name" size="20" maxlength="60" value="' . $row[7] . '"  /> </p>
 <p><input type="submit" name="submit" value="Submit" /></p>
 <input type="hidden" name="ID" value="' . $id . '" />
 </form>';
