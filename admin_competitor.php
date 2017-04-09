@@ -77,11 +77,12 @@ switch ($sort) {
 		break;
 	default:
 		$order_by = 'First_Name ASC';
+		$sort = 'fn';
 		break;
 }
 
 // Define the query:
-$q = "SELECT First_Name, Last_Name, LOGIN.Email, Date_Of_Birth, Street, City, State, ZIP, Phone, Level, Sex, Team_ID, ID
+$q = "SELECT ID, First_Name, Last_Name, LOGIN.Email, Date_Of_Birth, Street, City, State, ZIP, Phone, Level, Sex, Team_ID
 	FROM (LOGIN INNER JOIN COMPETITOR ON LOGIN.Competitor_ID=COMPETITOR.ID)
 	ORDER BY $order_by
 	LIMIT $start, $display";
