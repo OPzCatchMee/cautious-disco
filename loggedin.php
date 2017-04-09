@@ -18,9 +18,9 @@ $page_title = 'Logged In!';
 include ('includes/header.html');
 
 // Print a customized message:
-echo "<h1>Logged In!</h1>
-<p>You are now logged in, {$_SESSION['First_Name']}!</p>
-<p><a href=\"logout.php\">Logout</a></p>";
+echo '<h1>Logged In!</h1>
+<p>You are now logged in, ' . $_SESSION['First_Name'] . '!</p>';
+//~echo '<pre>' . print_r($_SESSION, TRUE) . '</pre>';
 
 include ('includes/footer.html');
 ?>
