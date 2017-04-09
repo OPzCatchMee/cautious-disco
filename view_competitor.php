@@ -37,6 +37,8 @@ if(isset($_GET['id']))
 			<p>Address: '.$row['Street'].', '.$row['City'].', '.$row['State'].' '.$row['ZIP'].'</p>';
 		}
 		'<p>Team: <a href="view_team.php?id='.$row['Team_ID'].'">'.$row['Team_ID'].'</a></p>';
+		
+		echo '<p><a href="view_events.php?competitor='.$competitor_id.'">View this competitor\'s events</a></p>';
 	}
 	else
 	{
