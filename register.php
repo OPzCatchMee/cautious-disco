@@ -90,11 +90,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <h1>Register</h1>
 <form action="register.php" method="post">
-	<p>First Name: <input type="text" name="First_Name" size="15" maxlength="20" value="<?php if (isset($_POST['First_Name'])) echo $_POST['First_Name']; ?>" /></p>
-	<p>Last Name: <input type="text" name="Last_Name" size="15" maxlength="40" value="<?php if (isset($_POST['Last_Name'])) echo $_POST['Last_Name']; ?>" /></p>
-	<p>Email Address: <input type="text" name="Email" size="20" maxlength="60" value="<?php if (isset($_POST['Email'])) echo $_POST['Email']; ?>"  /> </p>
-	<p>Password: <input type="password" name="Password" size="10" maxlength="20" value="<?php if (isset($_POST['Password'])) echo $_POST['Password']; ?>"  /></p>
-	<p>Confirm Password: <input type="password" name="Password_Confirm" size="10" maxlength="20" value="<?php if (isset($_POST['Password_Confirm'])) echo $_POST['Password_Confirm']; ?>"  /></p>
-	<p><input type="submit" name="submit" value="Register" /></p>
+	<div>
+		<label for="First_Name">First Name</label>
+	</div>
+	<div>
+		<input type="text" name="First_Name" size="15" maxlength="20" value="<?php if (isset($_POST['First_Name'])) echo $_POST['First_Name']; ?>">
+	</div>
+	
+	<div>
+		<label for="Last_Name">Last name</label>
+	</div>
+	<div>
+		<input type="text" name="Last_Name" size="15" maxlength="40" value="<?php if (isset($_POST['Last_Name'])) echo $_POST['Last_Name']; ?>">
+	</div>
+	
+	<div>
+		<label for="Email">Email</label>
+	</div>
+	<div>
+		<input type="text" name="Email" size="20" maxlength="60" value="<?php if (isset($_POST['Email'])) echo $_POST['Email']; ?>" >
+	</div>
+	
+	<div>
+		<label for="Password">Password</label>
+	</div>
+	<div>
+		<input type="password" name="Password" size="10" value="<?php if (isset($_POST['Password'])) echo $_POST['Password']; ?>" >
+	</div>
+	
+	<div>
+		<label for="Password_Confirm">Confirm Password</label>
+	</div>
+	<div>
+		<input type="password" name="Password_Confirm" size="10" value="<?php if (isset($_POST['Password_Confirm'])) echo $_POST['Password_Confirm']; ?>" >
+	</div>
+	
+	<div><input type="submit" name="submit" value="Register"></div>
 </form>
 <?php include ('./includes/footer.html'); ?>
