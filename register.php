@@ -33,11 +33,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	// Check for a password and match against the confirmed password:
-	if (!empty($_POST['Password1'])) {
-		if ($_POST['Password1'] != $_POST['Password2']) {
+	if (!empty($_POST['Password'])) {
+		if ($_POST['Password'] != $_POST['Password_Confirm']) {
 			$errors[] = 'Your password did not match the confirmed password.';
 		} else {
-			$p = mysqli_real_escape_string($dbc, trim($_POST['Password1']));
+			$p = mysqli_real_escape_string($dbc, trim($_POST['Password']));
 		}
 	} else {
 		$errors[] = 'You forgot to enter your password.';
@@ -93,8 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<p>First Name: <input type="text" name="First_Name" size="15" maxlength="20" value="<?php if (isset($_POST['First_Name'])) echo $_POST['First_Name']; ?>" /></p>
 	<p>Last Name: <input type="text" name="Last_Name" size="15" maxlength="40" value="<?php if (isset($_POST['Last_Name'])) echo $_POST['Last_Name']; ?>" /></p>
 	<p>Email Address: <input type="text" name="Email" size="20" maxlength="60" value="<?php if (isset($_POST['Email'])) echo $_POST['Email']; ?>"  /> </p>
-	<p>Password: <input type="password" name="Password1" size="10" maxlength="20" value="<?php if (isset($_POST['Password1'])) echo $_POST['Password1']; ?>"  /></p>
-	<p>Confirm Password: <input type="password" name="Password2" size="10" maxlength="20" value="<?php if (isset($_POST['Password2'])) echo $_POST['Password2']; ?>"  /></p>
+	<p>Password: <input type="password" name="Password" size="10" maxlength="20" value="<?php if (isset($_POST['Password'])) echo $_POST['Password']; ?>"  /></p>
+	<p>Confirm Password: <input type="password" name="Password_Confirm" size="10" maxlength="20" value="<?php if (isset($_POST['Password_Confirm'])) echo $_POST['Password_Confirm']; ?>"  /></p>
 	<p><input type="submit" name="submit" value="Register" /></p>
 </form>
 <?php include ('./includes/footer.html'); ?>
