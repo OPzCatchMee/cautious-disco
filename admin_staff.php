@@ -116,8 +116,8 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td>' . $row['Home_Phone'] . '</td>
 		<td>' . $row['Date_of_Birth'] . '</td>
 		<td>' . $row['Staff_ID'] . '</td>
-		<td><a href="edit_staff.php?ID=' . $row['ID'] . '">Edit</a></td>
-		<td><a href="delete_staff.php?ID=' . $row['ID'] . '">Delete</a></td>
+		<td><a href="edit_staff.php?id=' . $row['Staff_ID'] . '">Edit</a></td>
+		<td><a href="delete_staff.php?id=' . $row['Staff_ID'] . '">Delete</a></td>
 	</tr>
 	';
 } // End of WHILE loop.
