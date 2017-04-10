@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	// Check for address line 2:
 	if (!empty($_POST['Address_2'])) {
-		$addr .= " " .mysqli_real_escape_string($dbc, trim($_POST['Address_2']));
+		$addr .= " " . mysqli_real_escape_string($dbc, trim($_POST['Address_2']));
 	}
 	
 	// Check for city:
