@@ -40,10 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     {
 	echo 'phone is empty';
     }
-   // else if( empty($_POST['dob']))
-   // {
-    // echo 'dob is empty';
-    //}
     else if( empty($_POST['isadmin']))
     {
      echo 'admin is empty';
@@ -58,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $state = test_input($_POST['state']);
     $zip = test_input($_POST['zip']);
     $home_phone = test_input($_POST['home_phone']);
-    //$dob = test_input($_POST['dob']);
+
    }
 	
 
