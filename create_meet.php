@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 		// Register the user in the database...
 		// first, COMPETITOR
-		$q = "INSERT INTO MEET (Location_Name, Street, City, State, Zip, Date, Time, Competition_Name) VALUES ('$ln', '$street', '$city','$state', '$zip', '$date', $time, '$name');";
+		$q = "INSERT INTO MEET (Location_Name, Street, City, State, Zip, Date, Time, Competition_Name) VALUES ('$ln', '$street', '$city','$state', '$zip', '$date', '$time', '$name')";
 		$r = @mysqli_query($dbc, $q);
 		
 		if (!$r)
@@ -87,8 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<p>You are now registered.</p><br />';	
 		
 		}
-		
-		mysqli_close($dbc); // Close the database connection.
 
 		// Include the footer and quit the script:
 		include ('./includes/footer.html'); 
