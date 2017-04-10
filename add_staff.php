@@ -8,57 +8,57 @@ require ('./mysqli_connect.php');
 //$ssn = $job_title = $wage = $street =$city = $state = $zip = $home_phone = $dob = $staff_id = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if(empty($ssn))
+  if(empty($_POST['ssn']))
   {
 	  echo 'ssn is empty';
   }
-  else if(empty($job_title))
+  else if(empty($_POST['job_title']))
   {
 	echo 'job is empty';	  
   }
-  else if( empty($wage) )
+  else if( empty($_POST['wage']) )
   {
 	echo 'dob is empty';
   }
-  else if( empty($street))
+  else if( empty($_POST['street']))
   {
 	echo 'street is empty';
   }
-  else if(empty($city))
+  else if(empty($_POST['city']))
   {
      echo 'city is empty';
   }
-  else if(empty($state))
+  else if(empty($_POST['state']))
   {
      echo 'dob is empty';
   }
-    else if(empty($zip))
+    else if(empty($_POST['zip']))
     {
 	echo 'zip is empty';
     }
-    else if( empty($home_phone))
+    else if( empty($_POST['home_phone']))
     {
 	echo 'phone is empty';
     }
-    else if( empty($dob))
+    else if( empty($_POST['dob']))
     {
      echo 'dob is empty';
     }
-    else if( empty($isadmin))
+    else if( empty($_POST['isadmin']))
     {
      echo 'admin is empty';
     }
   else
   {
-    $ssn = test_input($_POST["ssn"]);
-    $job_title = test_input($_POST["job_title"]);
-    $wage = test_input($_POST["wage"]);
-    $street = test_input($_POST["street"]);
-    $city = test_input($_POST["city"]);
-    $state = test_input($_POST["state"]);
-    $zip = test_input($_POST["zip"]);
-    $home_phone = test_input($_POST["home_phone"]);
-    $dob = test_input($_POST["dob"]);
+    $ssn = test_input($_POST['ssn']);
+    $job_title = test_input($_POST['job_title']);
+    $wage = test_input($_POST['wage']);
+    $street = test_input($_POST['street']);
+    $city = test_input($_POST['city']);
+    $state = test_input($_POST['state']);
+    $zip = test_input($_POST['zip']);
+    $home_phone = test_input($_POST['home_phone']);
+    $dob = test_input($_POST['dob']);
    }
 	
 
