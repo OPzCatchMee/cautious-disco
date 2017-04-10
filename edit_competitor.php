@@ -7,124 +7,113 @@ echo '<h1>Edit a Competitor</h1>';
 
 // Check for a valid user ID, through GET or POST:
 if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) { // From view_users.php
-	$id = $_GET['id'];
+	$competitor_id = $_GET['id'];
 } elseif ( (isset($_POST['id'])) && (is_numeric($_POST['id'])) ) { // Form submission.
-	$id = $_POST['id'];
+	$competitor_id = $_POST['id'];
 } else { // No valid ID, kill the script.
 	echo '<p class="error">This page has been accessed in error.</p>';
 	include ('includes/footer.html');
 	exit();
 }
 
-require ('./mysqli_connect.php');
+// ensure that it's an admin or a competitor editing themselves
+if ((isset($_SESSION['Competitor_ID']) && $_SESSION['Competitor_ID'] == $competitor_id) || $_SESSION['Is_Admin'])
+
+require ('mysqli_connect.php');
 
 // Check if the form has been submitted:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$errors = array();
-
-	// Check for a first name:
-	if (empty($_POST['Competitor_F_Name'])) {
-		$errors[] = 'You forgot to enter your first name.';
+	
+	// Check for the street:
+	if (empty($_POST['Address'])) {
+		$errors[] = 'You forgot to enter the street.';
 	} else {
-		$fn = mysqli_real_escape_string($dbc, trim($_POST['Competitor_F_Name']));
+		$street = mysqli_real_escape_string($dbc, trim($_POST['Address']));
 	}
-
-	// Check for a middle name:
-	if (empty($_POST['Competitor_MI'])) {
-		$errors[] = 'You forgot to enter your middle name.';
-	} else {
-		$mn = mysqli_real_escape_string($dbc, trim($_POST['Competitor_MI']));
+	
+	// Check for address line 2:
+	if (!empty($_POST['Address_2'])) {
+		$street .= " " . mysqli_real_escape_string($dbc, trim($_POST['Address_2']));
 	}
-	// Check for an last name:
-	if (empty($_POST['Competitor_L_Name'])) {
-		$errors[] = 'You forgot to enter your last name.';
-	} else {
-		$ln = mysqli_real_escape_string($dbc, trim($_POST['Competitor_L_Name']));
-	}
-  // Check for an date of birth:
-	if (empty($_POST['Date_Of_Birth'])) {
-		$errors[] = 'You forgot to enter your date of birth.';
-	} else {
-		$birth = mysqli_real_escape_string($dbc, trim($_POST['Date_Of_Birth']));
-	}
-  // Check for an street:
-	if (empty($_POST['Street'])) {
-		$errors[] = 'You forgot to enter your street.';
-	} else {
-		$street = mysqli_real_escape_string($dbc, trim($_POST['Street']));
-	}
-  // Check for an city:
+	
+	// Check for city:
 	if (empty($_POST['City'])) {
-		$errors[] = 'You forgot to enter your city.';
+		$errors[] = 'You forgot to enter the city.';
 	} else {
 		$city = mysqli_real_escape_string($dbc, trim($_POST['City']));
 	}
-  // Check for an state:
+	// Check for state:
 	if (empty($_POST['State'])) {
-		$errors[] = 'You forgot to enter your last name.';
+		$errors[] = 'You forgot to enter the state.';
 	} else {
 		$state = mysqli_real_escape_string($dbc, trim($_POST['State']));
 	}
-  // Check for an ZIP:
+	// Check for ZIP:
 	if (empty($_POST['ZIP'])) {
-		$errors[] = 'You forgot to enter your ZIP.';
+		$errors[] = 'You forgot to enter the postal code.';
 	} else {
 		$zip = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
 	}
 
-  // Check for an phone:
+	// Check for phone:
 	if (empty($_POST['Phone'])) {
-		$errors[] = 'You forgot to enter your phone.';
+		$errors[] = 'You forgot to enter the phone.';
 	} else {
 		$phone = mysqli_real_escape_string($dbc, trim($_POST['Phone']));
 	}
 
-  // Check for an email:
-  if (empty($_POST['Email'])) {
-    $errors[] = 'You forgot to enter your email.';
-  } else {
-    $email = mysqli_real_escape_string($dbc, trim($_POST['Email']));
-  }
-
-  // Check for an level:
-	if (empty($_POST['Level'])) {
-		$errors[] = 'You forgot to enter your level.';
+	// Check for email:
+	if (empty($_POST['Email'])) {
+		$errors[] = 'You forgot to enter the email.';
 	} else {
-		$lvl = mysqli_real_escape_string($dbc, trim($_POST['Level']));
+		$email = mysqli_real_escape_string($dbc, trim($_POST['Email']));
 	}
-
-  // Check for an sex:
-	if (empty($_POST['Sex'])) {
-		$errors[] = 'You forgot to enter your sex.';
-	} else {
-		$sex = mysqli_real_escape_string($dbc, trim($_POST['Sex']));
-	}
-
-  // Check for an team id:
-	if (empty($_POST['Team_ID'])) {
-		$errors[] = 'You forgot to enter your team id.';
-	} else {
-		$team = mysqli_real_escape_string($dbc, trim($_POST['Team_ID']));
-	}
-
 
 	if (empty($errors)) { // If everything's OK.
 
 		//  Test for unique email address:
-		$q = "SELECT ID FROM Competitor WHERE Email='$email' AND ID != $id";
+		$q = "SELECT LOGIN.ID_Login, COMPETITOR.ID
+			FROM (LOGIN INNER JOIN COMPETITOR ON LOGIN.Competitor_ID=COMPETITOR.ID)
+			WHERE LOGIN.Email='$email' AND COMPETITOR.ID != $competitor_id";
 		$r = @mysqli_query($dbc, $q);
 		if (mysqli_num_rows($r) == 0) {
 			// Make the query:
-			$q = "UPDATE Competitor SET Competitor_F_Name='$fn', Competitor_MI='$mn', Competitor_L_Name='$ln', Date_Of_Birth='$birth', Street='$street', City='$city', State='$state', ZIP='$zip', Phone='$phone', Email='$email', Level='$lvl', Sex='$sex' ,Team_ID='$team' WHERE ID_Login=$id LIMIT 1";
+			$q = "UPDATE COMPETITOR
+				SET Street='$street', City='$city', State='$state', ZIP='$zip', Phone='$phone'
+				WHERE ID=$competitor_id
+				LIMIT 1";
 			$r = @mysqli_query ($dbc, $q);
-			if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
+			if (mysql_affected_rows($dbc) == 0 || mysqli_affected_rows($dbc) == 1) { // if no row updated, or only 1 row
+
+			} else { // If it did not run OK.
+				echo '<p class="error">The user could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
+				if ($_SESSION['Is_Admin'])
+				{
+					echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+				}
+			}
+
+			mysqli_free_result ($r);
+			
+			$q = "UPDATE LOGIN
+				SET Email='$email'
+				WHERE Competitor_ID=$competitor_id
+				LIMIT 1";
+			$r = @mysqli_query ($dbc, $q);
+			if (mysql_affected_rows($dbc) == 0 || mysqli_affected_rows($dbc) == 1) { // if no row updated, or only 1 row
 				// Print a message:
 				echo '<p>The user has been edited.</p>';
 
 			} else { // If it did not run OK.
 				echo '<p class="error">The user could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
-				echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+				if ($_SESSION['Is_Admin'])
+				{
+					echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+				}
 			}
+
+			mysqli_free_result ($r);
 
 		} else { // Already registered.
 			echo '<p class="error">The email address has already been registered.</p>';
@@ -141,30 +130,68 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } // End of submit conditional.
 // Always show the form...
 // Retrieve the user's information:
-$q = "SELECT Competitor SET Competitor_F_Name, Competitor_MI, Competitor_L_Name, Date_Of_Birth, Street, City, State, ZIP, Phone, Email, Level, Sex, Team_ID FROM LOGIN WHERE ID_Login=$id";
+$q = "SELECT First_Name, Last_Name, Street, City, State, ZIP, Phone, Email
+	FROM (LOGIN INNER JOIN COMPETITOR ON LOGIN.Competitor_ID=COMPETITOR.ID)
+	WHERE LOGIN.Competitor_ID=$competitor_id";
 $r = @mysqli_query ($dbc, $q);
 
 if (mysqli_num_rows($r) == 1) { // Valid user ID, show the form.
 	// Get the user's information:
-	$row = mysqli_fetch_array ($r, MYSQLI_NUM);
+	$row = mysqli_fetch_array ($r, MYSQLI_ASSOC);
+	//~echo '<pre>' . print_r($row) . '</pre>';
 
 	// Create the form:
-	echo '<form action="edit_user.php" method="post">
-<p>First Name: <input type="text" name="Competitor_F_Name" size="15" maxlength="15" value="' . $row[0] . '" /></p>
-<p>Middle Name: <input type="text" name="Competitor_MI" size="20" maxlength="60" value="' . $row[1] . '"  /> </p>
-<p>Last Name: <input type="text" name="Competitor_L_Name" size="15" maxlength="30" value="' . $row[2] . '" /></p>
-<p>Date of Birth: <input type="text" name="Date_Of_Birth" size="20" maxlength="60" value="' . $row[3] . '"  /> </p>
-<p>Street: <input type="text" name="Street" size="20" maxlength="60" value="' . $row[4] . '"  /> </p>
-<p>City: <input type="text" name="City" size="20" maxlength="60" value="' . $row[5] . '"  /> </p>
-<p>State: <input type="text" name="State" size="20" maxlength="60" value="' . $row[6] . '"  /> </p>
-<p>ZIP: <input type="text" name="ZIP" size="20" maxlength="60" value="' . $row[7] . '"  /> </p>
-<p>Phone: <input type="text" name="Phone" size="20" maxlength="60" value="' . $row[8] . '"  /> </p>
-<p>Email: <input type="text" name="Email" size="20" maxlength="60" value="' . $row[9] . '"  /> </p>
-<p>Level: <input type="text" name="Level" size="20" maxlength="60" value="' . $row[10] . '"  /> </p>
-<p>Sex: <input type="text" name="Sex" size="20" maxlength="60" value="' . $row[11] . '"  /> </p>
-<p>Team ID: <input type="text" name="Team_ID" size="20" maxlength="60" value="' . $row[12] . '"  /> </p>
-<p><input type="submit" name="submit" value="Submit" /></p>
-<input type="hidden" name="id" value="' . $id . '" />
+	echo '<div>Editing ' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</div>';
+	echo '<form action="edit_competitor.php?id=' . $competitor_id .'" method="post">
+	<div>
+		<label for="Email">Email</label>
+	</div>
+	<div>
+		<input type="text" name="Email" size="20" maxlength="60" value="' . $row['Email'] . '" required>
+	</div>
+	
+	<div>
+		<label for="Phone" id="phone_label">Phone Number</label>
+	</div>
+	<div>
+		<input type="tel" maxlength="10" name="Phone" id="phone" value="' . $row['Phone'] . '" required>
+	</div>
+	
+	<div>
+		<label for="Address" id="address_label">Address</label>
+	</div>
+	<div>
+		<input type="text" maxlength="100" name="Address" id="address" value="' . $row['Street'] . '" required>
+	</div>
+	<div>
+		<label for="Address_2" id="address_2_label"> Address, line 2</label>
+	</div>
+	<div>
+		<input type="text" maxlength="100" name="Address_2" id="address_2" >
+	</div>
+	
+	<div>
+		<label for="City" id="city_label">City</label>
+	</div>
+	<div>
+		<input type="text" maxlength="50" name="City" id="city" value="' . $row['City'] . '" required>
+	</div>
+	
+	<div>
+		<label for="State" id="state_label">State</label>
+	</div>
+	<div>
+		<input type="text" maxlength="2" length="2" name="State" id="state" value="' . $row['State'] . '" required>
+	</div>
+	
+	<div>
+		<label for="ZIP" id="postal_code_label">ZIP or Postal Code</label>
+	</div>
+	<div>
+		<input type="text" maxlength="16" name="ZIP" id="postal_code" value="' . $row['ZIP'] . '" required>
+	</div>
+	
+	<div><input type="submit" name="submit" value="Update"></div>
 </form>';
 } else { // Not a valid user ID.
 	echo '<p class="error">This page has been accessed in error.</p>';
