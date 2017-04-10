@@ -38,10 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 
 	// Check for a ZIP:
-	if (empty($_POST['ZIP'])) {
+	if (empty($_POST['Zip'])) {
 		$errors[] = 'You forgot to enter ZIP.';
 	} else {
-		$zip = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
+		$zip = mysqli_real_escape_string($dbc, trim($_POST['Zip']));
 	}
 
 	// Check for a Date:
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 		// Register the user in the database...
 		// first, COMPETITOR
-		$q = "INSERT INTO MEET (Location_Name, Street, City, State, ZIP, Date, Time, Competition_Name) VALUES ('$dob', '$addr', '$city', '$state', '$zip_code', '$phone', 1, '$sex')";
+		$q = "INSERT INTO MEET (Location_Name, Street, City, State, Zip, Date, Time, Competition_Name) VALUES ('$ln', '$street', '$city','$state', '$zip', '$date', $time, '$name');";
 		$r = @mysqli_query($dbc, $q);
 		
 		if (!$r)
@@ -218,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<label for="Date">Date of Meet (MM-DD-YYYY)</label>
 	</div>
 	<div>
-		<input type="text" name="Date">
+		<input type="text" name="Date"  value="<?php if (isset($_POST['Date'])) echo $_POST['Date']; ?>" required>
 	</div>
 	
 	<!-- Time field -->
@@ -226,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<label for="Time">Time</label>
 	</div>
 	<div>
-		<input type="text" maxlength="50" name="Time"required>
+		<input type="text" maxlength="50" name="Time" value="<?php if (isset($_POST['Zip'])) echo $_POST['Zip']; ?>" required>
 	</div>
 	
 	<div><input type="submit" name="submit" value="Register"></div>
