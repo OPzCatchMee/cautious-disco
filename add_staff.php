@@ -9,7 +9,7 @@ require ('./mysqli_connect.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if(empty($ssn) || empty($job_title) || empty($wage) || empty($street) || empty($city) ||
-    empty($state) || empty($zip) || empty($home_phone)|| empty($dob)|| empty( $staff_id) || empty($isadmin))
+    empty($state) || empty($zip) || empty($home_phone)|| empty($dob) || empty($isadmin))
     {
      echo 'Please check to make sure all fields are entered and whether or not this person is an admin is selected';
     }
@@ -24,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $zip = test_input($_POST["zip"]);
     $home_phone = test_input($_POST["home_phone"]);
     $dob = test_input($_POST["dob"]);
-    $staff_id = test_input($_POST["staff_id"]);
    }
 	
 
@@ -34,8 +33,8 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 	
-$q = "INSERT INTO `STAFF`(`SSN`, `Job_Title`, `Hourly_Wage`, `Street`, `City`, `State`, `ZIP`, `Home_Phone`, `Date_of_Birth`, `Staff_ID`, `Is_Admin`)
-VALUES ([$ssn],[$job_title],[$wage],[$street],[#city],[$state],[$zip],[$home_phone],[$dob],[$staff_id],[$isadmin])";
+$q = "INSERT INTO `STAFF`(`SSN`, `Job_Title`, `Hourly_Wage`, `Street`, `City`, `State`, `ZIP`, `Home_Phone`, `Date_of_Birth`, `Is_Admin`)
+VALUES ([$ssn],[$job_title],[$wage],[$street],[#city],[$state],[$zip],[$home_phone],[$dob],[$isadmin])";
 $r = @mysqli_query($dbc, $q);
 
 if (!$r)
@@ -69,8 +68,6 @@ if (!$r)
   Home Phone: <input type="text" name="home_phone">
   <br><br>
   Date of Birth: <input type="text" name="dob">
-  <br><br>
-  Staff ID: <input type="text" name="staff_id">
   <br><br>
   
   Is he/she an admin?<br>
