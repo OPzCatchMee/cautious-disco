@@ -5,7 +5,7 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	// Need two helper files:
 	require ('includes/login_functions.inc.php');
-	require ('./mysqli_connect.php');
+	require ('mysqli_connect.php');
 
 	// Check the login:
 	list ($check, $data) = check_login($dbc, $_POST['Email'], $_POST['Password']);
@@ -17,32 +17,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//if (mysqli_num_rows($r) == 1) {
 	//redirect_user('admin.php');
 	//}
-	if($_POST['Email'] == 'Admin' && ($_POST['Password'] == 'password13')) {
-		redirect_user('admin.php');
-	}else {
-		if ($check) { // OK!
+	if ($check) { // OK!
 
-			// Set the session data:
-			session_start();
-			$_SESSION['ID_Login'] = $data['ID_Login'];
-			$_SESSION['First_Name'] = $data['First_Name'];
-			$_SESSION['Competitor_ID'] = $data['Competitor_ID'];
-			$_SESSION['Staff_ID'] = $data['Staff_ID'];
-			$_SESSION['Is_Admin'] = $data['Is_Admin'];
+		// Set the session data:
+		session_start();
+		$_SESSION['ID_Login'] = $data['ID_Login'];
+		$_SESSION['First_Name'] = $data['First_Name'];
+		$_SESSION['Competitor_ID'] = $data['Competitor_ID'];
+		$_SESSION['Staff_ID'] = $data['Staff_ID'];
+		$_SESSION['Is_Admin'] = $data['Is_Admin'];
 
-			// Store the HTTP_USER_AGENT:
-			$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
-			// Redirect:
-			redirect_user('loggedin.php');
+		// Store the HTTP_USER_AGENT:
+		$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
+		// Redirect:
+		redirect_user('loggedin.php');
 
-		} else { // Unsuccessful!
-			// Assign $data to $errors for login_page.inc.php:
-			$errors = $data;
-		}
+	} else { // Unsuccessful!
+		// Assign $data to $errors for login_page.inc.php:
+		$errors = $data;
 	}
 
 	mysqli_close($dbc); // Close the database connection.
 } // End of the main submit conditional.
 // Create the page:
-include ('./login_page.inc.php');
+include ('login_page.inc.php');
 ?>
