@@ -57,7 +57,7 @@ switch ($sort) {
 }
 	
 // Define the query:
-$q = "SELECT Last_Name, First_Name, DATE_FORMAT(Registration_Date, '%M %d, %Y') AS dr, ID_Login
+$q = "SELECT Last_Name, First_Name, DATE_FORMAT(Registration_Date, '%M %d, %Y') AS dr, ID_Login, Competitor_ID
 	FROM LOGIN
 	ORDER BY $order_by
 	LIMIT $start, $display";		
@@ -65,9 +65,12 @@ $r = @mysqli_query ($dbc, $q); // Run the query.
 
 // Table header:
 echo '<table>
-<thead>
-	<th>Edit</th>
-	<th>Delete</th>
+<thead>';
+	if ($_SESSION['Is_Admin']) {
+		echo '<th>Edit</th>
+	<th>Delete</th>';
+	}
+	echo '
 	<th><a href="view_users.php?sort=ln">Last Name</a></th>
 	<th><a href="view_users.php?sort=fn">First Name</a></th>
 	<th><a href="view_users.php?sort=rd">Date Registered</a></th>
@@ -77,12 +80,20 @@ echo '<table>
 // Fetch and print all the records....
  
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-	echo '<tr>
+	echo '<tr>';
+		if ($_SESSION['Is_Admin']) {
+			echo '
 		<td><a href="edit_user.php?id=' . $row['ID_Login'] . '">Edit</a></td>
-		<td><a href="delete_user.php?id=' . $row['ID_Login'] . '">Delete</a></td>
+		<td><a href="delete_user.php?id=' . $row['ID_Login'] . '">Delete</a></td>';
+		}
+		echo '
 		<td>' . $row['Last_Name'] . '</td>
 		<td>' . $row['First_Name'] . '</td>
-		<td>' . $row['dr'] . '</td>
+		<td>' . $row['dr'] . '</td>';
+		if (isset($row['Competitor_ID'])) {
+			echo '<td><a href="view_competitor.php?id=' . $row['Competitor_ID'] . '">View this competitor</a></td>';
+		}
+	echo '
 	</tr>
 	';
 } // End of WHILE loop.
