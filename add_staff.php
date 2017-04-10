@@ -8,10 +8,45 @@ require ('./mysqli_connect.php');
 //$ssn = $job_title = $wage = $street =$city = $state = $zip = $home_phone = $dob = $staff_id = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if(empty($ssn) || empty($job_title) || empty($wage) || empty($street) || empty($city) ||
-    empty($state) || empty($zip) || empty($home_phone)|| empty($dob) || empty($isadmin))
+  if(empty($ssn))
+  {
+	  echo 'ssn is empty';
+  }
+  else if(empty($job_title))
+  {
+	echo 'job is empty';	  
+  }
+  else if( empty($wage) )
+  {
+	echo 'dob is empty';
+  }
+  else if( empty($street))
+  {
+	echo 'street is empty';
+  }
+  else if(empty($city))
+  {
+     echo 'city is empty';
+  }
+  else if(empty($state))
+  {
+     echo 'dob is empty';
+  }
+    else if(empty($zip))
     {
-     echo 'Please check to make sure all fields are entered and whether or not this person is an admin is selected';
+	echo 'zip is empty';
+    }
+    else if( empty($home_phone))
+    {
+	echo 'phone is empty';
+    }
+    else if( empty($dob))
+    {
+     echo 'dob is empty';
+    }
+    else if( empty($isadmin))
+    {
+     echo 'admin is empty';
     }
   else
   {
