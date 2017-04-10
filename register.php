@@ -222,7 +222,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 		// EMERGENCY_CONTACT
 		$q = "INSERT INTO EMERGENCY_CONTACT (Competitor_ID, Emergency_F_Name, Emergency_L_Name, Emergency_Phone, Emergency_Email, Emergency_Street, Emergency_City, Emergency_State, Emergency_ZIP, Emergency_Relationship) VALUES ('$competitor_id', '$e_fn', '$e_ln', '$e_phone', '$e_e', '$e_addr', '$e_city', '$e_state', '$e_zip_code', '$e_relation')";
-		$r = mysqli_query($dbc, $q); // run the query
+		$r = @mysqli_query($dbc, $q); // run the query
 		if ($r) {
 			// everything's good
 		} else {
