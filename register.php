@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$e_relation = mysqli_real_escape_string($dbc, trim($_POST['Emergency_Relationship']));
 	}
 	
-	if (!isset($errors)) { // If everything's OK.
+	if (empty($errors)) { // If everything's OK.
 	
 		// Register the user in the database...
 		// first, COMPETITOR
@@ -277,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		echo '</p><p>Please try again.</p><br />';
 		
-	} // End of if (!isset($errors)) IF.
+	} // End of if (empty($errors)) IF.
 	
 	mysqli_close($dbc); // Close the database connection.
 

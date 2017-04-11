@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$name = mysqli_real_escape_string($dbc, trim($_POST['Competition_Name']));
 	}
 	
-	if (!isset($errors)) { // If everything's OK.
+	if (empty($errors)) { // If everything's OK.
 	
 		// Register the user in the database...
 		// first, COMPETITOR
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		echo '</p><p>Please try again.</p><p><br /></p>';
 		
-	} // End of if (!isset($errors)) IF.
+	} // End of if (empty($errors)) IF.
 	
 	mysqli_close($dbc); // Close the database connection.
 

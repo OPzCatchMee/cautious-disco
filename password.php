@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$errors[] = 'You forgot to enter your new password.';
 	}
 	
-	if (!isset($errors)) { // If everything's OK.
+	if (empty($errors)) { // If everything's OK.
 
 		// Check that they've entered the right email address/password combination:
 		$q = "SELECT ID_Login FROM LOGIN WHERE (Email='$e' AND Password=SHA1('$p') )";
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		echo '</p><p>Please try again.</p><p><br /></p>';
 	
-	} // End of if (!isset($errors)) IF.
+	} // End of if (empty($errors)) IF.
 
 	mysqli_close($dbc); // Close the database connection.
 		
