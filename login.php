@@ -29,6 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		// Store the HTTP_USER_AGENT:
 		$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
+
+		//Check if admin
+		if(!is_numeric($_SESSION['Staff_ID'])) {
+			redirect_user('admin.php');
+		}
 		// Redirect:
 		redirect_user('loggedin.php');
 
