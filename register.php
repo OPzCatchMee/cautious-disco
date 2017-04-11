@@ -12,28 +12,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$errors = array(); // Initialize an error array.
 	
 	// Check for a first name:
-	if (empty($_POST['First_Name'])) {
+	if (!isset($_POST['First_Name'])) {
 		$errors[] = 'You forgot to enter your first name.';
 	} else {
 		$fn = mysqli_real_escape_string($dbc, trim($_POST['First_Name']));
 	}
 	
 	// Check for a last name:
-	if (empty($_POST['Last_Name'])) {
+	if (!isset($_POST['Last_Name'])) {
 		$errors[] = 'You forgot to enter your last name.';
 	} else {
 		$ln = mysqli_real_escape_string($dbc, trim($_POST['Last_Name']));
 	}
 	
 	// Check for an email address:
-	if (empty($_POST['Email'])) {
+	if (!isset($_POST['Email'])) {
 		$errors[] = 'You forgot to enter your email address.';
 	} else {
 		$e = mysqli_real_escape_string($dbc, trim($_POST['Email']));
 	}
 	
 	// Check for a password and match against the confirmed password:
-	if (!empty($_POST['Password'])) {
+	if (!!isset($_POST['Password'])) {
 		if ($_POST['Password'] != $_POST['Password_Confirm']) {
 			$errors[] = 'Your password did not match the confirmed password.';
 		} else {
@@ -44,128 +44,128 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	// Check for date of birth:
-	if (empty($_POST['Date_Of_Birth'])) {
+	if (!isset($_POST['Date_Of_Birth'])) {
 		$errors[] = 'You forgot to enter your date of birth.';
 	} else {
 		$dob = mysqli_real_escape_string($dbc, trim(\DateTime::createFromFormat('m-d-Y',$_POST['Date_Of_Birth'])->format('Y-m-d'))); // assume came in the form  MM-DD-YYYY
 	}
 	
 	// Check for address:
-	if (empty($_POST['Address'])) {
+	if (!isset($_POST['Address'])) {
 		$errors[] = 'You forgot to enter your address.';
 	} else {
 		$addr = mysqli_real_escape_string($dbc, trim($_POST['Address']));
 	}
 	
 	// Check for address line 2:
-	if (!empty($_POST['Address_2'])) {
+	if (!!isset($_POST['Address_2'])) {
 		$addr .= " " . mysqli_real_escape_string($dbc, trim($_POST['Address_2']));
 	}
 	
 	// Check for city:
-	if (empty($_POST['City'])) {
+	if (!isset($_POST['City'])) {
 		$errors[] = 'You forgot to enter your City.';
 	} else {
 		$city = mysqli_real_escape_string($dbc, trim($_POST['City']));
 	}
 	
 	// Check for state:
-	if (empty($_POST['State'])) {
+	if (!isset($_POST['State'])) {
 		$errors[] = 'You forgot to enter your state.';
 	} else {
 		$state = mysqli_real_escape_string($dbc, trim($_POST['State']));
 	}
 	
 	// Check for zip:
-	if (empty($_POST['ZIP'])) {
+	if (!isset($_POST['ZIP'])) {
 		$errors[] = 'You forgot to enter your ZIP.';
 	} else {
 		$zip_code = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
 	}
 	
 	// Check for phone:
-	if (empty($_POST['Phone'])) {
+	if (!isset($_POST['Phone'])) {
 		$errors[] = 'You forgot to enter your phone number.';
 	} else {
 		$phone = mysqli_real_escape_string($dbc, trim($_POST['Phone']));
 	}
 	
 	// Check for sex:
-	if (empty($_POST['Sex'])) {
+	if (!isset($_POST['Sex'])) {
 		$errors[] = 'You forgot to enter your sex.';
 	} else {
 		$sex = mysqli_real_escape_string($dbc, trim($_POST['Sex']));
 	}
 	
 	// Check for emergency first name:
-	if (empty($_POST['Emergency_First_Name'])) {
+	if (!isset($_POST['Emergency_First_Name'])) {
 		$errors[] = 'You forgot to enter your emergency contact\'s first name.';
 	} else {
 		$e_fn = mysqli_real_escape_string($dbc, trim($_POST['Emergency_First_Name']));
 	}
 	
 	// Check for emergency last name:
-	if (empty($_POST['Emergency_Last_Name'])) {
+	if (!isset($_POST['Emergency_Last_Name'])) {
 		$errors[] = 'You forgot to enter your emergency contact\'s last name.';
 	} else {
 		$e_ln = mysqli_real_escape_string($dbc, trim($_POST['Emergency_Last_Name']));
 	}
 	
 	// Check for emergency email address:
-	if (empty($_POST['Emergency_Email'])) {
+	if (!isset($_POST['Emergency_Email'])) {
 		$errors[] = 'You forgot to enter your emergency contact\'s email address.';
 	} else {
 		$e_e = mysqli_real_escape_string($dbc, trim($_POST['Emergency_Email']));
 	}
 	
 	// Check for emergency phone:
-	if (empty($_POST['Emergency_Phone'])) {
+	if (!isset($_POST['Emergency_Phone'])) {
 		$errors[] = 'You forgot to enter your emergency contact\'s phone number.';
 	} else {
 		$e_phone = mysqli_real_escape_string($dbc, trim($_POST['Emergency_Phone']));
 	}
 	
 	// Check for emergency address:
-	if (empty($_POST['Emergency_Address'])) {
+	if (!isset($_POST['Emergency_Address'])) {
 		$errors[] = 'You forgot to enter your emergency contact\'s address.';
 	} else {
 		$e_addr = mysqli_real_escape_string($dbc, trim($_POST['Emergency_Address']));
 	}
 	
 	// Check for emergency address line 2:
-	if (!empty($_POST['Emergency_Address_2'])) {
+	if (!!isset($_POST['Emergency_Address_2'])) {
 		$e_addr .= " " .mysqli_real_escape_string($dbc, trim($_POST['Emergency_Address_2']));
 	}
 	
 	// Check for emergency city:
-	if (empty($_POST['Emergency_City'])) {
+	if (!isset($_POST['Emergency_City'])) {
 		$errors[] = 'You forgot to enter your emergecy contact\'s city.';
 	} else {
 		$e_city = mysqli_real_escape_string($dbc, trim($_POST['Emergency_City']));
 	}
 	
 	// Check for emergency state:
-	if (empty($_POST['Emergency_State'])) {
+	if (!isset($_POST['Emergency_State'])) {
 		$errors[] = 'You forgot to enter your emergency contact\'s state.';
 	} else {
 		$e_state = mysqli_real_escape_string($dbc, trim($_POST['Emergency_State']));
 	}
 	
 	// Check for emergency zip:
-	if (empty($_POST['Emergency_ZIP'])) {
+	if (!isset($_POST['Emergency_ZIP'])) {
 		$errors[] = 'You forgot to enter your emergency contact\'s ZIP.';
 	} else {
 		$e_zip_code = mysqli_real_escape_string($dbc, trim($_POST['Emergency_ZIP']));
 	}
 	
 	// Check for emergency relationship:
-	if (empty($_POST['Emergency_Relationship'])) {
+	if (!isset($_POST['Emergency_Relationship'])) {
 		$errors[] = 'You forgot to enter your emergency contact\'s relationship.';
 	} else {
 		$e_relation = mysqli_real_escape_string($dbc, trim($_POST['Emergency_Relationship']));
 	}
 	
-	if (empty($errors)) { // If everything's OK.
+	if (!isset($errors)) { // If everything's OK.
 	
 		// Register the user in the database...
 		// first, COMPETITOR
@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 		if (!$r)
 		{
-			echo '<p>Something went terribly wrong</p>';
+			echo '<p>Something went terribly wrong. Please contact the administrators. ERROR: 1</p>';
 		}
 		
 		mysqli_free_result ($r);
@@ -193,7 +193,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		else
 		{
-			echo '<p>Found incorrect number of results when trying to register: ' . mysqli_affected_rows($dbc) . '. Please contact the administrators.</p>';
+			echo '<p>Found incorrect number of results when trying to register: ' . mysqli_affected_rows($dbc) . '. Please contact the administrators. ERROR: 2</p>';
 		}
 		
 		mysqli_free_result ($r);
@@ -205,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 		if (!$r)
 		{
-			echo '<p>Something went terribly wrong</p>';
+			echo '<p>Something went terribly wrong. Please contact the administrators. ERROR: 3</p>';
 		}
 		
 		mysqli_free_result ($r);
@@ -224,8 +224,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		else
 		{
-			echo '<p>Found incorrect number of results when trying to register: ' . mysqli_affected_rows($dbc) . '. Please contact the administrators.</p>';
+			echo '<p>Found incorrect number of results when trying to register: ' . mysqli_affected_rows($dbc) . '. Please contact the administrators. ERROR: 4</p>';
 		}
+		
+		mysqli_free_result($r);
+		
+		// COMPETITOR_ID
+		$q = "INSERT INTO COMPETITOR_ID (User, Competitor)
+			VALUES ('$user_id', '$competitor_id')";		
+		$r = @mysqli_query ($dbc, $q); // Run the query.
 		
 		if ($r) { // If it ran OK.
 		
@@ -243,18 +250,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
 						
 		} // End of if ($r) IF.
-		
-		mysqli_free_result($r);
-		
-		// LOGIN
-		$q = "INSERT INTO COMPETITOR_ID (User, Competitor)
-			VALUES ('$user_id', '$competitor_id')";		
-		$r = @mysqli_query ($dbc, $q); // Run the query.
-		
-		if (!$r)
-		{
-			echo '<p>Something went terribly wrong</p>';
-		}
 		
 		mysqli_free_result ($r);
 		
@@ -282,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		echo '</p><p>Please try again.</p><br />';
 		
-	} // End of if (empty($errors)) IF.
+	} // End of if (!isset($errors)) IF.
 	
 	mysqli_close($dbc); // Close the database connection.
 

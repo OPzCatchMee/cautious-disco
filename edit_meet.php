@@ -25,56 +25,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$errors = array();
 
 	// Check for a location name:
-	if (empty($_POST['Location_Name'])) {
+	if (!isset($_POST['Location_Name'])) {
 		$errors[] = 'You forgot to enter the location name.';
 	} else {
 		$ln = mysqli_real_escape_string($dbc, trim($_POST['Location_Name']));
 	}
 
 	// Check for a street:
-	if (empty($_POST['Street'])) {
+	if (!isset($_POST['Street'])) {
 		$errors[] = 'You forgot to enter your street.';
 	} else {
 		$street = mysqli_real_escape_string($dbc, trim($_POST['Street']));
 	}
 
 	// Check for a city:
-	if (empty($_POST['City'])) {
+	if (!isset($_POST['City'])) {
 		$errors[] = 'You forgot to enter City.';
 	} else {
 		$city = mysqli_real_escape_string($dbc, trim($_POST['City']));
 	}
 
 	// Check for a State:
-	if (empty($_POST['State'])) {
+	if (!isset($_POST['State'])) {
 		$errors[] = 'You forgot to enter state.';
 	} else {
 		$state = mysqli_real_escape_string($dbc, trim($_POST['State']));
 	}
 
 	// Check for a ZIP:
-	if (empty($_POST['ZIP'])) {
+	if (!isset($_POST['ZIP'])) {
 		$errors[] = 'You forgot to enter ZIP.';
 	} else {
 		$zip = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
 	}
 
 	// Check for a Date:
-	if (empty($_POST['Date'])) {
+	if (!isset($_POST['Date'])) {
 		$errors[] = 'You forgot to enter date.';
 	} else {
 		$date = mysqli_real_escape_string($dbc, trim($_POST['Date']));
 	}
 
 	// Check for a Time:
-	if (empty($_POST['Time'])) {
+	if (!isset($_POST['Time'])) {
 		$errors[] = 'You forgot to enter time.';
 	} else {
 		$time = mysqli_real_escape_string($dbc, trim($_POST['Time']));
 	}
 
 	// Check for a competition name:
-	if (empty($_POST['Competition_Name'])) {
+	if (!isset($_POST['Competition_Name'])) {
 		$errors[] = 'You forgot to enter competition name.';
 	} else {
 		$name = mysqli_real_escape_string($dbc, trim($_POST['Competition_Name']));

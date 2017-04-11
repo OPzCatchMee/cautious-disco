@@ -26,45 +26,45 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$errors = array();
 	
 	// Check for the street:
-	if (empty($_POST['Address'])) {
+	if (!isset($_POST['Address'])) {
 		$errors[] = 'You forgot to enter the street.';
 	} else {
 		$street = mysqli_real_escape_string($dbc, trim($_POST['Address']));
 	}
 	
 	// Check for address line 2:
-	if (!empty($_POST['Address_2'])) {
+	if (!!isset($_POST['Address_2'])) {
 		$street .= " " . mysqli_real_escape_string($dbc, trim($_POST['Address_2']));
 	}
 	
 	// Check for city:
-	if (empty($_POST['City'])) {
+	if (!isset($_POST['City'])) {
 		$errors[] = 'You forgot to enter the city.';
 	} else {
 		$city = mysqli_real_escape_string($dbc, trim($_POST['City']));
 	}
 	// Check for state:
-	if (empty($_POST['State'])) {
+	if (!isset($_POST['State'])) {
 		$errors[] = 'You forgot to enter the state.';
 	} else {
 		$state = mysqli_real_escape_string($dbc, trim($_POST['State']));
 	}
 	// Check for ZIP:
-	if (empty($_POST['ZIP'])) {
+	if (!isset($_POST['ZIP'])) {
 		$errors[] = 'You forgot to enter the postal code.';
 	} else {
 		$zip = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
 	}
 
 	// Check for phone:
-	if (empty($_POST['Phone'])) {
+	if (!isset($_POST['Phone'])) {
 		$errors[] = 'You forgot to enter the phone.';
 	} else {
 		$phone = mysqli_real_escape_string($dbc, trim($_POST['Phone']));
 	}
 
 	// Check for email:
-	if (empty($_POST['Email'])) {
+	if (!isset($_POST['Email'])) {
 		$errors[] = 'You forgot to enter the email.';
 	} else {
 		$email = mysqli_real_escape_string($dbc, trim($_POST['Email']));

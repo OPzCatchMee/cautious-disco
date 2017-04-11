@@ -12,14 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$errors = array(); // Initialize an error array.
 	
 	// Check for card number
-	if (empty($_POST['card_number'])) {
+	if (!isset($_POST['card_number'])) {
 		$errors[] = 'Enter your card number';
 	} else {
 		$card_number = mysqli_real_escape_string($dbc, trim($_POST['card_number']));
 	}
 	
 	// Check for expiration date
-	if (empty($_POST['expiration_month']) || empty($_POST['expiration_year'])) {
+	if (!isset($_POST['expiration_month']) || !isset($_POST['expiration_year'])) {
 		$errors[] = 'Enter your expiration month and year';
 	} else {
 		$exp_month = mysqli_real_escape_string($dbc, trim($_POST['expiration_month']));
@@ -27,14 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	// Check for security code
-	if (empty($_POST['security_code'])) {
+	if (!isset($_POST['security_code'])) {
 		$errors[] = 'Enter your card\'s security code';
 	} else {
 		$csc = mysqli_real_escape_string($dbc, trim($_POST['security_code']));
 	}
 	
 	// Check for name
-	if (empty($_POST['first_name']) || empty($_POST['last_name'])) {
+	if (!isset($_POST['first_name']) || !isset($_POST['last_name'])) {
 		$errors[] = 'Enter your first and last name';
 	} else {
 		$fname = mysqli_real_escape_string($dbc, trim($_POST['first_name']));
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	// Check for address
-	if (empty($_POST['billing_address'])) {
+	if (!isset($_POST['billing_address'])) {
 		$errors[] = 'Enter your billing address';
 	} else {
 		$addr = mysqli_real_escape_string($dbc, trim($_POST['billing_address']));
@@ -50,27 +50,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	// Check for city
-	if (empty($_POST['billing_city'])) {
+	if (!isset($_POST['billing_city'])) {
 		$errors[] = 'Enter your city';
 	} else {
 		$city = mysqli_real_escape_string($dbc, trim($_POST['billing_city']));
 	}
 	
 	// Check for 
-	if (empty($_POST['billing_state'])) {
+	if (!isset($_POST['billing_state'])) {
 		$errors[] = 'Enter your state';
 	} else {
 		$state = mysqli_real_escape_string($dbc, trim($_POST['billing_state']));
 	}
 	
 	// Check for postal code
-	if (empty($_POST['postal_code'])) {
+	if (!isset($_POST['postal_code'])) {
 		$errors[] = 'Enter your ZIP or postal code';
 	} else {
 		$postal_code = mysqli_real_escape_string($dbc, trim($_POST['postal_code']));
 	}
 	
-	if (empty($errors)) { // If everything's OK.
+	if (!isset($errors)) { // If everything's OK.
 	
 		// Register the fee payment
 		
@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		echo '</p><p>Please try again.</p><br />';
 		
-	} // End of if (empty($errors)) IF.
+	} // End of if (!isset($errors)) IF.
 	
 	mysqli_close($dbc); // Close the database connection.
 

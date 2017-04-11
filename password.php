@@ -12,14 +12,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$errors = array(); // Initialize an error array.
 	
 	// Check for an email address:
-	if (empty($_POST['Email'])) {
+	if (!isset($_POST['Email'])) {
 		$errors[] = 'You forgot to enter your email address.';
 	} else {
 		$e = mysqli_real_escape_string($dbc, trim($_POST['Email']));
 	}
 
 	// Check for the current password:
-	if (empty($_POST['Password'])) {
+	if (!isset($_POST['Password'])) {
 		$errors[] = 'You forgot to enter your current password.';
 	} else {
 		$p = mysqli_real_escape_string($dbc, trim($_POST['Password']));
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	// Check for a new password and match 
 	// against the confirmed password:
-	if (!empty($_POST['Password1'])) {
+	if (!!isset($_POST['Password1'])) {
 		if ($_POST['Password1'] != $_POST['Password2']) {
 			$errors[] = 'Your new password did not match the confirmed password.';
 		} else {
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$errors[] = 'You forgot to enter your new password.';
 	}
 	
-	if (empty($errors)) { // If everything's OK.
+	if (!isset($errors)) { // If everything's OK.
 
 		// Check that they've entered the right email address/password combination:
 		$q = "SELECT ID_Login FROM LOGIN WHERE (Email='$e' AND Password=SHA1('$p') )";
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		}
 		echo '</p><p>Please try again.</p><p><br /></p>';
 	
-	} // End of if (empty($errors)) IF.
+	} // End of if (!isset($errors)) IF.
 
 	mysqli_close($dbc); // Close the database connection.
 		

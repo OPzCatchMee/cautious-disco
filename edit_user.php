@@ -25,21 +25,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$errors = array();
 	
 	// Check for a first name:
-	if (empty($_POST['First_Name'])) {
+	if (!isset($_POST['First_Name'])) {
 		$errors[] = 'You forgot to enter your first name.';
 	} else {
 		$fn = mysqli_real_escape_string($dbc, trim($_POST['First_Name']));
 	}
 	
 	// Check for a last name:
-	if (empty($_POST['Last_Name'])) {
+	if (!isset($_POST['Last_Name'])) {
 		$errors[] = 'You forgot to enter your last name.';
 	} else {
 		$ln = mysqli_real_escape_string($dbc, trim($_POST['Last_Name']));
 	}
 
 	// Check for an email address:
-	if (empty($_POST['Email'])) {
+	if (!isset($_POST['Email'])) {
 		$errors[] = 'You forgot to enter your email address.';
 	} else {
 		$e = mysqli_real_escape_string($dbc, trim($_POST['Email']));
