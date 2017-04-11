@@ -6,6 +6,7 @@ include ('includes/header.html');
 
 // Check if the form has been submitted:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	require('mysqli_connect.php');
 
 	$errors = array();
 
@@ -48,14 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (!isset($_POST['Date'])) {
 		$errors[] = 'You forgot to enter date.';
 	} else {
-		$date = mysqli_real_escape_string($dbc, trim($_POST['Date']));
+		$date = mysqli_real_escape_string($dbc, trim(\DateTime::createFromFormat('m-d-Y',$_POST['Date'])->format('Y-m-d'))); // assume came in the form  MM-DD-YYYY
 	}
 
 	// Check for a Time:
 	if (!isset($_POST['Time'])) {
 		$errors[] = 'You forgot to enter time.';
 	} else {
-		$time = mysqli_real_escape_string($dbc, trim($_POST['Time']));
+		$time = mysqli_real_escape_string($dbc, trim($_POST['Time'].":00"));
 	}
 
 	// Check for a competition name:
@@ -67,8 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	if (empty($errors)) { // If everything's OK.
 	
-		// Register the user in the database...
-		// first, COMPETITOR
+		// Register the meet in the database...
 		$q = "INSERT INTO MEET (Location_Name, Street, City, State, Zip, Date, Time, Competition_Name) VALUES ('$ln', '$street', '$city','$state', '$zip', '$date', '$time', '$name')";
 		$r = @mysqli_query($dbc, $q);
 		
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		{
 			// Public message:
 			echo '<h1>System Error</h1>
-			<p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
+			<p class="error">The meet could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
 			
 			// Debugging message:
 			echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 			// Print a message:
 			echo '<h1>Thank you!</h1>
-		<p>You are now registered.</p><br />';	
+		<p>The meet was successfully now registered.</p><br />';	
 		
 		}
 
@@ -112,17 +112,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <h1>Register</h1>
 <form action="create_meet.php" method="post">
 
-	<!-- First Name field -->
+	<!-- Competition Name field -->
 	<div>
-		<label for="First_Name">Competition Name</label>
+		<label for="Competition_Name">Competition Name</label>
 	</div>
 	<div>
 		<input type="text" name="Competition_Name" size="15" maxlength="20" value="<?php if (isset($_POST['Competition_Name'])) echo $_POST['Competition_Name']; ?>" required>
 	</div>
 	
-	<!-- Last Name field -->
+	<!-- Location Name field -->
 	<div>
-		<label for="Last_Name">Location Name</label>
+		<label for="Location_Name">Location Name</label>
 	</div>
 	<div>
 		<input type="text" name="Location_Name" size="15" maxlength="40" value="<?php if (isset($_POST['Location_Name'])) echo $_POST['Location_Name']; ?>" required>
@@ -222,10 +222,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	<!-- Time field -->
 	<div>
-		<label for="Time">Time</label>
+		<label for="Time">Time (HH:MM)</label>
 	</div>
 	<div>
-		<input type="text" maxlength="50" name="Time" value="<?php if (isset($_POST['Zip'])) echo $_POST['Zip']; ?>" required>
+		<input type="text" maxlength="5" name="Time" value="<?php if (isset($_POST['Time'])) echo $_POST['Time']; ?>" required>
 	</div>
 	
 	<div><input type="submit" name="submit" value="Register"></div>
