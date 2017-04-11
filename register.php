@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 		// Register the user in the database...
 		// first, COMPETITOR
-		$q = "INSERT INTO COMPETITOR (Level, Sex) VALUES (1, $sex)";
+		$q = "INSERT INTO COMPETITOR (Level, Sex) VALUES (1, '$sex')";
 		$r = @mysqli_query($dbc, $q);
 		
 		if (!$r)
