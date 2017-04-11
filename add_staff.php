@@ -64,7 +64,7 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 	
-$q = "INSERT INTO `STAFF`(`SSN`, `Job_Title`, `Hourly_Wage`, `Street`, `City`, `State`, `ZIP`, `Home_Phone`, `Date_of_Birth`, `Is_Admin`)
+$q = "INSERT INTO `STAFF`(`SSN`, `Job_Title`, `Hourly_Wage`, `Street`, `City`, `State`, `ZIP`, `Home_Phone`, `Date_Of_Birth`, `Is_Admin`)
 VALUES ([$ssn],[$job_title],[$wage],[$street],[#city],[$state],[$zip],[$home_phone],[$dob],[$isadmin])";
 $r = @mysqli_query($dbc, $q);
 
@@ -80,7 +80,7 @@ if (!$r)
 
 }
 ?>
-<!-- `SSN`, `Job_Title`, `Hourly_Wage`, `Street`, `City`, `State`, `ZIP`, `Home_Phone`, `Date_of_Birth`, `Staff_ID`, `Is_Admin-->
+<!-- `SSN`, `Job_Title`, `Hourly_Wage`, `Street`, `City`, `State`, `ZIP`, `Home_Phone`, `Date_Of_Birth`, `Staff_ID`, `Is_Admin-->
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
   SSN: <input type="text" name="ssn">
   <br><br>

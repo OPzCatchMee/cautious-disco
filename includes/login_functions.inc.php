@@ -52,8 +52,8 @@ function check_login($dbc, $Email = '', $Password = '') {
 	if (empty($errors)) { // If everything's OK.
 
 		// Retrieve the user_id and first_name for that email/password combination:
-		$q = "SELECT ID_Login, First_Name, Competitor_ID, LOGIN.Staff_ID, Is_Admin
-			FROM (LOGIN LEFT OUTER JOIN COMPETITOR ON LOGIN.Competitor_ID=COMPETITOR.ID LEFT OUTER JOIN STAFF ON LOGIN.Staff_ID=STAFF.Staff_ID)
+		$q = "SELECT ID_Login, First_Name, Competitor, Staff, Is_Admin 
+			FROM (LOGIN LEFT OUTER JOIN COMPETITOR_ID ON LOGIN.ID_Login=COMPETITOR_ID.User LEFT OUTER JOIN (STAFF_ID INNER JOIN STAFF ON STAFF_ID.Staff=STAFF.Staff_ID) ON LOGIN.ID_Login=STAFF_ID.User)
 			WHERE LOGIN.Email='$e' AND LOGIN.Password=SHA1('$p')";
 		$r = @mysqli_query ($dbc, $q); // Run the query.
 		

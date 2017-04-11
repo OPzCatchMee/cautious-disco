@@ -1,10 +1,10 @@
 <?php
 
 $page_title = 'View the Events';
-include ('./includesAdmin/adminHeader.html');
+include ('includesAdmin/adminHeader.html');
 echo '<h1><center>Events</center></h1>';
 
-require ('./mysqli_connect.php');
+require ('mysqli_connect.php');
 
 // Number of records to show per page:
 $display = 10;
@@ -135,5 +135,5 @@ if ($pages > 1) {
 
 } // End of links section.
 
-include ('./includesAdmin/adminFooter.html');
+include ('includesAdmin/adminFooter.html');
 ?>

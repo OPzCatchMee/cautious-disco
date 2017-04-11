@@ -1,10 +1,10 @@
 <?php
 
 $page_title = 'View the Meets';
-include ('./includesAdmin/adminHeader.html');
+include ('includesAdmin/adminHeader.html');
 echo '<h1><center>Meets</center></h1>';
 
-require ('./mysqli_connect.php');
+require ('mysqli_connect.php');
 
 // Number of records to show per page:
 $display = 10;
@@ -143,5 +143,5 @@ echo '<form action="create_meet.php">
     	<input type="submit" value="Create new Meet" />
 		</form>';
 
-include ('./includesAdmin/adminFooter.html');
+include ('includesAdmin/adminFooter.html');
 ?>

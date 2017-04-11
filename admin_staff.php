@@ -1,10 +1,10 @@
 <?php
 
 $page_title = 'View Staff';
-include ('./includesAdmin/adminHeader.html');
+include ('includesAdmin/adminHeader.html');
 echo '<h1><center>Staff</center></h1>';
 
-require ('./mysqli_connect.php');
+require ('mysqli_connect.php');
 
 // Number of records to show per page:
 $display = 10;
@@ -14,7 +14,7 @@ if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
 	$pages = $_GET['p'];
 } else { // Need to determine.
  	// Count the number of records:
-	$q = "SELECT COUNT(ID) FROM STAFF";
+	$q = "SELECT COUNT(Staff_ID) FROM STAFF";
 	$r = @mysqli_query ($dbc, $q);
 	$row = @mysqli_fetch_array ($r, MYSQLI_NUM);
 	$records = $row[0];
@@ -39,9 +39,6 @@ $sort = (isset($_GET['sort'])) ? $_GET['sort'] : 'fn';
 
 // Determine the sorting order:
 switch ($sort) {
-	case 'ssn':
-		$order_by = 'SSN ASC';
-		break;
 	case 'fn':
 		$order_by = 'First_Name ASC';
 	  	break;
@@ -63,24 +60,23 @@ switch ($sort) {
 	case 'state':
 		$order_by = 'State ASC';
 		break;
-	case 'hphone':
-		$order_by = 'Home_Phone ASC';
+	case 'phone':
+		$order_by = 'Phone ASC';
 		break;
 	case 'birth':
-		$order_by = 'Date_of_Birth ASC';
+		$order_by = 'Date_Of_Birth ASC';
 		break;
 	case 'id':
 		$order_by = 'Staff_ID ASC';
 		break;
 	default:
-		$order_by = 'Staff_F_Name ASC';
-		$sort = 'fn';
+		$order_by = 'First_Name ASC'; // $sort = 'fn' from earlier statement if GET['sort'] not set
 		break;
 }
 
 // Define the query:
-$q = "SELECT SSN, First_Name, Last_Name, Email, Job_Title, Hourly_Wage, Street, City, State, Home_Phone, Date_of_Birth, LOGIN.Staff_ID
-	FROM (LOGIN INNER JOIN STAFF ON LOGIN.Staff_ID=STAFF.Staff_ID)
+$q = "SELECT First_Name, Last_Name, Email, Job_Title, Hourly_Wage, Street, City, State, Phone, Date_Of_Birth, Staff_ID
+	FROM (LOGIN INNER JOIN STAFF_ID ON LOGIN.ID_Login=STAFF_ID.Staff INNER JOIN STAFF ON STAFF_ID.Staff=STAFF.Staff_ID)
 	ORDER BY $order_by
 	LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
@@ -88,7 +84,6 @@ $r = @mysqli_query ($dbc, $q); // Run the query.
 // Table header:
 echo '<table>
 <thead>
-	<th><a href="admin_staff.php?sort=ssn">SSN</a></th>
 	<th><a href="admin_staff.php?sort=fn">First Name</a></th>
 	<th><a href="admin_staff.php?sort=ln">Last Name</a></th>
 	<th><a href="admin_staff.php?sort=title">Job Title</a></th>
@@ -96,7 +91,7 @@ echo '<table>
 	<th><a href="admin_staff.php?sort=street">Street</a></th>
 	<th><a href="admin_staff.php?sort=city">City</a></th>
 	<th><a href="admin_staff.php?sort=state">State</a></th>
-	<th><a href="admin_staff.php?sort=hphone">Phone</a></th>
+	<th><a href="admin_staff.php?sort=phone">Phone</a></th>
 	<th><a href="admin_staff.php?sort=birth">Date of Birth</a></th>
 	<th><a href="admin_staff.php?sort=id">Staff ID</a></th>
 </thead>
@@ -105,7 +100,6 @@ echo '<table>
 // Fetch and print all the records....
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	echo '<tr>
-		<td>' . $row['SSN'] . '</td>
 		<td>' . $row['First_Name'] . '</td>
 		<td>' . $row['Last_Name'] . '</td>
 		<td>' . $row['Job_Title'] . '</td>
@@ -113,8 +107,8 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td>' . $row['Street'] . '</td>
 		<td>' . $row['City'] . '</td>
 		<td>' . $row['State'] . '</td>
-		<td>' . $row['Home_Phone'] . '</td>
-		<td>' . $row['Date_of_Birth'] . '</td>
+		<td>' . $row['Phone'] . '</td>
+		<td>' . $row['Date_Of_Birth'] . '</td>
 		<td>' . $row['Staff_ID'] . '</td>
 		<td><a href="edit_staff.php?id=' . $row['Staff_ID'] . '">Edit</a></td>
 		<td><a href="delete_staff.php?id=' . $row['Staff_ID'] . '">Delete</a></td>
@@ -155,5 +149,5 @@ if ($pages > 1) {
 
 } // End of links section.
 
-include ('./includesAdmin/adminFooter.html');
+include ('includesAdmin/adminFooter.html');
 ?>

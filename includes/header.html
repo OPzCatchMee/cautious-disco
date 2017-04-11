@@ -15,7 +15,7 @@
 		<h2>Database</h2>
 		<?php // Check if logged in and say name:
 		if (isset($_SESSION['ID_Login'])) {
-			require('./mysqli_connect.php');
+			require('mysqli_connect.php');
 			
 			$id = $_SESSION['ID_Login'];
 			$q = "SELECT First_Name, Last_Name FROM LOGIN WHERE ID_Login='$id'";

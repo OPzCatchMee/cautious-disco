@@ -73,32 +73,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (empty($errors)) { // If everything's OK.
 
 		//  Test for unique email address:
-		$q = "SELECT LOGIN.ID_Login, COMPETITOR.ID
-			FROM (LOGIN INNER JOIN COMPETITOR ON LOGIN.Competitor_ID=COMPETITOR.ID)
-			WHERE LOGIN.Email='$email' AND COMPETITOR.ID != $competitor_id";
+		$q = "SELECT LOGIN.ID_Login, COMPETITOR_ID.Competitor
+			FROM (LOGIN INNER JOIN COMPETITOR_ID ON LOGIN.Competitor_ID=COMPETITOR_ID.Competitor)
+			WHERE LOGIN.Email='$email' AND COMPETITOR_ID.Competitor != $competitor_id";
 		$r = @mysqli_query($dbc, $q);
 		if (mysqli_num_rows($r) == 0) {
-			// Make the query:
-			$q = "UPDATE COMPETITOR
-				SET Street='$street', City='$city', State='$state', ZIP='$zip', Phone='$phone'
-				WHERE ID=$competitor_id
-				LIMIT 1";
-			$r = @mysqli_query ($dbc, $q);
-			if (mysql_affected_rows($dbc) == 0 || mysqli_affected_rows($dbc) == 1) { // if no row updated, or only 1 row
-
-			} else { // If it did not run OK.
-				echo '<p class="error">The user could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
-				if ($_SESSION['Is_Admin'])
-				{
-					echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
-				}
-			}
-
+			$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
+			$user_id = $row['ID_Login']
 			mysqli_free_result ($r);
+			// Make the query:
 			
+			// nothing to update in COMPETITOR after moving stuff to LOGIN ?
+			//~$q = "UPDATE COMPETITOR
+				//~SET Street='$street', City='$city', State='$state', ZIP='$zip', Phone='$phone'
+				//~WHERE ID=$competitor_id
+				//~LIMIT 1";
+			//~$r = @mysqli_query ($dbc, $q);
+			//~if (mysql_affected_rows($dbc) == 0 || mysqli_affected_rows($dbc) == 1) { // if no row updated, or only 1 row
+//~
+			//~} else { // If it did not run OK.
+				//~echo '<p class="error">The user could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
+				//~if ($_SESSION['Is_Admin'])
+				//~{
+					//~echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+				//~}
+			//~}
+//~
+			//~mysqli_free_result ($r);
+			
+			// update LOGIN
 			$q = "UPDATE LOGIN
-				SET Email='$email'
-				WHERE Competitor_ID=$competitor_id
+				SET Email='$email', Street='$street', City='$city', State='$state', ZIP='$zip', Phone='$phone'
+				WHERE ID_Login=$user_id
 				LIMIT 1";
 			$r = @mysqli_query ($dbc, $q);
 			if (mysql_affected_rows($dbc) == 0 || mysqli_affected_rows($dbc) == 1) { // if no row updated, or only 1 row
@@ -131,8 +137,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Always show the form...
 // Retrieve the user's information:
 $q = "SELECT First_Name, Last_Name, Street, City, State, ZIP, Phone, Email
-	FROM (LOGIN INNER JOIN COMPETITOR ON LOGIN.Competitor_ID=COMPETITOR.ID)
-	WHERE LOGIN.Competitor_ID=$competitor_id";
+	FROM (LOGIN INNER JOIN COMPETITOR_ID ON LOGIN.ID_Login=COMPETITOR_ID.User INNER JOIN COMPETITOR ON COMPETITOR_ID.Competitor=COMPETITOR.ID)
+	WHERE COMPETITOR_ID.Competitor=$competitor_id";
 $r = @mysqli_query ($dbc, $q);
 
 if (mysqli_num_rows($r) == 1) { // Valid user ID, show the form.

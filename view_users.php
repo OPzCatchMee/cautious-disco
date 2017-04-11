@@ -6,7 +6,7 @@ $page_title = 'View the Current Users';
 include ('includes/header.html');
 echo '<h1>Registered Users</h1>';
 
-require ('./mysqli_connect.php');
+require ('mysqli_connect.php');
 
 // Number of records to show per page:
 $display = 10;

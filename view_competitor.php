@@ -22,8 +22,8 @@ if(isset($_GET['id']))
 	$competitor_id = $_GET['id'];
 	
 	$q = "SELECT First_Name, Last_Name, Email, Date_Of_Birth, Street, City, State, ZIP, Phone, Sex, Team_ID
-		FROM (LOGIN INNER JOIN COMPETITOR ON LOGIN.Competitor_ID=COMPETITOR.ID)
-		WHERE Competitor_ID=$competitor_id";
+		FROM (LOGIN INNER JOIN COMPETITOR_ID ON LOGIN.ID_Login=COMPETITOR_ID.Competitor INNER JOIN COMPETITOR ON COMPETITOR_ID.Competitor=COMPETITOR.ID)
+		WHERE COMPETITOR.Competitor=$competitor_id";
 	$r = @mysqli_query ($dbc, $q); // Run the query.
 	
 	if (mysqli_affected_rows($dbc) == 1) // should only find one result

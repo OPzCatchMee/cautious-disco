@@ -169,7 +169,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 		// Register the user in the database...
 		// first, COMPETITOR
-		$q = "INSERT INTO COMPETITOR (Date_Of_Birth, Street, City, State, ZIP, Phone, Level, Sex) VALUES ('$dob', '$addr', '$city', '$state', '$zip_code', '$phone', 1, '$sex')";
+		$q = "INSERT INTO COMPETITOR (Level, Sex) VALUES (1, $sex)";
 		$r = @mysqli_query($dbc, $q);
 		
 		if (!$r)
@@ -199,8 +199,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		mysqli_free_result ($r);
 		
 		// LOGIN
-		$q = "INSERT INTO LOGIN (First_Name, Last_Name, Email, Password, Registration_Date, Competitor_ID) VALUES ('$fn', '$ln', '$e', SHA1('$p'), NOW(), '$competitor_id')";		
+		$q = "INSERT INTO LOGIN (First_Name, Last_Name, Email, Password, Date_Of_Birth, Street, City, State, ZIP, Phone, Registration_Date)
+			VALUES ('$fn', '$ln', '$e', SHA1('$p'), '$dob', '$addr', '$city', '$state', '$zip_code', '$phone', NOW())";		
 		$r = @mysqli_query ($dbc, $q); // Run the query.
+		
+		if (!$r)
+		{
+			echo '<p>Something went terribly wrong</p>';
+		}
+		
+		mysqli_free_result ($r);
+		
+		// get ID_Login
+		$q = "SELECT ID_Login
+		FROM LOGIN
+		ORDER BY ID_Login DESC
+		LIMIT 1"; // maybe not best way to get?
+		$r = @mysqli_query($dbc, $q);
+		
+		if (mysqli_affected_rows($dbc) == 1) // should only find one result
+		{
+			$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
+			$user_id = $row['ID_Login'];
+		}
+		else
+		{
+			echo '<p>Found incorrect number of results when trying to register: ' . mysqli_affected_rows($dbc) . '. Please contact the administrators.</p>';
+		}
+		
 		if ($r) { // If it ran OK.
 		
 			// Print a message:
@@ -219,6 +245,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		} // End of if ($r) IF.
 		
 		mysqli_free_result($r);
+		
+		// LOGIN
+		$q = "INSERT INTO COMPETITOR_ID (User, Competitor)
+			VALUES ('$user_id', '$competitor_id')";		
+		$r = @mysqli_query ($dbc, $q); // Run the query.
+		
+		if (!$r)
+		{
+			echo '<p>Something went terribly wrong</p>';
+		}
+		
+		mysqli_free_result ($r);
 		
 		// EMERGENCY_CONTACT
 		$q = "INSERT INTO EMERGENCY_CONTACT (Competitor_ID, Emergency_F_Name, Emergency_L_Name, Emergency_Phone, Emergency_Email, Emergency_Street, Emergency_City, Emergency_State, Emergency_ZIP, Emergency_Relationship) VALUES ('$competitor_id', '$e_fn', '$e_ln', '$e_phone', '$e_e', '$e_addr', '$e_city', '$e_state', '$e_zip_code', '$e_relation')";

@@ -1,10 +1,10 @@
 <?php
 
 $page_title = 'View the Current Users';
-include ('./includesAdmin/adminHeader.html');
+include ('includesAdmin/adminHeader.html');
 echo '<h1><center>Registered Users</center></h1>';
 
-require ('./mysqli_connect.php');
+require ('mysqli_connect.php');
 
 // Number of records to show per page:
 $display = 10;
@@ -49,8 +49,7 @@ switch ($sort) {
 		$order_by = 'Registration_Date ASC';
 		break;
 	default:
-		$order_by = 'Registration_Date ASC';
-		$sort = 'rd';
+		$order_by = 'Registration_Date ASC'; // default $sort = 'rd' if GET['sort'] not set
 		break;
 }
 
@@ -115,5 +114,5 @@ if ($pages > 1) {
 
 } // End of links section.
 
-include ('./includesAdmin/adminFooter.html');
+include ('includesAdmin/adminFooter.html');
 ?>

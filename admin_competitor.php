@@ -1,10 +1,10 @@
 <?php
 
 $page_title = 'View the Competitor';
-include ('./includesAdmin/adminHeader.html');
+include ('includesAdmin/adminHeader.html');
 echo '<h1><center>Competitor</center></h1>';
 
-require ('./mysqli_connect.php');
+require ('mysqli_connect.php');
 
 // Number of records to show per page:
 $display = 10;
@@ -82,8 +82,8 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT ID, First_Name, Last_Name, LOGIN.Email, Date_Of_Birth, Street, City, State, ZIP, Phone, Level, Sex, Team_ID
-	FROM (LOGIN INNER JOIN COMPETITOR ON LOGIN.Competitor_ID=COMPETITOR.ID)
+$q = "SELECT ID, First_Name, Last_Name, Email, Date_Of_Birth, Street, City, State, ZIP, Phone, Level, Sex, Team_ID
+	FROM (LOGIN INNER JOIN COMPETITOR_ID ON LOGIN.ID_Login=COMPETITOR_ID.User INNER JOIN COMPETITOR ON COMPETITOR_ID.Competitor=COMPETITOR.ID)
 	ORDER BY $order_by
 	LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
@@ -163,5 +163,5 @@ if ($pages > 1) {
 
 } // End of links section.
 
-include ('./includesAdmin/adminFooter.html');
+include ('includesAdmin/adminFooter.html');
 ?>

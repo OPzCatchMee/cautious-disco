@@ -2,7 +2,7 @@
 // This script performs an INSERT query to add a record to the MEET table.
 
 $page_title = 'Create Meet';
-include ('./includes/header.html');
+include ('includes/header.html');
 
 // Check if the form has been submitted:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -88,8 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
 		}
 
+		mysqli_close($dbc); // Close the database connection.
 		// Include the footer and quit the script:
-		include ('./includes/footer.html'); 
+		include ('includes/footer.html'); 
 		exit();
 		
 	} else { // Report the errors.
@@ -229,4 +230,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	
 	<div><input type="submit" name="submit" value="Register"></div>
 </form>
-<?php include ('./includes/footer.html'); ?>
+<?php include ('includes/footer.html'); ?>
