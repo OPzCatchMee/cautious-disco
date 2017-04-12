@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$_SESSION['Competitor_ID'] = $data['Competitor_ID'];
 		$_SESSION['Staff_ID'] = $data['Staff_ID'];
 		$_SESSION['Is_Admin'] = $data['Is_Admin'];
+		$_SESSION['Is_Judge'] = $data['Is_Judge'];
 
 		// Store the HTTP_USER_AGENT:
 		$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
