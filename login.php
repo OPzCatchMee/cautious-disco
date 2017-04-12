@@ -23,8 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		session_start();
 		$_SESSION['ID_Login'] = $data['ID_Login'];
 		$_SESSION['First_Name'] = $data['First_Name'];
-		$_SESSION['Competitor_ID'] = $data['Competitor_ID'];
-		$_SESSION['Staff_ID'] = $data['Staff_ID'];
+		$_SESSION['Competitor_ID'] = $data['Competitor'];
+		$_SESSION['Staff_ID'] = $data['Staff'];
 		$_SESSION['Is_Admin'] = $data['Is_Admin'];
 		$_SESSION['Is_Judge'] = $data['Is_Judge'];
 
