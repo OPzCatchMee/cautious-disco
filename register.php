@@ -175,6 +175,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (!$r)
 		{
 			echo '<p>Something went terribly wrong. Please contact the administrators. ERROR: 1</p>';
+			mysqli_close($dbc); // Close the database connection.
+			include ('includes/footer.html');
+			exit();
 		}
 		
 		mysqli_free_result ($r);
@@ -194,6 +197,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		else
 		{
 			echo '<p>Found incorrect number of results when trying to register: ' . mysqli_affected_rows($dbc) . '. Please contact the administrators. ERROR: 2</p>';
+			mysqli_close($dbc); // Close the database connection.
+			include ('includes/footer.html');
+			exit();
 		}
 		
 		mysqli_free_result ($r);
@@ -206,6 +212,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (!$r)
 		{
 			echo '<p>Something went terribly wrong. Please contact the administrators. ERROR: 3</p>';
+			mysqli_close($dbc); // Close the database connection.
+			include ('includes/footer.html');
+			exit();
 		}
 		
 		mysqli_free_result ($r);
@@ -225,6 +234,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		else
 		{
 			echo '<p>Found incorrect number of results when trying to register: ' . mysqli_affected_rows($dbc) . '. Please contact the administrators. ERROR: 4</p>';
+			mysqli_close($dbc); // Close the database connection.
+			include ('includes/footer.html');
+			exit();
 		}
 		
 		mysqli_free_result($r);
@@ -244,10 +256,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
 			// Public message:
 			echo '<h1>System Error</h1>
-			<p class="error">You could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
-			
-			// Debugging message:
-			echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
+			<p class="error">You could not be registered due to a system error. We apologize for any inconvenience. ERROR: 5</p>'; 
+			mysqli_close($dbc); // Close the database connection.
+			include ('includes/footer.html');
+			exit();
 						
 		} // End of if ($r) IF.
 		
@@ -259,7 +271,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if ($r) {
 			// everything's good
 		} else {
-			echo '<p>Your emergency contact could not be registered. Please contact the administrators.</p>';
+			echo '<p>Your emergency contact could not be registered. Please contact the administrators. ERROR: 6</p>';
+			mysqli_close($dbc); // Close the database connection.
+			include ('includes/footer.html');
+			exit();
 		}
 		
 		mysqli_close($dbc); // Close the database connection.
