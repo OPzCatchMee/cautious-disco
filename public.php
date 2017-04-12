@@ -20,7 +20,7 @@ if($team=='none')
 		<th>Venue</th>
 		<th>Location</th>
 		<th>Competition Name</th>
-		<th></td><b>Date</th>
+		<th>Date</th>
 		<th>Time</th>
 	</thead>
 	';
