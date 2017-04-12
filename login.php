@@ -31,11 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
 
 		//Check if admin
-		if(!is_numeric($_SESSION['Staff_ID'])) {
+		if(!is_null($_SESSION['Staff_ID'])) {
 			redirect_user('admin.php');
-		}
-		// Redirect:
+		} else {
+			// Redirect:
 		redirect_user('loggedin.php');
+		}
+		
 
 	} else { // Unsuccessful!
 		// Assign $data to $errors for login_page.inc.php:
