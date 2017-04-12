@@ -67,7 +67,7 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT Competitor_ID, Meet_ID, Event_Type, Exec_Score, Difficulty_Score, DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time
+$q = "SELECT Event_ID, Competitor_ID, Meet_ID, Event_Type, Exec_Score, Difficulty_Score, DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time
 	FROM EVENT
 	ORDER BY $order_by
 	LIMIT $start, $display";
@@ -76,13 +76,13 @@ $r = @mysqli_query ($dbc, $q); // Run the query.
 // Table header:
 echo '<table>
 <thead>
-	<th><a href="admin_events.php?sort=ln">Competition</a></th>
-	<th><a href="admin_events.php?sort=fn">Meet</a></th>
-	<th><a href="admin_events.php?sort=rd">Event Type</a></th>
-	<th><a href="admin_events.php?sort=rd">Execution Score</a></th>
-	<th><a href="admin_events.php?sort=rd">Execution Difficulty</a></th>
-	<th><a href="admin_events.php?sort=rd">Date</a></th>
-	<th><a href="admin_events.php?sort=rd">Time</a></th>
+	<th><a href="admin_events.php?sort=id">Competition</a></th>
+	<th><a href="admin_events.php?sort=meet">Meet</a></th>
+	<th><a href="admin_events.php?sort=event">Event Type</a></th>
+	<th><a href="admin_events.php?sort=execScore">Execution Score</a></th>
+	<th><a href="admin_events.php?sort=difScore">Execution Difficulty</a></th>
+	<th><a href="admin_events.php?sort=date">Date</a></th>
+	<th><a href="admin_events.php?sort=time">Time</a></th>
 </thead>
 ';
 
@@ -96,8 +96,8 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td>' . $row['Difficulty_Score'] . '</td>
 		<td>' . $row['Date'] . '</td>
 		<td>' . $row['Time'] . '</td>
-		<td><a href="edit_events.php?ID=' . $row['ID'] . '">Edit</a></td>
-		<td><a href="delete_events.php?ID=' . $row['ID'] . '">Delete</a></td>
+		<td><a href="edit_events.php?ID=' . $row['Event_ID'] . '">Edit</a></td>
+		<td><a href="delete_events.php?ID=' . $row['Event_ID'] . '">Delete</a></td>
 	</tr>
 	';
 } // End of WHILE loop.

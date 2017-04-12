@@ -124,7 +124,6 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td>' . $row['Level'] . '</td>
 		<td>' . $row['Sex'] . '</td>
 		<td>' . $row['Team_ID'] . '</td>
-		<td><a href="edit_competitor.php?id=' . $row['ID'] . '">Edit</a></td>
 		<td><a href="delete_competitor.php?id=' . $row['ID'] . '">Delete</a></td>
 	</tr>
 	';

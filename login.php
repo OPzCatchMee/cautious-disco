@@ -9,9 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	// Check the login:
 	list ($check, $data) = check_login($dbc, $_POST['Email'], $_POST['Password']);
-	//works for now but we should switch the if statement to something where there can be multiple admins 
+	//works for now but we should switch the if statement to something where there can be multiple admins
 	//if we end up adding a column in login we can do this
-	//$q = "SELECT ID_Login, First_Name FROM LOGIN WHERE Email='$_POST['EMAIL']' AND Admin=TRUE";		
+	//$q = "SELECT ID_Login, First_Name FROM LOGIN WHERE Email='$_POST['EMAIL']' AND Admin=TRUE";
 	//$r = @mysqli_query ($dbc, $q); // Run the query.
 	// if it returns a row, then that means the user is an admin. if not then just regular login
 	//if (mysqli_num_rows($r) == 1) {
@@ -30,8 +30,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		// Store the HTTP_USER_AGENT:
 		$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
-		// Redirect:
-		redirect_user('loggedin.php');
+
+		//Check if admin
+		if(!is_null($_SESSION['Staff_ID'])) {
+			redirect_user('loggedin.php');
+		}else if(!is_null($_SESSION['Is_Admin'])) {
+			redirect_user('admin.php');
+		}else{
+			redirect_user('loggedin.php');
+		}
+
 
 	} else { // Unsuccessful!
 		// Assign $data to $errors for login_page.inc.php:
