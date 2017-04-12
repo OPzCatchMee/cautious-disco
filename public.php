@@ -45,10 +45,10 @@ if($team=='none')
 }
 else
 {
-	$q = "SELECT a.Competition_Name, b.Team_Name, c.Team_ID, c.Meet_ID 
-	FROM MEET AS a, TEAM AS b, TEAM_COMPETES_AT AS c 
-	WHERE c.MEET_ID=$team && a.id = b.Team_ID and b.Team_ID = c.TEAM_ID 
-	ORDER BY a.Date DESC";
+	$q = "SELECT MEET.Competition_Name, TEAM.Team_Name, TEAM_COMPETES_AT.Team_ID, TEAM_COMPETES_AT.Meet_ID 
+	FROM (MEET INNER JOIN TEAM_COMPETES_AT ON MEET.ID=TEAM_COMPETES_AT.Meet_ID INNER JOIN TEAM ON TEAM_COMPETES_AT.Team_ID=TEAM.Team_ID)
+	WHERE TEAM_COMPETES_AT.Team_ID=$team
+	ORDER BY MEET.Date DESC";
 	$r = @mysqli_query ($dbc, $q); // Run the query.
 	echo '<center><h2>Teams Competing in this Competition</h2></center>
 	<table>
