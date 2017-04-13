@@ -23,6 +23,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	$errors = array();
 
+	// Check for a Competition id:
+	if (!isset($_POST['Competitor_ID'])) {
+		$errors[] = 'You forgot to enter your competitor id.';
+	} else {
+		$competitor = mysqli_real_escape_string($dbc, trim($_POST['Competitor_ID']));
+	}
+
+	// Check for a Meet Id:
+	if (!isset($_POST['Meet_ID'])) {
+		$errors[] = 'You forgot to enter your meet id.';
+	} else {
+		$meet = mysqli_real_escape_string($dbc, trim($_POST['Meet_ID']));
+	}
+
+	// Check for a judge id:
+	if (!isset($_POST['Judge_ID'])) {
+		$errors[] = 'You forgot to enter your judge id.';
+	} else {
+		$judge = mysqli_real_escape_string($dbc, trim($_POST['Judge_ID']));
+	}
+
 	// Check for a Event Type:
 	if (!isset($_POST['Event_Type'])) {
 		$errors[] = 'You forgot to enter your event type.';
@@ -65,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		if (mysqli_num_rows($r) == 0) {
 
       // Make the query:
-			$q = "UPDATE EVENT SET Event_Type='$event', Exec_Score='$exeScore', Difficulty_Score='$difScore', Time='$time', Date='$date' WHERE Event_ID=$id LIMIT 1";
+			$q = "UPDATE EVENT SET Competitor_ID='$competitor', Meet_ID='$meet', Judge_ID='$judge', Event_Type='$event', Exec_Score='$exeScore', Difficulty_Score='$difScore', Time='$time', Date='$date' WHERE Event_ID=$id LIMIT 1";
 			$r = @mysqli_query ($dbc, $q);
 			if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
 
@@ -96,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Always show the form...
 
 // Retrieve the event's information:
-$q = "SELECT Event_Type, Exec_Score, Difficulty_Score, Time, Date FROM EVENT WHERE EVENT_ID=$id";
+$q = "SELECT Competitor_ID, Meet_ID, Judge_ID, Event_Type, Exec_Score, Difficulty_Score, Time, Date FROM EVENT WHERE EVENT_ID=$id";
 $r = @mysqli_query ($dbc, $q);
 
 if (mysqli_num_rows($r) == 1) { // Valid event ID, show the form.
@@ -106,11 +127,14 @@ if (mysqli_num_rows($r) == 1) { // Valid event ID, show the form.
 
   	// Create the form:
   	echo '<form action="edit_events.php" method="post">
-  <p>Event Type: <input type="text" name="Event_Type" size="15" maxlength="15" value="' . $row[0] . '" /></p>
-  <p>Execution Score: <input type="text" name="Exec_Score" size="15" maxlength="30" value="' . $row[1] . '" /></p>
-  <p>Difficulty Score: <input type="text" name="Difficulty_Score" size="20" maxlength="60" value="' . $row[2] . '"  /> </p>
-  <p>Time: <input type="text" name="Time" size="15" maxlength="60" value="' . $row[3] . '"  /> </p>
-  <p>Date: <input type="text" name="Date" size="20" maxlength="60" value="' . $row[4] . '"  /> </p>
+	<p>Competitor ID: <input type="text" name="Competitor_ID" size="15" maxlength="15" value="' . $row[0] . '" /></p>
+	<p>Meet ID: <input type="text" name="Meet_ID" size="15" maxlength="15" value="' . $row[1] . '" /></p>
+	<p>Judge_ID: <input type="text" name="Judge_ID" size="15" maxlength="15" value="' . $row[2] . '" /></p>
+  <p>Event Type: <input type="text" name="Event_Type" size="15" maxlength="15" value="' . $row[3] . '" /></p>
+  <p>Execution Score: <input type="text" name="Exec_Score" size="15" maxlength="30" value="' . $row[4] . '" /></p>
+  <p>Difficulty Score: <input type="text" name="Difficulty_Score" size="20" maxlength="60" value="' . $row[5] . '"  /> </p>
+  <p>Time: <input type="text" name="Time" size="15" maxlength="60" value="' . $row[6] . '"  /> </p>
+  <p>Date: <input type="text" name="Date" size="20" maxlength="60" value="' . $row[7] . '"  /> </p>
   <p><input type="submit" name="submit" value="Submit" /></p>
   <input type="hidden" name="id" value="' . $id . '" />
   </form>';
