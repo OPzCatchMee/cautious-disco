@@ -10,7 +10,7 @@ if (isset($_GET['p']) && is_numeric($_GET['p'])) { // Already been determined.
 	$pages = $_GET['p'];
 } else { // Need to determine.
  	// Count the number of records:
-	$q = "SELECT COUNT(EVENT_ID) FROM EVENT";
+	$q = "SELECT COUNT(ID) FROM EVENT";
 	$r = @mysqli_query ($dbc, $q);
 	$row = @mysqli_fetch_array ($r, MYSQLI_NUM);
 	$records = $row[0];
@@ -91,8 +91,8 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td>' . $row['Difficulty_Score'] . '</td>
 		<td>' . $row['Date'] . '</td>
 		<td>' . $row['Time'] . '</td>
-		<td><a href="edit_events.php?ID=' . $row['Event_ID'] . '">Edit</a></td>
-		<td><a href="delete_events.php?ID=' . $row['Event_ID'] . '">Delete</a></td>
+		<td><a href="edit_events.php?id=' . $row['Event_ID'] . '">Edit</a></td>
+		<td><a href="delete_events.php?id=' . $row['Event_ID'] . '">Delete</a></td>
 	</tr>
 	';
 } // End of WHILE loop.
