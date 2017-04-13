@@ -122,7 +122,7 @@ if ($pages > 1) {
 	echo '</p>'; // Close the paragraph.
 } // End of links section.
 echo '<form action="create_event.php">
-    	<input type="submit" value="Create new Meet" />
+    	<input type="submit" value="Create new Event" />
 		</form>';
 
 include ('includesAdmin/adminFooter.html');
