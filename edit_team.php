@@ -73,10 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
 
                 // Print a message:
-                echo '<p>The meet has been edited.</p>';
+                echo '<p>The team has been edited.</p>';
 
             } else { // If it did not run OK.
-                echo '<p class="error">The meet could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
+                echo '<p class="error">The team could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
                 echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
             }
 
@@ -98,17 +98,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 // Always show the form...
 
-// Retrieve the meet's information:
+// Retrieve the team's information:
 $q = "SELECT Team_Name, Street, City, State, ZIP FROM TEAM WHERE Team_ID=$id";
 $r = @mysqli_query ($dbc, $q);
 
-if (mysqli_num_rows($r) == 1) { // Valid meet id, show the form.
+if (mysqli_num_rows($r) == 1) { // Valid team id, show the form.
 
-    // Get the meet's information:
+    // Get the team's information:
     $row = mysqli_fetch_array ($r, MYSQLI_NUM);
 
     // Create the form:
-    echo '<form action="edit_meet.php" method="post">
+    echo '<form action="edit_team.php" method="post">
 <p>Team Name: <input type="text" name="Team_Name" size="15" maxlength="15" value="' . $row[0] . '" /></p>
 <p>Street: <input type="text" name="Street" size="15" maxlength="30" value="' . $row[1] . '" /></p>
 <p>City: <input type="text" name="City" size="20" maxlength="60" value="' . $row[2] . '"  /> </p>
