@@ -26,11 +26,9 @@ if($team=='none')
 	';
 	 
 	$meetIDS = array();
-	$x=0;
 	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-        $meetIDS[$x] = $row['ID'];//place id of each meet in an array
 		echo '<tr>
-			<td><a href="public.php?team=' . $meetIDS[$x] . '">' . $row['Competition_Name'] . '</a></td>
+			<td><a href="public.php?team=' . $row['ID'] . '">' . $row['Competition_Name'] . '</a></td>
 			<td>' . $row['Location_Name'] . '</td>
 			<td>' . $row['Street'] .' ' . $row['City'] .' , ' . $row['State'] .' ' . $row['ZIP'] .'</td>
 	                 <!--add a link to another php page to view teams competing according to meet id -->
@@ -39,7 +37,6 @@ if($team=='none')
 	
 		</tr>
 		';
-		$x++;//increment the array
 	} // End of WHILE loop.
 	echo '</table>';
 }
