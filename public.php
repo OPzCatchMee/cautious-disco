@@ -2,7 +2,7 @@
 //Public's view of the page (what a person that is not logged in/logged in can see)
 
 $page_title = 'View the Current Users';
-include ('./includes/header.html');
+include ('includes/header.html');
 echo '<h1>Our Upcoming Events!</h1><br />';
 
 require ('mysqli_connect.php');
@@ -17,9 +17,9 @@ if($team=='none')
 	$r = @mysqli_query ($dbc, $q); // Run the query.
 	echo '<table align="center">
 	<thead>
+		<th>Competition Name</th>
 		<th>Venue</th>
 		<th>Location</th>
-		<th>Competition Name</th>
 		<th>Date</th>
 		<th>Time</th>
 	</thead>
@@ -30,10 +30,10 @@ if($team=='none')
 	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
         $meetIDS[$x] = $row['ID'];//place id of each meet in an array
 		echo '<tr>
-			<td><a href="/public.php?team=' . $meetIDS[$x] . '">' . $row['Location_Name'] . '</a></td>
+			<td><a href="public.php?team=' . $meetIDS[$x] . '">' . $row['Competition_Name'] . '</a></td>
+			<td>' . $row['Location_Name'] . '</td>
 			<td>' . $row['Street'] .' ' . $row['City'] .' , ' . $row['State'] .' ' . $row['ZIP'] .'</td>
 	                 <!--add a link to another php page to view teams competing according to meet id -->
-	        <td>' . $row['Competition_Name'] . '</td>
 			<td>' . $row['Date'] . '</td>
 			<td>' . $row['Time'] . '</td>
 	
