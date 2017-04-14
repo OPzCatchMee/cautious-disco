@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Always show the form...
 
 // Retrieve the meet's information:
-$q = "SELECT Team_Name, Street, City, State, ZIP FROM TEAM WHERE ID=$id";
+$q = "SELECT Team_Name, Street, City, State, ZIP FROM TEAM WHERE Team_ID=$id";
 $r = @mysqli_query ($dbc, $q);
 
 if (mysqli_num_rows($r) == 1) { // Valid meet id, show the form.
