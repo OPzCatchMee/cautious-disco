@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (mysqli_num_rows($r) == 0) {
 
             // Make the query:
-            $q = "UPDATE TEAM SET Team_Name='$tn', Street='$street', City='$city', State='$state', ZIP='$zip', Team_Name='$name' WHERE Team_ID=$id LIMIT 1";
+            $q = "UPDATE TEAM SET Team_Name='$tn', Street='$street', City='$city', State='$state', ZIP='$zip' WHERE Team_ID=$id LIMIT 1";
             $r = @mysqli_query ($dbc, $q);
             if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
 
