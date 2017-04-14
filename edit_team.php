@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Check for a location name:
     if (!isset($_POST['Team_Name'])) {
-        $errors[] = 'You forgot to enter the location name.';
+        $errors[] = 'You forgot to enter the team name.';
     } else {
-        $tn = mysqli_real_escape_string($dbc, trim($_POST['Location_Name']));
+        $tn = mysqli_real_escape_string($dbc, trim($_POST['Team_Name']));
     }
 
     // Check for a street:
