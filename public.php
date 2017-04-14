@@ -47,7 +47,7 @@ else
 {
 	$q = "SELECT a.Competition_Name, b.Team_Name, c.Team_ID, c.Meet_ID 
 	FROM MEET AS a, TEAM AS b, TEAM_COMPETES_AT AS c 
-	WHERE c.MEET_ID=$team && a.id = b.Team_ID and b.Team_ID = c.TEAM_ID 
+	WHERE c.MEET_ID=$team && a.id = $team and b.Team_ID = c.TEAM_ID 
 	ORDER BY a.Date DESC";
 	$r = @mysqli_query ($dbc, $q); // Run the query.
 	echo '<center><h2>Teams Competing in this Competition</h2></center>
