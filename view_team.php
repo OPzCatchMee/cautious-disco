@@ -11,7 +11,7 @@ if(isset($_GET['id']))
 {
 	$team_id = $_GET['id'];
 	
-	$q = "SELECT Team_Name, Street, City, State, ZIP, Num_Members
+	$q = "SELECT Team_Name, Street, City, State, ZIP
 	FROM TEAM
 	WHERE Team_ID=$team_id";
 	$r = @mysqli_query ($dbc, $q); // Run the query.
@@ -21,7 +21,7 @@ if(isset($_GET['id']))
 		$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
 		echo '<p>Team Name: '.$row['Team_Name'].'</p>
 		<p>Address: '.$row['Street'].' '.$row['City'].' '.$row['State'].' '.$row['ZIP'].'</p>
-		<p>Number of Members: '.$row['Num_Members'].'</p>';
+		<!--<p>Number of Members: '.$row['Num_Members'].'</p>will add correct query when I get it-->'; 
 	}
 	else
 	{
