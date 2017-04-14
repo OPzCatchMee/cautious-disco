@@ -5,7 +5,7 @@ $page_title = 'View the Current Users';
 include ('./includes/header.html');
 echo '<h1>Our Upcoming Events!</h1><br />';
 
-require ('./mysqli_connect.php');
+require ('mysqli_connect.php');
 
 $team = (isset($_GET['team'])) ? $_GET['team'] : 'none';
 if($team=='none')
@@ -72,5 +72,5 @@ else
 mysqli_free_result ($r);
 mysqli_close($dbc);
 
-include ('./includes/footer.html');
+include ('includes/footer.html');
 ?>
