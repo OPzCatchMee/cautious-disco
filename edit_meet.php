@@ -132,7 +132,9 @@ if (mysqli_num_rows($r) == 1) { // Valid meet id, show the form.
 <p>Location Name: <input type="text" name="Location_Name" size="15" maxlength="15" value="' . $row[0] . '" /></p>
 <p>Street: <input type="text" name="Street" size="15" maxlength="30" value="' . $row[1] . '" /></p>
 <p>City: <input type="text" name="City" size="20" maxlength="60" value="' . $row[2] . '"  /> </p>
+<!--editted max length to ensure valid state is abbreviated-->
 <p>State (Abbreviated): <input type="text" name="State" size="15" maxlength="2" value="' . $row[3] . '"  /> </p>
+<!--editted max length to ensure valid zip code-->
 <p>ZIP: <input type="text" name="ZIP" size="20" maxlength="5" value="' . $row[4] . '"  /> </p>
 <p>Date (YYYY-MM-DD): <input type="text" name="Date" size="20" maxlength="60" value="' . $row[5] . '"  /> </p>
 <p>Time (HH:MM:SS): <input type="text" name="Time" size="20" maxlength="60" value="' . $row[6] . '"  /> </p>
