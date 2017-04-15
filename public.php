@@ -43,28 +43,30 @@ if($meet=='none')
 }
 else
 {
-	$q = "SELECT MEET.Competition_Name, TEAM.Team_Name, TEAM_COMPETES_AT.Team_ID, TEAM_COMPETES_AT.Meet_ID 
+    $q1= "SELECT Competition_Name FROM MEET WHERE ID=$meet";
+    $q = "SELECT MEET.Competition_Name, TEAM.Team_Name, TEAM_COMPETES_AT.Team_ID, TEAM_COMPETES_AT.Meet_ID 
 	FROM (MEET INNER JOIN TEAM_COMPETES_AT ON MEET.ID=TEAM_COMPETES_AT.Meet_ID INNER JOIN TEAM ON TEAM_COMPETES_AT.Team_ID=TEAM.Team_ID)
 	WHERE TEAM_COMPETES_AT.Meet_ID=$meet
 	ORDER BY MEET.Date DESC";
-	$r = @mysqli_query ($dbc, $q); // Run the query.
-	echo '<center><h2>Teams Competing in this Competition</h2></center>
+    $r = @mysqli_query ($dbc, $q1); // Run the query.
+    $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
+    echo '<center><h2>Teams Competing in ' . $row['Competition_Name'] . ' Competition</h2></center>
 	<table>
 	<thead>
-		<th>Competition Name</th>
 		<th>Team Name</th>
 	</thead>
 	';
-	 
-	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-		echo '<tr>
-			<td>' . $row['Competition_Name'] . '</td>
-			<td>' . $row['Team_Name'] .'</td>
+    mysqli_free_result ($r);
+    $r = @mysqli_query ($dbc, $q);
+
+    while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+        echo '<tr>
+			<td><center>' . $row['Team_Name'] .'</center></td>
 		</tr>
 		';
-	} // End of WHILE loop.
-	echo '</table>';
-	echo'<br /><a href="public.php">Go Back to Upcoming Events</a>';
+    } // End of WHILE loop.
+    echo '</table>';
+    echo'<br /><a href="public.php">Go Back to Upcoming Events</a>';
 }
 
 mysqli_free_result ($r);
