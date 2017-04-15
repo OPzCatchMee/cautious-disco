@@ -48,6 +48,30 @@ if(isset($_GET['id']))
 	}
 
 	mysqli_free_result ($r);
+	
+	if ($_SESSION['Is_Admin'] || $_SESSION['Competitor_ID'] == $competitor_id) {
+	
+		$q = "SELECT Emergency_F_Name, Emergency_L_Name, Emergency_Phone, Emergency_Email, Emergency_Street, Emergency_City, Emergency_State, Emergency_ZIP, Emergency_Relationship
+			FROM EMERGENCY_CONTACT
+			WHERE Competitor_ID=$competitor_id";
+		$r = @mysqli_query ($dbc, $q); // Run the query.
+		
+		if (mysqli_affected_rows($dbc) != 0)
+		{
+			$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
+			echo '<p>Emergency Contact Information:</p>';
+			echo '<p>Name: ' . $row['Emergency_F_Name'] . ' ' . $row['Emergency_L_Name'] . ', ' . $row['Emergency_Relationship'] . '</p>';
+			echo '<p>Phone number: ' . $row['Emergency_Phone'] . '</p>
+			<p>Email: ' . $row['Emergency_Email'] . '</p>
+			<p>Address: ' . $row['Emergency_Street'] . ', ' . $row['Emergency_City'] . ', ' . $row['Emergency_State'] . ' ' . $row['Emergency_ZIP'].'</p>';
+		}
+		else
+		{
+			echo '<p>No emergency contact info found for ID ' . $competitor_id . '</p>';
+		}
+	
+		mysqli_free_result ($r);
+	}
 }
 else
 {
