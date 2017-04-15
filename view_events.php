@@ -23,40 +23,45 @@ $meet_id = (isset($_GET['meet'])) ? $_GET['meet'] : 'none';
 		$q .= " WHERE Meet_ID=$meet_id";
 	$q .= " ORDER BY Date DESC";
 	$r = @mysqli_query ($dbc, $q); // Run the query.
-	echo '<table>
-	<thead>';
-		if ($competitor_id == 'none')
-			echo '<th>Competitor</th>';
-		if ($meet_id == 'none')
-			echo '<th>Meet</th>';
-		echo '<th>Event Type</td>
-		<th>Execution Score</td>
-		<th>Difficulty Score</td>
-		<th>Date</td>
-		<th>Time</td>
-	</thead>
-	';
-	 
-	$event_ids = array();
-	$x=0;
-	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-        $event_ids[$x] = $row['Event_ID']; // place id of each event in an array
-		echo '<tr>';
-			if ($competitor_id == 'none')
-				echo '<td><a href="view_competitor.php?id=' . $row['Competitor_ID'] . '">' . $row['Competitor_ID'] . '</a></td>';
-			if ($meet_id == 'none')
-				echo '<td><a href="view_meet.php?id=' . $row['Meet_ID'] . '">' . $row['Meet_ID'] . '</a></td>';
-			echo '<td>' . $row['Event_Type'] . '</td>
-			<td>' . $row['Exec_Score'] .'</td>
-	        <td>' . $row['Difficulty_Score'] . '</td>
-			<td>' . $row['Date'] . '</td>
-			<td>' . $row['Time'] . '</td>
-		</tr>
-		';
-		$x++;//increment the array
-	} // End of WHILE loop.
-	echo '</table>';
 
+	//Check if registered for any events.
+	if(mysqli_num_rows($r) == 0) {
+		echo '<h1>This competitor currently not registered for any events!</h1>';
+	} elseif(mysqli_num_rows($r) > 0) {
+		echo '<table>
+		<thead>';
+			if ($competitor_id == 'none')
+				echo '<th>Competitor</th>';
+			if ($meet_id == 'none')
+				echo '<th>Meet</th>';
+			echo '<th>Event Type</td>
+			<th>Execution Score</td>
+			<th>Difficulty Score</td>
+			<th>Date</td>
+			<th>Time</td>
+		</thead>
+		';
+		 
+		$event_ids = array();
+		$x=0;
+		while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+	        $event_ids[$x] = $row['Event_ID']; // place id of each event in an array
+			echo '<tr>';
+				if ($competitor_id == 'none')
+					echo '<td><a href="view_competitor.php?id=' . $row['Competitor_ID'] . '">' . $row['Competitor_ID'] . '</a></td>';
+				if ($meet_id == 'none')
+					echo '<td><a href="view_meet.php?id=' . $row['Meet_ID'] . '">' . $row['Meet_ID'] . '</a></td>';
+				echo '<td>' . $row['Event_Type'] . '</td>
+				<td>' . $row['Exec_Score'] .'</td>
+		        <td>' . $row['Difficulty_Score'] . '</td>
+				<td>' . $row['Date'] . '</td>
+				<td>' . $row['Time'] . '</td>
+			</tr>
+			';
+			$x++;//increment the array
+		} // End of WHILE loop.
+	echo '</table>';
+	}// End of elseif
 mysqli_free_result ($r);
 mysqli_close($dbc);
 
