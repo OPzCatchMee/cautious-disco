@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		// Create the form:
 		echo '<form action="delete_events.php" method="post">
-	<input type="radio" name="sdure" value="Yes" /> Yes
+	<input type="radio" name="sure" value="Yes" /> Yes
 	<input type="radio" name="sure" value="No" checked="checked" /> No
 	<input type="submit" name="submit" value="Submit" />
 	<input type="hidden" name="id" value="' . $id . '" />
