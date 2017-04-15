@@ -1,7 +1,7 @@
-<?php # create_event.php #2
+<?php # score_event.php
 // This script performs an INSERT query to add a record to the event table.
 
-$page_title = 'Create Event';
+$page_title = 'Score Event';
 include ('includes/header.html');
 	require('mysqli_connect.php');
 
