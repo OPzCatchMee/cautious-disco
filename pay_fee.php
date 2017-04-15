@@ -1,18 +1,70 @@
 <?php # pay_fee.php
-// This script handles fee payment
+// This script handles meet sign-up and fee payment
 
 $page_title = 'Pay Fee';
-include ('./includes/header.html');
+include ('includes/header.html');
+
+// only competitors can access
+if (!isset($_SESSION['Competitor_ID'])) {
+	echo '<p>You do not have permission to access this page</p>';
+	include ('includes/footer.html');
+	exit();
+}
+
+require ('mysqli_connect.php'); // Connect to the db.
+
+if (!isset($_GET['meet']) || !is_numeric($_GET['meet'])) {
+	echo '<p>No meet selected, you have accessed this page in error.</p>';
+	mysqli_close($dbc); // Close the database connection.
+	include ('includes/footer.html');
+	exit();
+} else {
+	$meet_id = $_GET['meet']; // no need to escape since we know it's a number
+}
+
+// get the name of the meet
+$q = "SELECT Competition_Name
+	FROM MEET
+	WHERE ID='$meet_id'";
+$r = @mysqli_query($dbc, $q);
+if (mysqli_affected_rows($dbc) == 1) // should only find one result
+{
+	$row = mysqli_fetch_array($r, MYSQLI_NUM);
+	$meet_name = $row[0];
+}
+else
+{
+	echo '<p>Found no meet by the given id: ' . $meet_id .'. Please contact the adminstrators if you accessed this page through a link.</p>';
+	mysqli_close($dbc); // Close the database connection.
+	include ('includes/footer.html');
+	exit();
+}
+
+mysqli_free_result ($r);
+
+// check if they're already signed up
+$competitor_id = $_SESSION['Competitor_ID'];
+$q = "SELECT Fee_Paid
+	FROM COMPETITOR_COMPETES_AT
+	WHERE Competitor_ID='$competitor_id' AND Meet_ID='$meet_id'";
+$r = @mysqli_query($dbc, $q);
+if (mysqli_affected_rows($dbc) != 0) // should only find no results
+{
+	echo '<p>You are already registered for ' . $meet_name . '.</p>';
+	mysqli_close($dbc); // Close the database connection.
+	include ('includes/footer.html');
+	exit();
+}
+
+mysqli_free_result ($r);
 
 // Check for form submission:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-	require ('./mysqli_connect.php'); // Connect to the db.
 		
 	$errors = array(); // Initialize an error array.
 	
 	// Check for card number
-	if (!isset($_POST['card_number'])) {
+	if (!isset($_POST['card_number']) || !is_numeric($_POST['card_number'])) {
 		$errors[] = 'Enter your card number';
 	} else {
 		$card_number = mysqli_real_escape_string($dbc, trim($_POST['card_number']));
@@ -27,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	// Check for security code
-	if (!isset($_POST['security_code'])) {
+	if (!isset($_POST['security_code']) || !is_numeric($_POST['security_code'])) {
 		$errors[] = 'Enter your card\'s security code';
 	} else {
 		$csc = mysqli_real_escape_string($dbc, trim($_POST['security_code']));
@@ -64,10 +116,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 	
 	// Check for postal code
-	if (!isset($_POST['postal_code'])) {
+	if (!isset($_POST['billing_postal_code'])) {
 		$errors[] = 'Enter your ZIP or postal code';
 	} else {
-		$postal_code = mysqli_real_escape_string($dbc, trim($_POST['postal_code']));
+		$postal_code = mysqli_real_escape_string($dbc, trim($_POST['billing_postal_code']));
 	}
 	
 	if (empty($errors)) { // If everything's OK.
@@ -75,29 +127,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Register the fee payment
 		
 		// Make the query:
-		//~$q = "INSERT INTO  (, Payment_Date) VALUES (, NOW() )";		
-		//~$r = @mysqli_query ($dbc, $q); // Run the query.
-		//~if ($r) { // If it ran OK.
-		//~
-			//~// Print a message:
-			//~echo '<h1>Thank you!</h1>
-		//~<p>You have successfully paid the fee. </p><br />';	
-		//~
-		//~} else { // If it did not run OK.
-			//~
-			//~// Public message:
-			//~echo '<h1>System Error</h1>
-			//~<p class="error">Your payment could not be made due to a system error. We apologize for any inconvenience.</p>'; 
-			//~
-			//~// Debugging message:
-			//~echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
-						//~
-		//~} // End of if ($r) IF.
+		$q = "INSERT INTO COMPETITOR_COMPETES_AT VALUES ('$meet_id', '$competitor_id', 1)";		
+		$r = @mysqli_query ($dbc, $q); // Run the query.
+		if ($r) { // If it ran OK.
+		
+			// Print a message:
+			echo '<h1>Thank you!</h1>
+		<p>You have successfully signed up and paid the fee.</p>';	
+		
+		} else { // If it did not run OK.
+			
+			// Public message:
+			echo '<h1>System Error</h1>
+			<p class="error">Your payment could not be made due to a system error. We apologize for any inconvenience.</p>'; 
+		} // End of if ($r) IF.
 		
 		mysqli_close($dbc); // Close the database connection.
 
 		// Include the footer and quit the script:
-		include ('./includes/footer.html'); 
+		include ('includes/footer.html');
 		exit();
 		
 	} else { // Report the errors.
@@ -107,16 +155,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		foreach ($errors as $msg) { // Print each error.
 			echo " - $msg<br />\n";
 		}
-		echo '</p><p>Please try again.</p><br />';
+		echo '</p><p>Please try again.</p>';
 		
 	} // End of if (empty($errors)) IF.
-	
-	mysqli_close($dbc); // Close the database connection.
 
 } // End of the main Submit conditional.
+
+mysqli_close($dbc); // Close the database connection.
 ?>
-<h1>Pay Fees for Meet: </h1>
-<form action="pay_fee.php" method="POST">
+<h1>Sign Up and Pay Fees for <?php echo $meet_name; ?>: </h1>
+<form action="pay_fee.php?meet=<?php echo $meet_id ?>" method="POST">
 	<div><h3>Card Information</h3></div>
 	<div>
 		<label for="card_number" id="card_number_label">Card Number</label>
@@ -245,4 +293,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	</div>
 	<input type="submit" name="submit" value="Submit">
 </form>
-<?php include ('./includes/footer.html'); ?>
+<?php include ('includes/footer.html'); ?>

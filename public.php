@@ -32,9 +32,11 @@ if($team=='none')
 			<td>' . $row['Street'] .' ' . $row['City'] .' , ' . $row['State'] .' ' . $row['ZIP'] .'</td>
 	                 <!--add a link to another php page to view teams competing according to meet id -->
 			<td>' . $row['Date'] . '</td>
-			<td>' . $row['Time'] . '</td>
-	
-		</tr>
+			<td>' . $row['Time'] . '</td>';
+			if (isset($_SESSION['Competitor_ID'])) { // if logged in as a competitor
+				echo '<td><a href="pay_fee.php?meet=' . $row['ID'] . '">Sign Up</a></td>';
+			}
+		echo '</tr>
 		';
 	} // End of WHILE loop.
 	echo '</table>';
