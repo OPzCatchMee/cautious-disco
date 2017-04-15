@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if ($_POST['sure'] == 'Yes') { // Delete the record.
 
 		// Make the query:
-        $q = "UPDATE COMPETITOR SET Deleted = '1' WHERE ID=$id";
+    $q = "UPDATE COMPETITOR SET Deleted = '1' WHERE ID=$id";
 		$r = @mysqli_query ($dbc, $q);
 		if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
 
@@ -51,15 +51,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Get the competitor's information:
 		$row = mysqli_fetch_array ($r, MYSQLI_NUM);
 
-		// Display the record being deleted:
 		echo "Are you sure you want to delete this competitor?";
 
 		// Create the form:
-		echo '<form action="delete_competitors.php" method="post">
-		<input type="radio" name="sdure" value="Yes" /> Yes
-		<input type="radio" name="sure" value="No" checked="checked" /> No
-		<input type="submit" name="submit" value="Submit" />
-		<input type="hidden" name="id" value="' . $id . '" />
+		echo '<form action="delete_competitor.php" method="post">
+	<input type="radio" name="sure" value="Yes" /> Yes
+	<input type="radio" name="sure" value="No" checked="checked" /> No
+	<input type="submit" name="submit" value="Submit" />
+	<input type="hidden" name="id" value="' . $id . '" />
 	</form>';
 
 	} else { // Not a valid competitor ID.
