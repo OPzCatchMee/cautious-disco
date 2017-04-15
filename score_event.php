@@ -3,7 +3,15 @@
 
 $page_title = 'Score Event';
 include ('includes/header.html');
-	require('mysqli_connect.php');
+	
+if (!isset($_SESSION['Is_Judge']))
+{
+	echo '<p>You have accessed this page in error.</p>';
+	include('includes/footer.html');
+	exit();
+}
+
+require('mysqli_connect.php');
 
 // Check if the form has been submitted:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
