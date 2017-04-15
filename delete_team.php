@@ -24,8 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($_POST['sure'] == 'Yes') { // Delete the record.
 
         // Make the query:
-        //$q = "UPDATE TEAM SET Deleted = 1 WHERE Team_ID=$id";
-        $q= "UPDATE `gymnastics`.`TEAM` SET `Deleted` = '1' WHERE `TEAM`.`Team_ID` = 1";
+        $q = "UPDATE TEAM SET Deleted = 1 WHERE Team_ID=$id";
+	    //UPDATE TEAM SET Deleted = 1 WHERE Team_ID=$id LIMIT 1
         $r = @mysqli_query ($dbc, $q);
         if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
 
