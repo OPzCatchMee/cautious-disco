@@ -19,7 +19,7 @@ if(isset($_GET['id']))
     //to count the number of team members
     $q2 = "SELECT a.Team_ID, b.Team_ID
 	FROM TEAM as a, COMPETITOR as b
-	WHERE a.Team_ID=$team_id & b.Team_ID=$team_id && a.Deleted=0";
+	WHERE a.Team_ID=$team_id & b.Team_ID=$team_id";
 	
 	$r = @mysqli_query ($dbc, $q); // Run the query.
 	
