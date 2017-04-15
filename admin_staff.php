@@ -1,4 +1,6 @@
 <?php
+//Admin's view of Staff.  They can only view staff members but not edit or delete them
+
 
 $page_title = 'View Staff';
 include ('includesAdmin/adminHeader.html');
@@ -110,8 +112,7 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		<td>' . $row['Phone'] . '</td>
 		<td>' . $row['Date_Of_Birth'] . '</td>
 		<td>' . $row['Staff_ID'] . '</td>
-		<td><a href="edit_staff.php?id=' . $row['Staff_ID'] . '">Edit</a></td>
-		<td><a href="delete_staff.php?id=' . $row['Staff_ID'] . '">Delete</a></td>
+
 	</tr>
 	';
 } // End of WHILE loop.

@@ -19,7 +19,7 @@ if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) { // From view_users.ph
 require ('mysqli_connect.php');
 
 // Check if the form has been submitted:
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] == 'POST'  && $_SESSION['Is_Admin'] ) {
 
     if ($_POST['sure'] == 'Yes') { // Delete the record.
 
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo '<p>The team has NOT been deleted.</p>';
     }
 
-} else { // Show the form.
+} else if($_SESSION['Is_Admin']) { // Show the form.
 
     // Retrieve the user's information:
     $q = "SELECT Team_Name FROM TEAM WHERE Team_ID=$id";
@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	</form>';
 
     } else { // Not a valid user ID.
-        echo '<p class="error">This page has been accessed in error.</p>';
+        echo '<p class="error">This page has been accessed in error. Or you are not an Admin</p>';
     }
 
 } // End of the main submission conditional.
