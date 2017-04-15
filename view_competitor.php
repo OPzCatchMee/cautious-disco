@@ -29,20 +29,22 @@ if(isset($_GET['id']))
 	if (mysqli_affected_rows($dbc) == 1) // should only find one result
 	{
 		$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
-		echo '<p>Name: '.$row['First_Name'].' '.$row['Last_Name'].'</p>
-		<p>Age: '.age($row['Date_Of_Birth']).'</p>';
+		echo '<p>Name: ' . $row['First_Name'] . ' ' . $row['Last_Name'] . '</p>
+		<p>Age: ' . age($row['Date_Of_Birth']) . '</p>';
 		if ($_SESSION['Is_Admin'] || $_SESSION['Competitor_ID'] == $competitor_id) {
-			echo '<p>Phone number: '.$row['Phone'].'</p>
-			<p>Email: '.$row['Email'].'</p>
-			<p>Address: '.$row['Street'].', '.$row['City'].', '.$row['State'].' '.$row['ZIP'].'</p>';
+			echo '<p>Phone number: ' . $row['Phone'] . '</p>
+			<p>Email: ' . $row['Email'] . '</p>
+			<p>Address: ' . $row['Street'] . ', ' . $row['City'] . ', ' . $row['State'] . ' ' . $row['ZIP'] . '</p>';
 		}
-		'<p>Team: <a href="view_team.php?id='.$row['Team_ID'].'">'.$row['Team_ID'].'</a></p>';
+		if (!is_null($row['Team_ID'])) {
+			echo '<p>Team: <a href="view_team.php?id=' . $row['Team_ID'] . '">' . $row['Team_ID'] . '</a></p>';
+		}
 		
-		echo '<p><a href="view_events.php?competitor='.$competitor_id.'">View this competitor\'s events</a></p>';
+		echo '<p><a href="view_events.php?competitor=' . $competitor_id . '">View this competitor\'s events</a></p>';
 	}
 	else
 	{
-		echo '<p>No results found for ID '.$competitor_id.'</p>';
+		echo '<p>No results found for ID ' . $competitor_id . '</p>';
 	}
 
 	mysqli_free_result ($r);
