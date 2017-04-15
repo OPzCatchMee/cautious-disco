@@ -75,8 +75,8 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT First_Name, Last_Name, Email, Job_Title, Hourly_Wage, Street, City, State, Phone, Date_Of_Birth, Staff_ID
-	FROM (LOGIN INNER JOIN STAFF_ID ON LOGIN.ID_Login=STAFF_ID.Staff INNER JOIN STAFF ON STAFF_ID.Staff=STAFF.Staff_ID)
+$q = "SELECT First_Name, Last_Name, Email, Job_Title, Hourly_Wage, Street, City, State, Phone, Date_Of_Birth, STAFF.Staff_ID
+	FROM (LOGIN INNER JOIN STAFF_ID ON LOGIN.ID_Login=STAFF_ID.User INNER JOIN STAFF ON STAFF_ID.Staff=STAFF.Staff_ID)
 	ORDER BY $order_by
 	LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
