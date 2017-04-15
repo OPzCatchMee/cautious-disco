@@ -51,14 +51,13 @@ switch ($sort) {
 		$order_by = 'Registration_Date ASC';
 		break;
 	default:
-		$order_by = 'Registration_Date ASC';
-		$sort = 'rd';
+		$order_by = 'Registration_Date ASC'; // default is rd
 		break;
 }
 	
 // Define the query:
-$q = "SELECT Last_Name, First_Name, DATE_FORMAT(Registration_Date, '%M %d, %Y') AS dr, ID_Login, Competitor_ID
-	FROM LOGIN
+$q = "SELECT Last_Name, First_Name, DATE_FORMAT(Registration_Date, '%M %d, %Y') AS dr, ID_Login, COMPETITOR_ID.Competitor AS Competitor_ID
+	FROM (LOGIN LEFT OUTER JOIN COMPETITOR_ID ON LOGIN.ID_Login=COMPETITOR_ID.User)
 	ORDER BY $order_by
 	LIMIT $start, $display";		
 $r = @mysqli_query ($dbc, $q); // Run the query.
