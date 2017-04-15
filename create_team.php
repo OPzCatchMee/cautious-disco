@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($errors)) { // If everything's OK.
 
         // Register the team in the database...
-        $q = "INSERT INTO TEAM (Team_Name, Street, City, State, Zip) VALUES ('$tn', '$street', '$city','$state', '$zip')";
+        $q = "INSERT INTO TEAM (Team_Name, Street, City, State, Zip, Deleted) VALUES ('$tn', '$street', '$city','$state', '$zip', '0')";
         $r = @mysqli_query($dbc, $q);
 
         if (!$r)
