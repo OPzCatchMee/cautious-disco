@@ -72,10 +72,7 @@ if($_GET['report']=='year')
     }// End of WHILE loop.
     echo '</tr>';
     echo '</table>';
-    echo '<form action="reports.php" method="get">
-	<input type="submit" name="submit" value="View Monthly Report" />
-	<input type="hidden" name="report" value="month" />
-	</form>';
+    echo '<p><a href="reports.php?report=month">View Monthly Report</a></p>';
 }
 else
 {
@@ -142,10 +139,7 @@ else
     }// End of WHILE loop.
     echo '</tr>';
     echo '</table>';
-    echo '<form action="reports.php" method="get">
-	<input type="submit" name="submit" value="View Yearly Report" />
-	<input type="hidden" name="report" value="year" />
-	</form>';
+    echo '<p style="text-align:center"><a href="reports.php?report=year">View Yearly Report</a></p>';
 }
 
 
