@@ -2,13 +2,14 @@
 //Displays all scores for a current month or year.  At the bottom, it displays Mean Min and Max of each score types. 
 $page_title = 'Current Month Scores';
 include ('includes/header.html');
-echo '<h1>Statistics for the Current Month</h1><br />';
+
 
 require ('mysqli_connect.php');
 //should probably change to post instead
 $report = (isset($_GET['report'])) ? $_GET['report'] : 'month';
 if($_GET['report']=='year')
 {
+	echo '<h1>Statistics for the Current Year</h1><br />';
         $q = "SELECT 
         AVG(Exec_Score) AS AVGEx, 
         MIN(Exec_Score) AS MINEx, 
@@ -76,6 +77,7 @@ if($_GET['report']=='year')
 }
 else
 {
+	echo '<h1>Statistics for the Current Month</h1><br />';
     $q = "SELECT 
         AVG(Exec_Score) AS AVGEx, 
         MIN(Exec_Score) AS MINEx, 
