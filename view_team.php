@@ -11,15 +11,15 @@ if(isset($_GET['id']))
 {
 	$team_id = $_GET['id'];
 	
-	//for team info
-	$q = "SELECT Team_Name, Street, City, State, ZIP
+   //for team info
+    $q = "SELECT Team_Name, Street, City, State, ZIP, Deleted
 	FROM TEAM
-	WHERE Team_ID=$team_id";
-	
-	//to count the number of team members
-	$q2 = "SELECT a.Team_ID, b.Team_ID
+	WHERE Team_ID=$team_id && Deleted = 0";
+
+    //to count the number of team members
+    $q2 = "SELECT a.Team_ID, b.Team_ID
 	FROM TEAM as a, COMPETITOR as b
-	WHERE a.Team_ID=$team_id & b.Team_ID=$team_id";
+	WHERE a.Team_ID=$team_id & b.Team_ID=$team_id && a.Deleted=0";
 	
 	$r = @mysqli_query ($dbc, $q); // Run the query.
 	
