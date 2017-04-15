@@ -7,8 +7,8 @@ echo '<h1>Our Upcoming Events!</h1><br />';
 
 require ('mysqli_connect.php');
 
-$team = (isset($_GET['team'])) ? $_GET['team'] : 'none';
-if($team=='none')
+$meet = (isset($_GET['meet'])) ? $_GET['meet'] : 'none';
+if($meet=='none')
 {
 	$q = "SELECT ID,Location_Name, Street, City, State, ZIP, DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time, Competition_Name 
 	FROM MEET
@@ -27,7 +27,7 @@ if($team=='none')
 	 
 	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		echo '<tr>
-			<td><a href="public.php?team=' . $row['ID'] . '">' . $row['Competition_Name'] . '</a></td>
+			<td><a href="public.php?meet=' . $row['ID'] . '">' . $row['Competition_Name'] . '</a></td>
 			<td>' . $row['Location_Name'] . '</td>
 			<td>' . $row['Street'] .' ' . $row['City'] .' , ' . $row['State'] .' ' . $row['ZIP'] .'</td>
 	                 <!--add a link to another php page to view teams competing according to meet id -->
@@ -45,7 +45,7 @@ else
 {
 	$q = "SELECT MEET.Competition_Name, TEAM.Team_Name, TEAM_COMPETES_AT.Team_ID, TEAM_COMPETES_AT.Meet_ID 
 	FROM (MEET INNER JOIN TEAM_COMPETES_AT ON MEET.ID=TEAM_COMPETES_AT.Meet_ID INNER JOIN TEAM ON TEAM_COMPETES_AT.Team_ID=TEAM.Team_ID)
-	WHERE TEAM_COMPETES_AT.Team_ID=$team
+	WHERE TEAM_COMPETES_AT.Meet_ID=$meet
 	ORDER BY MEET.Date DESC";
 	$r = @mysqli_query ($dbc, $q); // Run the query.
 	echo '<center><h2>Teams Competing in this Competition</h2></center>
