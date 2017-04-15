@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$r = @mysqli_query($dbc, $q);
 		if (mysqli_num_rows($r) == 0) {
 			$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
-			$user_id = $row['ID_Login']
+			$user_id = $row['ID_Login'];
 			mysqli_free_result ($r);
 			// Make the query:
 			
