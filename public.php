@@ -25,7 +25,6 @@ if($team=='none')
 	</thead>
 	';
 	 
-	$meetIDS = array();
 	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 		echo '<tr>
 			<td><a href="public.php?team=' . $row['ID'] . '">' . $row['Competition_Name'] . '</a></td>
