@@ -5,11 +5,18 @@
  * The function takes one argument: the page to be redirected to.
  * The argument defaults to index.php.
  */
+
 function redirect_user ($page = 'index.php') {
 
+	session_start();
+	if (isset($_SESSION['Is_Admin'])) {
+		header("Location: http://http://104.237.136.12/admin.php");
+		exit();
+	}
 	// Start defining the URL...
 	// URL is http:// plus the host name plus the current directory:
 	$url = 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']);
+	
 	
 	// Remove any trailing slashes:
 	$url = rtrim($url, '/\\');
