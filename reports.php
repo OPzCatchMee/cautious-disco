@@ -14,9 +14,9 @@ if($_GET['report']=='year')
         AVG(Exec_Score) AS AVGEx, 
         MIN(Exec_Score) AS MINEx, 
         MAX(Exec_Score) AS MAXEx, 
-        AVG(Difficulty_Score) AS AVGDif, 
-        MIN(Difficulty_Score) AS MINDif, 
-        MAX(Difficulty_Score) AS MAXDif
+        AVG(Diff_Score) AS AVGDif, 
+        MIN(Diff_Score) AS MINDif, 
+        MAX(Diff_Score) AS MAXDif
         FROM (EVENT INNER JOIN SCORES ON EVENT.Event_Id=SCORES.Event_ID)
         WHERE YEAR(Date) = YEAR(CURRENT_DATE())";
         $q2 = "SELECT Competitor_ID, Event_Type, Exec_Score, Diff_Score, DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time
