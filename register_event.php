@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		// Register the event in the database...
 		$q = "INSERT INTO EVENT (Competitor_ID, Meet_ID, Event_Type, Date, Time)
-			VALUES ('$competitor', '$meet', $event, '$date', '$time')";
+			VALUES ('$competitor', '$meet', '$event', '$date', '$time')";
 		$r = @mysqli_query($dbc, $q);
 
 		if (!$r)
@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	</div>
 	<div>
 		<select name="Event_Type" id="event" required>
-			<option value="floor">Floor Exercise</option>
+			<option value="floor exercise">Floor Exercise</option>
 			<option value="balance beam">Balance Beam</option>
 			<option value="vault">Vault</option>
 			<option value="uneven bars">Uneven Bars</option>
