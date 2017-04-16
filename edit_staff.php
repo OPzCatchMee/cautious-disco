@@ -19,27 +19,6 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
             $email = mysqli_real_escape_string($dbc, trim($_POST['Email']));
         }
 
-        // Check for first name:
-        if (!isset($_POST['First_Name'])) {
-            $errors[] = 'You forgot to enter First Name.';
-        } else {
-            $first_name = mysqli_real_escape_string($dbc, trim($_POST['First_Name']));
-        }
-
-        // Check for last name:
-        if (!isset($_POST['Last_Name'])) {
-            $errors[] = 'You forgot to enter your Last Name.';
-        } else {
-            $last_name = mysqli_real_escape_string($dbc, trim($_POST['Last_Name']));
-        }
-
-        // Check for dob:
-        if (!isset($_POST['DOB'])) {
-            $errors[] = 'You forgot to enter your birthday.';
-        } else {
-            $dob = mysqli_real_escape_string($dbc, trim($_POST['DOB']));
-        }
-
         // Check for phone:
         if (!isset($_POST['Phone'])) {
             $errors[] = 'You forgot to enter the phone.';
@@ -76,13 +55,12 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
 			WHERE LOGIN.Email='$email' AND STAFF_ID.Staff != $staff_id";
             $r = @mysqli_query($dbc, $q);
             if (mysqli_num_rows($r) == 0) {
-                $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
-                $user_id = $row['ID_Login'];
+                $user_id = $_SESSION['ID_Login'];
                 mysqli_free_result($r);
 
                 // update LOGIN
                 $q = "UPDATE LOGIN
-				SET Email='$email', First_Name= '$first_name', Last_Name= '$last_name', Phone='$phone', Date_Of_Birth='$dob',Street='$street', City='$city', State='$state', ZIP='$zip', Phone='$phone'
+				SET Email='$email', Phone='$phone', Street='$street', City='$city', State='$state', ZIP='$zip', Phone='$phone'
 				WHERE ID_Login=$user_id
 				LIMIT 1";
                 $r = @mysqli_query($dbc, $q);
@@ -124,9 +102,6 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
         $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
         echo '<form action="edit_staff.php" method="post">
             <p>Email: <input type="text" name="Email" size="15" maxlength="15" value="' . $row['Email'] . '" /></p>
-            <p>First Name: <input type="text" name="First_Name" size="15" maxlength="15" value="' . $row['First_Name'] . '" /></p>
-            <p>Last Name: <input type="text" name="Last_Name" size="15" maxlength="15" value="' . $row['Last_Name'] . '" /></p>
-            <p>DOB (MM-DD-YYYY): <input type="text" name="DOB" size="15" maxlength="10" value="' . $row['DOB'] . '" /></p>
             <p>Phone: <input type="text" name="Phone" size="15" maxlength="15" value="' . $row['Phone'] . '" /></p>
             <p>Street: <input type="text" name="Street" size="15" maxlength="30" value="' . $row['Street'] . '" /></p>
             <p>City: <input type="text" name="City" size="20" maxlength="60" value="' . $row['City'] . '"  /> </p>
