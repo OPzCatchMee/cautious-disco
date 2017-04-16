@@ -35,13 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			echo '<h1>System Error</h1>
 			<p class="error">The cost could not be registered due to a system error. We apologize for any inconvenience.</p>'; 
 			
-			// Debugging message:
-			echo '<p>' . mysqli_error($dbc) . '<br /><br />Query: ' . $q . '</p>';
 		} else { // If it ran OK.
 		
 			// Print a message:
 			echo '<h1>Thank you!</h1>
-		<p>The cost was successfully changed. ' . $q . '</p><br />';	
+		<p>The cost was successfully changed.</p><br />';	
 		
 		}
 
