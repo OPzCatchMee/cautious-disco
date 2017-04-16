@@ -186,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			<option value="pommel horse">Pommel Horse</option>
 			<option value="still rings">Still rings</option>
 			<option value="parallel bars">Parallel Bars</option>
-			<option value="horizontal bars">Horizontal Bars</option>
+			<option value="horizontal bar">Horizontal Bar</option>
 		</select>
 	</div>
 
