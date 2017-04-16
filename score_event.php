@@ -135,6 +135,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		</select>
 	</div>
 
-	<div><input type="submit" name="submit" value="Sumbit"></div>
+	<div><input type="submit" name="submit" value="Submit"></div>
 </form>
 <?php include ('includes/footer.html'); ?>

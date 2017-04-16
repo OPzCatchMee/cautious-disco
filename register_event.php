@@ -206,6 +206,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		<input type="text" maxlength="5" name="Time" required>
 	</div>
 
-	<div><input type="submit" name="submit" value="Sumbit"></div>
+	<div><input type="submit" name="submit" value="Submit"></div>
 </form>
 <?php include ('includes/footer.html'); ?>
