@@ -84,6 +84,7 @@ switch ($sort) {
 // Define the query:
 $q = "SELECT ID, First_Name, Last_Name, Email, Date_Of_Birth, Street, City, State, ZIP, Phone, Level, Sex, Team_ID
   FROM (LOGIN INNER JOIN COMPETITOR_ID ON LOGIN.ID_Login=COMPETITOR_ID.User INNER JOIN COMPETITOR ON COMPETITOR_ID.Competitor=COMPETITOR.ID)
+  WHERE LOGIN.Deleted=0
   ORDER BY $order_by
   LIMIT $start, $display";
 $r = @mysqli_query ($dbc, $q); // Run the query.
