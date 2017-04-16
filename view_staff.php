@@ -31,3 +31,9 @@ else
 {
     echo 'You are not logged in as a staff member or ID is not valid';
 }
+
+mysqli_close($dbc);
+
+include ('includes/footer.html');
+?>
+
