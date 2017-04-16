@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 			// Print a message:
 			echo '<h1>Thank you!</h1>
-		<p>The event was successfully now registered.</p><br />';
+		<p>The event was successfully scored.</p><br />';
 		}
 
 		mysqli_close($dbc); // Close the database connection.
