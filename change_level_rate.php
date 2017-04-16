@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (!isset($_POST['cost']) || $_POST['cost'] < 0) {
 		$errors[] = 'You entered an invalid cost.';
 	} else {
-		$zip = mysqli_real_escape_string($dbc, trim($_POST['Zip']));
+		$cost = mysqli_real_escape_string($dbc, trim($_POST['cost']));
 	}
 	
 	if (empty($errors)) { // If everything's OK.
@@ -69,16 +69,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	<!-- Level field -->
 	<div>
-		<label for="level" id="level">State</label>
+		<label for="level" id="level">Fee Type</label>
 	</div>
 	<div>
 		<select name="level" id="level" required>
-			<option value=0>Entrance Fee</option>
-			<option value=1>Level 1</option>
-			<option value=2>Level 2</option>
-			<option value=3>Level 3</option>
-			<option value=4>Level 4</option>
-			<option value=5>Level 5</option>
+			<option value="0">Entrance Fee</option>
+			<option value="1">Level 1</option>
+			<option value="2">Level 2</option>
+			<option value="3">Level 3</option>
+			<option value="4">Level 4</option>
+			<option value="5">Level 5</option>
 		</select>
 	</div>
 	
