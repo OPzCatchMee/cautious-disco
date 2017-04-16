@@ -182,7 +182,7 @@ if ($pages > 1) {
 echo '<form action="add-team.php">
     	<input type="submit" value="Create new Team" />
 		</form>';
-
+//should be ok now
 ?>
      </div>
     </div>
