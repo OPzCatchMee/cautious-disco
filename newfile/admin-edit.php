@@ -11,18 +11,18 @@
 document.documentElement.className = document.documentElement.className.replace(/\bnojs\b/g, 'js');
 
 // Check that all required assets are uploaded and up-to-date
-if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["museutils.js", "museconfig.js", "jquery.musemenu.js", "jquery.watch.js", "jquery.museresponsive.js", "require.js", "edit-team.css"], "outOfDate":[]};
+if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["museutils.js", "museconfig.js", "jquery.musemenu.js", "jquery.musepolyfill.bgsize.js", "jquery.watch.js", "jquery.museresponsive.js", "require.js", "admin-edit.css"], "outOfDate":[]};
 </script>
   
-  <title>Edit Team</title>
+  <title>Admin Edit</title>
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="css/site_global.css?crc=443350757"/>
   <link rel="stylesheet" type="text/css" href="css/master_admin.css?crc=87852724"/>
-  <link rel="stylesheet" type="text/css" href="css/edit-team.css?crc=241486977" id="pagesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/admin-edit.css?crc=4112644448" id="pagesheet"/>
   <!-- IE-only CSS -->
   <!--[if lt IE 9]>
   <link rel="stylesheet" type="text/css" href="css/nomq_preview_master_admin.css?crc=366379701"/>
-  <link rel="stylesheet" type="text/css" href="css/nomq_edit-team.css?crc=301649568" id="nomq_pagesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/nomq_admin-edit.css?crc=3804628101" id="nomq_pagesheet"/>
   <![endif]-->
   <!-- JS includes -->
   <!--[if lt IE 9]>
@@ -61,7 +61,7 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
         </div>
         <div class="SubMenu MenuLevel1 clearfix" id="u2399"><!-- vertical box -->
          <ul class="SubMenuView clearfix colelem" id="u2400"><!-- vertical box -->
-          <li class="MenuItemContainer clearfix colelem" id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem" id="u2439" href="admin-edit.html"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem" id="u2442" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903"/><!-- state-based BG images --></a></li>
+          <li class="MenuItemContainer clearfix colelem" id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem" id="u2439" href="admin-edit.html"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem" id="u2442" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem" id="u14717"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem" id="u14718" href="view-competitors.html"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem" id="u14721" alt="&nbsp;View Competitors" src="images/blank.gif?crc=4208392903"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem" id="u2547"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem" id="u2548" href="team-view-and-edit.html"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem" id="u2549" alt="&nbsp;Teams" src="images/blank.gif?crc=4208392903"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem" id="u3094"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem" id="u3095" href="meet-view-and-edit.html"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem" id="u3098" alt="&nbsp;Meets" src="images/blank.gif?crc=4208392903"/><!-- state-based BG images --></a></li>
@@ -74,106 +74,115 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_img_src" id="u36979-4" alt="Edit Team" data-orig-src="images/u36979-4.png?crc=4171664582" data-image-width="630" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <div class="colelem shared_content" id="u37108" data-content-guid="u37108_content"><!-- custom html -->
-      <?php # edit_team.php
-// This page is for editing a team record.
-// This page is accessed through admin_team.php.
-$page_title = 'Edit a Team';
-include ('includes/header.html');
-echo '<h1>Edit a Team</h1>';
-// Check for a valid team id, through GET or POST:
-if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) {
-    $id = $_GET['id'];
-} elseif ( (isset($_POST['id'])) && (is_numeric($_POST['id'])) ) { // Form submission.
-    $id = $_POST['id'];
-} else { // No valid id, kill the script.
-    echo '<p class="error">This page has been accessed in error.</p>';
-    include ('includes/footer.html');
-    exit();
-}
-require ('mysqli_connect.php');
-// Check if the form has been submitted:
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $errors = array();
-    // Check for a location name:
-    if (!isset($_POST['Team_Name'])) {
-        $errors[] = 'You forgot to enter the team name.';
-    } else {
-        $tn = mysqli_real_escape_string($dbc, trim($_POST['Team_Name']));
-    }
-    // Check for a street:
-    if (!isset($_POST['Street'])) {
-        $errors[] = 'You forgot to enter your street.';
-    } else {
-        $street = mysqli_real_escape_string($dbc, trim($_POST['Street']));
-    }
-    // Check for a city:
-    if (!isset($_POST['City'])) {
-        $errors[] = 'You forgot to enter City.';
-    } else {
-        $city = mysqli_real_escape_string($dbc, trim($_POST['City']));
-    }
-    // Check for a State:
-    if (!isset($_POST['State'])) {
-        $errors[] = 'You forgot to enter state.';
-    } else {
-        $state = mysqli_real_escape_string($dbc, trim($_POST['State']));
-    }
-    // Check for a ZIP:
-    if (!isset($_POST['ZIP'])) {
-        $errors[] = 'You forgot to enter ZIP.';
-    } else {
-        $zip = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
-    }
-    if (empty($errors)) { // If everything's OK.
-        //  Test for unique id:
-        $q = "SELECT TEAM_ID FROM TEAM WHERE Team_Name='$name' AND Team_ID != $id";
-        $r = @mysqli_query($dbc, $q);
-        if (mysqli_num_rows($r) == 0) {
-            // Make the query:
-            $q = "UPDATE TEAM SET Team_Name='$tn', Street='$street', City='$city', State='$state', ZIP='$zip' WHERE Team_ID=$id LIMIT 1";
-            $r = @mysqli_query ($dbc, $q);
-            if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
-                // Print a message:
-                echo '<p>The team has been edited.</p>';
-            } else { // If it did not run OK.
-                echo '<p class="error">The team could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
-                echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+     <img class="colelem temp_no_img_src" id="u36970-4" alt="Manage Account" data-orig-src="images/u36970-4.png?crc=48785160" data-image-width="630" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <div class="colelem shared_content" id="u37068" data-content-guid="u37068_content"><!-- custom html -->
+      <?php
+ //this page was meant to be used to edit the logged in user's information
+
+echo '<h1>Edit Personal Information</h1>';
+if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
+{
+    require('mysqli_connect.php');
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') //if post then modify
+    {
+        $errors = array();
+        $staff_ID = $_SESSION['Staff_ID'];
+        // Check for the email:
+        if (!isset($_POST['Email'])) {
+            $errors[] = 'You forgot to enter an email.';
+        } else {
+            $email = mysqli_real_escape_string($dbc, trim($_POST['Email']));
+        }
+        // Check for phone:
+        if (!isset($_POST['Phone'])) {
+            $errors[] = 'You forgot to enter the phone.';
+        } else {
+            $phone = mysqli_real_escape_string($dbc, trim($_POST['Phone']));
+        }
+        // Check for email:
+        if (!isset($_POST['Street'])) {
+            $errors[] = 'You forgot to enter the Street.';
+        } else {
+            $street = mysqli_real_escape_string($dbc, trim($_POST['Street']));
+        }
+        if (!isset($_POST['City'])) {
+            $errors[] = 'You forgot to enter the City.';
+        } else {
+            $city = mysqli_real_escape_string($dbc, trim($_POST['City']));
+        }
+	    if (!isset($_POST['State'])) {
+            $errors[] = 'You forgot to enter the State.';
+        } else {
+            $state = mysqli_real_escape_string($dbc, trim($_POST['State']));
+        }
+        if (!isset($_POST['ZIP'])) {
+            $errors[] = 'You forgot to enter the postal code.';
+        } else {
+            $zip = mysqli_real_escape_string($dbc, trim($_POST['ZIP']));
+        }
+        if (empty($errors)) { // If everything's OK.
+	
+            //  Test for unique email address:
+            $q = "SELECT LOGIN.ID_Login, STAFF_ID.Staff
+			FROM (LOGIN INNER JOIN STAFF_ID ON LOGIN.Staff_ID=STAFF_ID.Staff)
+			WHERE LOGIN.Email='$email' AND STAFF_ID.Staff != $staff_id";
+            $r = @mysqli_query($dbc, $q);
+            if (mysqli_num_rows($r) == 0) {
+                $user_id = $_SESSION['ID_Login'];
+                mysqli_free_result($r);
+                // update LOGIN
+                $q = "UPDATE LOGIN
+				SET Email='$email', Phone='$phone', Street='$street', City='$city', State='$state', ZIP='$zip', Phone='$phone'
+				WHERE ID_Login=$user_id
+				LIMIT 1";
+                $r = @mysqli_query($dbc, $q);
+                if (mysql_affected_rows($dbc) == 0 || mysqli_affected_rows($dbc) == 1) { // if no row updated, or only 1 row
+                    // Print a message:
+                    echo '<p>The user has been edited.</p>';
+                } else { // If it did not run OK.
+                    echo '<p class="error">The user could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
+                    if ($_SESSION['Is_Admin']) {
+                        echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+                    }
+                }
+                mysqli_free_result($r);
+            } else { // Already registered.
+                echo '<p class="error">The email address has already been registered.</p>';
             }
-        } else { // Already registered.
-            echo '<p class="error">The competition name has already been registered.</p>';
+        } else { // Report the errors.
+            echo '<p class="error">The following error(s) occurred:<br />';
+            foreach ($errors as $msg) { // Print each error.
+                echo " - $msg<br />\n";
+            }
+            echo '</p><p>Please try again.</p>';
         }
-    } else { // Report the errors.
-        echo '<p class="error">The following error(s) occurred:<br />';
-        foreach ($errors as $msg) { // Print each error.
-            echo " - $msg<br />\n";
-        }
-        echo '</p><p>Please try again.</p>';
-    } // End of if (empty($errors)) IF.
-} // End of submit conditional.
-// Always show the form...
-// Retrieve the team's information:
-$q = "SELECT Team_Name, Street, City, State, ZIP FROM TEAM WHERE Team_ID=$id";
-$r = @mysqli_query ($dbc, $q);
-if (mysqli_num_rows($r) == 1) { // Valid team id, show the form.
-    // Get the team's information:
-    $row = mysqli_fetch_array ($r, MYSQLI_NUM);
-    // Create the form:
-    echo '<form action="edit_team.php" method="post">
-<p>Team Name: <input type="text" name="Team_Name" size="15" maxlength="15" value="' . $row[0] . '" /></p>
-<p>Street: <input type="text" name="Street" size="15" maxlength="30" value="' . $row[1] . '" /></p>
-<p>City: <input type="text" name="City" size="20" maxlength="60" value="' . $row[2] . '"  /> </p>
-<p>State: <input type="text" name="State" size="15" maxlength="60" value="' . $row[3] . '"  /> </p>
-<p>ZIP: <input type="text" name="ZIP" size="20" maxlength="60" value="' . $row[4] . '"  /> </p>
-<p><input type="submit" name="submit" value="Submit" /></p>
-<input type="hidden" name="id" value="' . $id . '" />
-</form>';
-} else { // Not a valid team id.
-    echo '<p class="error">Error outputting table.</p>';
+    }
+    else //display change form
+    {
+        $staff_ID = $_SESSION['Staff_ID'];
+        $q = "SELECT a.Staff, a.User, b.ID_Login, b.Email, b.First_Name, b.Last_Name, DATE_FORMAT(b.Date_Of_Birth, '%M %d, %Y') AS DOB, 
+        b.Phone, b.Street, b.City, b.State, b.ZIP
+                      FROM STAFF_ID as a, LOGIN as b
+                      WHERE a.Staff=$staff_ID && a.User=b.ID_Login && b.Deleted=0";
+        $r = @mysqli_query($dbc, $q);
+        $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
+        echo '<form action="edit_staff.php" method="post">
+            <p>Email: <input type="text" name="Email" size="15" maxlength="15" value="' . $row['Email'] . '" /></p>
+            <p>Phone: <input type="text" name="Phone" size="15" maxlength="15" value="' . $row['Phone'] . '" /></p>
+            <p>Street: <input type="text" name="Street" size="15" maxlength="30" value="' . $row['Street'] . '" /></p>
+            <p>City: <input type="text" name="City" size="20" maxlength="60" value="' . $row['City'] . '"  /> </p>
+            <p>State (Abbreviated): <input type="text" name="State" size="2" maxlength="60" value="' . $row['State'] . '"  /> </p>
+            <p>ZIP: <input type="text" name="ZIP" size="20" maxlength="60" value="' . $row['ZIP'] . '"  /> </p>
+        
+        <p><input type="submit" name="submit" value="Submit" /></p>
+        <input type="hidden" name="id" value="' . $row['ID_Login'] . '" />
+        </form>';
+        mysqli_free_result ($r);
+    }
 }
+
 mysqli_close($dbc);
-include ('includes/footer.html');
+
 ?>
      </div>
     </div>
@@ -230,7 +239,7 @@ include ('includes/footer.html');
         </div>
         <div class="SubMenu MenuLevel1 clearfix temp_no_id" data-orig-id="u2399"><!-- vertical box -->
          <ul class="SubMenuView clearfix colelem temp_no_id" data-orig-id="u2400"><!-- vertical box -->
-          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
+          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u14717"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="view-competitors.html" data-orig-id="u14718"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;View Competitors" src="images/blank.gif?crc=4208392903" data-orig-id="u14721"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2547"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="team-view-and-edit.html" data-orig-id="u2548"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Teams" src="images/blank.gif?crc=4208392903" data-orig-id="u2549"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u3094"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="meet-view-and-edit.html" data-orig-id="u3095"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Meets" src="images/blank.gif?crc=4208392903" data-orig-id="u3098"/><!-- state-based BG images --></a></li>
@@ -243,8 +252,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-42.png?crc=487657021" data-image-width="605" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Manage Account" data-orig-src="images/u36970-42.png?crc=451635972" data-image-width="605" data-orig-id="u36970-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37068_content"><!-- placeholder node --></span>
     </div>
     <span class="verticalspacer placeholder" data-placeholder-for="page_3_content"><!-- placeholder node --></span>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -295,7 +304,7 @@ include ('includes/footer.html');
         </div>
         <div class="SubMenu MenuLevel1 clearfix temp_no_id" data-orig-id="u2399"><!-- vertical box -->
          <ul class="SubMenuView clearfix colelem temp_no_id" data-orig-id="u2400"><!-- vertical box -->
-          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
+          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u14717"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="view-competitors.html" data-orig-id="u14718"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;View Competitors" src="images/blank.gif?crc=4208392903" data-orig-id="u14721"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2547"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="team-view-and-edit.html" data-orig-id="u2548"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Teams" src="images/blank.gif?crc=4208392903" data-orig-id="u2549"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u3094"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="meet-view-and-edit.html" data-orig-id="u3095"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Meets" src="images/blank.gif?crc=4208392903" data-orig-id="u3098"/><!-- state-based BG images --></a></li>
@@ -308,8 +317,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-43.png?crc=371667990" data-image-width="544" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Manage Account" data-orig-src="images/u36970-43.png?crc=357060569" data-image-width="544" data-orig-id="u36970-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37068_content"><!-- placeholder node --></span>
     </div>
     <span class="verticalspacer placeholder" data-placeholder-for="page_3_content"><!-- placeholder node --></span>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -360,7 +369,7 @@ include ('includes/footer.html');
         </div>
         <div class="SubMenu MenuLevel1 clearfix temp_no_id" data-orig-id="u2399"><!-- vertical box -->
          <ul class="SubMenuView clearfix colelem temp_no_id" data-orig-id="u2400"><!-- vertical box -->
-          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
+          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u14717"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="view-competitors.html" data-orig-id="u14718"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;View Competitors" src="images/blank.gif?crc=4208392903" data-orig-id="u14721"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2547"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="team-view-and-edit.html" data-orig-id="u2548"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Teams" src="images/blank.gif?crc=4208392903" data-orig-id="u2549"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u3094"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="meet-view-and-edit.html" data-orig-id="u3095"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Meets" src="images/blank.gif?crc=4208392903" data-orig-id="u3098"/><!-- state-based BG images --></a></li>
@@ -373,8 +382,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-44.png?crc=322844839" data-image-width="497" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Manage Account" data-orig-src="images/u36970-44.png?crc=3938138010" data-image-width="497" data-orig-id="u36970-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37068_content"><!-- placeholder node --></span>
     </div>
     <span class="verticalspacer placeholder" data-placeholder-for="page_3_content"><!-- placeholder node --></span>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -411,7 +420,7 @@ include ('includes/footer.html');
         </div>
         <div class="SubMenu MenuLevel1 clearfix temp_no_id" data-orig-id="u2399"><!-- vertical box -->
          <ul class="SubMenuView clearfix colelem temp_no_id" data-orig-id="u2400"><!-- vertical box -->
-          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
+          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u14717"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="view-competitors.html" data-orig-id="u14718"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;View Competitors" src="images/blank.gif?crc=4208392903" data-orig-id="u14721"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2547"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="team-view-and-edit.html" data-orig-id="u2548"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Teams" src="images/blank.gif?crc=4208392903" data-orig-id="u2549"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u3094"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="meet-view-and-edit.html" data-orig-id="u3095"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Meets" src="images/blank.gif?crc=4208392903" data-orig-id="u3098"/><!-- state-based BG images --></a></li>
@@ -438,8 +447,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-45.png?crc=4043635322" data-image-width="437" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Manage Account" data-orig-src="images/u36970-45.png?crc=4203002106" data-image-width="437" data-orig-id="u36970-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37068_content"><!-- placeholder node --></span>
     </div>
     <div class="verticalspacer shared_content" data-offset-top="539" data-content-above-spacer="539" data-content-below-spacer="49" data-content-guid="page_2_content"></div>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -462,7 +471,7 @@ include ('includes/footer.html');
     <img class="preload temp_no_img_src" data-orig-src="images/u26452-r.png?crc=517667874" alt="" src="images/blank.gif?crc=4208392903"/>
    </div>
   </div>
-  <div class="breakpoint" id="bp_540" data-min-width="524" data-max-width="540"><!-- responsive breakpoint node -->
+  <div class="breakpoint" id="bp_540" data-min-width="523" data-max-width="540"><!-- responsive breakpoint node -->
    <div class="rgba-background clearfix borderbox temp_no_id" data-orig-id="page"><!-- group -->
     <a class="nonblock nontext clip_frame grpelem temp_no_id" href="admin.html" data-orig-id="u2368"><!-- image --><img class="block temp_no_id temp_no_img_src" data-orig-src="images/website_logo.png?crc=3983792562" alt="" data-image-width="43" data-image-height="57" data-orig-id="u2368_img" src="images/blank.gif?crc=4208392903"/></a>
     <div class="clearfix grpelem temp_no_id" data-orig-id="ppu2370"><!-- column -->
@@ -478,7 +487,7 @@ include ('includes/footer.html');
         </div>
         <div class="SubMenu MenuLevel1 clearfix temp_no_id" data-orig-id="u2399"><!-- vertical box -->
          <ul class="SubMenuView clearfix colelem temp_no_id" data-orig-id="u2400"><!-- vertical box -->
-          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
+          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u14717"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="view-competitors.html" data-orig-id="u14718"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;View Competitors" src="images/blank.gif?crc=4208392903" data-orig-id="u14721"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2547"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="team-view-and-edit.html" data-orig-id="u2548"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Teams" src="images/blank.gif?crc=4208392903" data-orig-id="u2549"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u3094"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="meet-view-and-edit.html" data-orig-id="u3095"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Meets" src="images/blank.gif?crc=4208392903" data-orig-id="u3098"/><!-- state-based BG images --></a></li>
@@ -492,25 +501,25 @@ include ('includes/footer.html');
       </nav>
       <nav class="MenuBar clearfix grpelem temp_no_id" data-orig-id="menuu22641"><!-- horizontal box -->
        <div class="MenuItemContainer borderbox clearfix grpelem temp_no_id" data-orig-id="u22642"><!-- vertical box -->
-        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem temp_no_id" href="admin.html" data-orig-id="u22643"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u22644"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u22644_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u22644_1_content"><!-- placeholder node --></span></div></a>
+        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox shadow rounded-corners clearfix colelem temp_no_id" href="admin.html" data-orig-id="u22643"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u22644"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u22644_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u22644_1_content"><!-- placeholder node --></span></div></a>
        </div>
        <div class="MenuItemContainer borderbox clearfix grpelem temp_no_id" data-orig-id="u26755"><!-- vertical box -->
-        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem temp_no_id" href="admin-about-us.html" data-orig-id="u26758"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26760"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26760_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26760_1_content"><!-- placeholder node --></span></div></a>
+        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox shadow rounded-corners clearfix colelem temp_no_id" href="admin-about-us.html" data-orig-id="u26758"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26760"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26760_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26760_1_content"><!-- placeholder node --></span></div></a>
        </div>
        <div class="MenuItemContainer borderbox clearfix grpelem temp_no_id" data-orig-id="u26601"><!-- vertical box -->
-        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem temp_no_id" href="admin-competitions.html" data-orig-id="u26604"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26606"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26606_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26606_1_content"><!-- placeholder node --></span></div></a>
+        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox shadow rounded-corners clearfix colelem temp_no_id" href="admin-competitions.html" data-orig-id="u26604"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26606"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26606_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26606_1_content"><!-- placeholder node --></span></div></a>
        </div>
        <div class="MenuItemContainer borderbox clearfix grpelem temp_no_id" data-orig-id="u26447"><!-- vertical box -->
-        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem temp_no_id" href="admin-faqs.html" data-orig-id="u26450"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26452"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26452_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26452_1_content"><!-- placeholder node --></span></div></a>
+        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox shadow rounded-corners clearfix colelem temp_no_id" href="admin-faqs.html" data-orig-id="u26450"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26452"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26452_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26452_1_content"><!-- placeholder node --></span></div></a>
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-46.png?crc=432692875" data-image-width="354" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Manage Account" data-orig-src="images/u36970-46.png?crc=4260882138" data-image-width="354" data-orig-id="u36970-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37068_content"><!-- placeholder node --></span>
     </div>
     <span class="verticalspacer placeholder" data-placeholder-for="page_2_content"><!-- placeholder node --></span>
-    <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
-    <span class="grpelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
+    <span class="museBGSize grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
+    <span class="museBGSize grpelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
     <img class="grpelem temp_no_id temp_no_img_src" alt="Cougar Gymnastics, Team 13" data-orig-src="images/u4055-4.png?crc=4117722694" data-image-width="160" data-orig-id="u4055-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
    </div>
    <div class="preload_images">
@@ -527,9 +536,11 @@ include ('includes/footer.html');
     <img class="preload temp_no_img_src" data-orig-src="images/u26760-r.png?crc=440143496" alt="" src="images/blank.gif?crc=4208392903"/>
     <img class="preload temp_no_img_src" data-orig-src="images/u26606-r.png?crc=206163101" alt="" src="images/blank.gif?crc=4208392903"/>
     <img class="preload temp_no_img_src" data-orig-src="images/u26452-r.png?crc=517667874" alt="" src="images/blank.gif?crc=4208392903"/>
+    <img class="preload temp_no_img_src" data-orig-src="images/facebook_red.png?crc=492186112" alt="" src="images/blank.gif?crc=4208392903"/>
+    <img class="preload temp_no_img_src" data-orig-src="images/twitter_red.png?crc=285332523" alt="" src="images/blank.gif?crc=4208392903"/>
    </div>
   </div>
-  <div class="breakpoint" id="bp_523" data-min-width="507" data-max-width="523"><!-- responsive breakpoint node -->
+  <div class="breakpoint" id="bp_522" data-min-width="507" data-max-width="522"><!-- responsive breakpoint node -->
    <div class="rgba-background clearfix borderbox temp_no_id" data-orig-id="page"><!-- group -->
     <a class="nonblock nontext clip_frame grpelem temp_no_id" href="admin.html" data-orig-id="u2368"><!-- image --><img class="block temp_no_id temp_no_img_src" data-orig-src="images/website_logo.png?crc=3983792562" alt="" data-image-width="42" data-image-height="55" data-orig-id="u2368_img" src="images/blank.gif?crc=4208392903"/></a>
     <div class="clearfix grpelem temp_no_id" data-orig-id="ppu2370"><!-- column -->
@@ -543,7 +554,7 @@ include ('includes/footer.html');
         </div>
         <div class="SubMenu MenuLevel1 clearfix temp_no_id" data-orig-id="u2399"><!-- vertical box -->
          <ul class="SubMenuView clearfix colelem temp_no_id" data-orig-id="u2400"><!-- vertical box -->
-          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
+          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u14717"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="view-competitors.html" data-orig-id="u14718"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;View Competitors" src="images/blank.gif?crc=4208392903" data-orig-id="u14721"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2547"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="team-view-and-edit.html" data-orig-id="u2548"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Teams" src="images/blank.gif?crc=4208392903" data-orig-id="u2549"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u3094"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="meet-view-and-edit.html" data-orig-id="u3095"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Meets" src="images/blank.gif?crc=4208392903" data-orig-id="u3098"/><!-- state-based BG images --></a></li>
@@ -557,25 +568,25 @@ include ('includes/footer.html');
       </nav>
       <nav class="MenuBar clearfix grpelem temp_no_id" data-orig-id="menuu22641"><!-- horizontal box -->
        <div class="MenuItemContainer borderbox clearfix grpelem temp_no_id" data-orig-id="u22642"><!-- vertical box -->
-        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem temp_no_id" href="admin.html" data-orig-id="u22643"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u22644"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u22644_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u22644_1_content"><!-- placeholder node --></span></div></a>
+        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox shadow rounded-corners clearfix colelem temp_no_id" href="admin.html" data-orig-id="u22643"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u22644"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u22644_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u22644_1_content"><!-- placeholder node --></span></div></a>
        </div>
        <div class="MenuItemContainer borderbox clearfix grpelem temp_no_id" data-orig-id="u26755"><!-- vertical box -->
-        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem temp_no_id" href="admin-about-us.html" data-orig-id="u26758"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26760"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26760_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26760_1_content"><!-- placeholder node --></span></div></a>
+        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox shadow rounded-corners clearfix colelem temp_no_id" href="admin-about-us.html" data-orig-id="u26758"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26760"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26760_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26760_1_content"><!-- placeholder node --></span></div></a>
        </div>
        <div class="MenuItemContainer borderbox clearfix grpelem temp_no_id" data-orig-id="u26601"><!-- vertical box -->
-        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem temp_no_id" href="admin-competitions.html" data-orig-id="u26604"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26606"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26606_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26606_1_content"><!-- placeholder node --></span></div></a>
+        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox shadow rounded-corners clearfix colelem temp_no_id" href="admin-competitions.html" data-orig-id="u26604"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26606"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26606_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26606_1_content"><!-- placeholder node --></span></div></a>
        </div>
        <div class="MenuItemContainer borderbox clearfix grpelem temp_no_id" data-orig-id="u26447"><!-- vertical box -->
-        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix colelem temp_no_id" href="admin-faqs.html" data-orig-id="u26450"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26452"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26452_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26452_1_content"><!-- placeholder node --></span></div></a>
+        <a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox shadow rounded-corners clearfix colelem temp_no_id" href="admin-faqs.html" data-orig-id="u26450"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u26452"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u26452_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u26452_1_content"><!-- placeholder node --></span></div></a>
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-47.png?crc=4090765258" data-image-width="343" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Manage Account" data-orig-src="images/u36970-47.png?crc=119512717" data-image-width="342" data-orig-id="u36970-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37068_content"><!-- placeholder node --></span>
     </div>
-    <div class="verticalspacer shared_content" data-offset-top="733" data-content-above-spacer="733" data-content-below-spacer="49" data-content-guid="page_2_content1"></div>
-    <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
-    <span class="grpelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
+    <div class="verticalspacer shared_content" data-offset-top="752" data-content-above-spacer="751" data-content-below-spacer="49" data-content-guid="page_2_content1"></div>
+    <span class="museBGSize grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
+    <span class="museBGSize grpelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
     <img class="grpelem temp_no_id temp_no_img_src" alt="Cougar Gymnastics, Team 13" data-orig-src="images/u4055-4.png?crc=4117722694" data-image-width="155" data-orig-id="u4055-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
    </div>
    <div class="preload_images">
@@ -592,6 +603,8 @@ include ('includes/footer.html');
     <img class="preload temp_no_img_src" data-orig-src="images/u26760-r.png?crc=440143496" alt="" src="images/blank.gif?crc=4208392903"/>
     <img class="preload temp_no_img_src" data-orig-src="images/u26606-r.png?crc=206163101" alt="" src="images/blank.gif?crc=4208392903"/>
     <img class="preload temp_no_img_src" data-orig-src="images/u26452-r.png?crc=517667874" alt="" src="images/blank.gif?crc=4208392903"/>
+    <img class="preload temp_no_img_src" data-orig-src="images/facebook_red.png?crc=492186112" alt="" src="images/blank.gif?crc=4208392903"/>
+    <img class="preload temp_no_img_src" data-orig-src="images/twitter_red.png?crc=285332523" alt="" src="images/blank.gif?crc=4208392903"/>
    </div>
   </div>
   <div class="breakpoint" id="bp_506" data-min-width="445" data-max-width="506"><!-- responsive breakpoint node -->
@@ -610,7 +623,7 @@ include ('includes/footer.html');
         </div>
         <div class="SubMenu MenuLevel1 clearfix temp_no_id" data-orig-id="u2399"><!-- vertical box -->
          <ul class="SubMenuView clearfix colelem temp_no_id" data-orig-id="u2400"><!-- vertical box -->
-          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
+          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u14717"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="view-competitors.html" data-orig-id="u14718"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;View Competitors" src="images/blank.gif?crc=4208392903" data-orig-id="u14721"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2547"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="team-view-and-edit.html" data-orig-id="u2548"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Teams" src="images/blank.gif?crc=4208392903" data-orig-id="u2549"/><!-- state-based BG images --></a></li>
           <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u3094"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="meet-view-and-edit.html" data-orig-id="u3095"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Meets" src="images/blank.gif?crc=4208392903" data-orig-id="u3098"/><!-- state-based BG images --></a></li>
@@ -637,8 +650,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-48.png?crc=3791272353" data-image-width="332" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Manage Account" data-orig-src="images/u36970-48.png?crc=236494072" data-image-width="332" data-orig-id="u36970-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37068_content"><!-- placeholder node --></span>
     </div>
     <span class="verticalspacer placeholder" data-placeholder-for="page_2_content1"><!-- placeholder node --></span>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -674,7 +687,7 @@ include ('includes/footer.html');
        </div>
        <div class="SubMenu MenuLevel1 clearfix temp_no_id" data-orig-id="u2399"><!-- vertical box -->
         <ul class="SubMenuView clearfix colelem temp_no_id" data-orig-id="u2400"><!-- vertical box -->
-         <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
+         <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2436"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u2439"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Manage Account" src="images/blank.gif?crc=4208392903" data-orig-id="u2442"/><!-- state-based BG images --></a></li>
          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u14717"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="view-competitors.html" data-orig-id="u14718"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;View Competitors" src="images/blank.gif?crc=4208392903" data-orig-id="u14721"/><!-- state-based BG images --></a></li>
          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u2547"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="team-view-and-edit.html" data-orig-id="u2548"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Teams" src="images/blank.gif?crc=4208392903" data-orig-id="u2549"/><!-- state-based BG images --></a></li>
          <li class="MenuItemContainer clearfix colelem temp_no_id" data-orig-id="u3094"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu clearfix grpelem temp_no_id" href="meet-view-and-edit.html" data-orig-id="u3095"><!-- horizontal box --><img class="MenuItemLabel NoWrap grpelem temp_no_id" alt="&nbsp;Meets" src="images/blank.gif?crc=4208392903" data-orig-id="u3098"/><!-- state-based BG images --></a></li>
@@ -701,9 +714,9 @@ include ('includes/footer.html');
       </div>
      </nav>
     </div>
-    <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-49.png?crc=4147028649" data-image-width="291" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-    <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
-    <div class="verticalspacer" data-offset-top="733" data-content-above-spacer="733" data-content-below-spacer="50"></div>
+    <img class="colelem temp_no_id temp_no_img_src" alt="Manage Account" data-orig-src="images/u36970-49.png?crc=4142553798" data-image-width="291" data-orig-id="u36970-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+    <span class="colelem placeholder" data-placeholder-for="u37068_content"><!-- placeholder node --></span>
+    <div class="verticalspacer" data-offset-top="752" data-content-above-spacer="751" data-content-below-spacer="50"></div>
     <div class="clearfix colelem" id="pu14346"><!-- group -->
      <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
      <span class="grpelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
@@ -755,7 +768,7 @@ include ('includes/footer.html');
       </div>
       <div class="SubMenu MenuLevel1 borderbox clearfix" id="u12176"><!-- vertical box -->
        <ul class="SubMenuView borderbox clearfix colelem" id="u12177"><!-- vertical box -->
-        <li class="MenuItemContainer borderbox clearfix colelem" id="u13415"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix grpelem" id="u13417" href="admin-edit.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem" id="u13421"><!-- state-based BG images --><img alt="Manage Account" src="images/blank.gif?crc=4208392903" class="shared_content" data-content-guid="u13421_0_content"/><div class="fluid_height_spacer shared_content" data-content-guid="u13421_1_content"></div></div></a></li>
+        <li class="MenuItemContainer borderbox clearfix colelem" id="u13415"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive borderbox clearfix grpelem" id="u13417" href="admin-edit.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem" id="u13421"><!-- state-based BG images --><img alt="Manage Account" src="images/blank.gif?crc=4208392903" class="shared_content" data-content-guid="u13421_0_content"/><div class="fluid_height_spacer shared_content" data-content-guid="u13421_1_content"></div></div></a></li>
         <li class="MenuItemContainer borderbox clearfix colelem" id="u15959"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix grpelem" id="u15960" href="view-competitors.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem" id="u15963"><!-- state-based BG images --><img alt="View Competitors" src="images/blank.gif?crc=4208392903" class="shared_content" data-content-guid="u15963_0_content"/><div class="fluid_height_spacer shared_content" data-content-guid="u15963_1_content"></div></div></a></li>
         <li class="MenuItemContainer borderbox clearfix colelem" id="u13504"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix grpelem" id="u13505" href="team-view-and-edit.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem" id="u13508"><!-- state-based BG images --><img alt="Teams" src="images/blank.gif?crc=4208392903" class="shared_content" data-content-guid="u13508_0_content"/><div class="fluid_height_spacer shared_content" data-content-guid="u13508_1_content"></div></div></a></li>
         <li class="MenuItemContainer borderbox clearfix colelem" id="u13680"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix grpelem" id="u13681" href="meet-view-and-edit.html"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem" id="u13683"><!-- state-based BG images --><img alt="Meets" src="images/blank.gif?crc=4208392903" class="shared_content" data-content-guid="u13683_0_content"/><div class="fluid_height_spacer shared_content" data-content-guid="u13683_1_content"></div></div></a></li>
@@ -767,9 +780,9 @@ include ('includes/footer.html');
       </div>
      </div>
     </nav>
-    <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-410.png?crc=4086887156" data-image-width="253" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-    <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
-    <div class="verticalspacer shared_content" data-offset-top="733" data-content-above-spacer="733" data-content-below-spacer="50" data-content-guid="page_4_content"></div>
+    <img class="colelem temp_no_id temp_no_img_src" alt="Manage Account" data-orig-src="images/u36970-410.png?crc=519497745" data-image-width="253" data-orig-id="u36970-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+    <span class="colelem placeholder" data-placeholder-for="u37068_content"><!-- placeholder node --></span>
+    <div class="verticalspacer" data-offset-top="752" data-content-above-spacer="751" data-content-below-spacer="50"></div>
     <div class="clearfix colelem temp_no_id" data-orig-id="pu14346"><!-- group -->
      <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
      <span class="grpelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
@@ -821,7 +834,7 @@ include ('includes/footer.html');
       </div>
       <div class="SubMenu MenuLevel1 borderbox clearfix temp_no_id" data-orig-id="u12176"><!-- vertical box -->
        <ul class="SubMenuView borderbox clearfix colelem temp_no_id" data-orig-id="u12177"><!-- vertical box -->
-        <li class="MenuItemContainer borderbox clearfix colelem temp_no_id" data-orig-id="u13415"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u13417"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u13421"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u13421_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u13421_1_content"><!-- placeholder node --></span></div></a></li>
+        <li class="MenuItemContainer borderbox clearfix colelem temp_no_id" data-orig-id="u13415"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu MuseMenuActive borderbox clearfix grpelem temp_no_id" href="admin-edit.html" data-orig-id="u13417"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u13421"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u13421_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u13421_1_content"><!-- placeholder node --></span></div></a></li>
         <li class="MenuItemContainer borderbox clearfix colelem temp_no_id" data-orig-id="u15959"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix grpelem temp_no_id" href="view-competitors.html" data-orig-id="u15960"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u15963"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u15963_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u15963_1_content"><!-- placeholder node --></span></div></a></li>
         <li class="MenuItemContainer borderbox clearfix colelem temp_no_id" data-orig-id="u13504"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix grpelem temp_no_id" href="team-view-and-edit.html" data-orig-id="u13505"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u13508"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u13508_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u13508_1_content"><!-- placeholder node --></span></div></a></li>
         <li class="MenuItemContainer borderbox clearfix colelem temp_no_id" data-orig-id="u13680"><!-- horizontal box --><a class="nonblock nontext MenuItem MenuItemWithSubMenu borderbox clearfix grpelem temp_no_id" href="meet-view-and-edit.html" data-orig-id="u13681"><!-- horizontal box --><div class="MenuItemLabel NoWrap grpelem temp_no_id" data-orig-id="u13683"><!-- state-based BG images --><span class="placeholder" data-placeholder-for="u13683_0_content"><!-- placeholder node --></span><span class="fluid_height_spacer placeholder" data-placeholder-for="u13683_1_content"><!-- placeholder node --></span></div></a></li>
@@ -833,13 +846,11 @@ include ('includes/footer.html');
       </div>
      </div>
     </nav>
-    <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-411.png?crc=4114975170" data-image-width="223" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-    <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
-    <span class="verticalspacer placeholder" data-placeholder-for="page_4_content"><!-- placeholder node --></span>
-    <div class="clearfix colelem temp_no_id" data-orig-id="pu14346"><!-- group -->
-     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
-     <span class="grpelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
-    </div>
+    <img class="colelem temp_no_id temp_no_img_src" alt="Manage Account" data-orig-src="images/u36970-411.png?crc=439292754" data-image-width="223" data-orig-id="u36970-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+    <span class="colelem placeholder" data-placeholder-for="u37068_content"><!-- placeholder node --></span>
+    <div class="verticalspacer" data-offset-top="778" data-content-above-spacer="777" data-content-below-spacer="50"></div>
+    <span class="colelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
+    <span class="colelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
     <span class="colelem placeholder" data-placeholder-for="u4055-4_content1"><!-- placeholder node --></span>
    </div>
    <div class="preload_images">
@@ -864,12 +875,12 @@ include ('includes/footer.html');
 16);return 0},g=function(g){for(var f=document.getElementsByTagName("link"),h=0;h<f.length;h++)if("text/css"==f[h].type){var i=(f[h].href||"").match(/\/?css\/([\w\-]+\.css)\?crc=(\d+)/);if(!i||!i[1]||!i[2])break;b[i[1]]=i[2]}f=document.createElement("div");f.className="version";f.style.cssText="display:none; width:1px; height:1px;";document.getElementsByTagName("body")[0].appendChild(f);for(h=0;h<Muse.assets.required.length;){var i=Muse.assets.required[h],l=i.match(/([\w\-\.]+)\.(\w+)$/),k=l&&l[1]?
 l[1]:null,l=l&&l[2]?l[2]:null;switch(l.toLowerCase()){case "css":k=k.replace(/\W/gi,"_").replace(/^([^a-z])/gi,"_$1");f.className+=" "+k;k=a(c(f,"color"));l=a(c(f,"backgroundColor"));k!=0||l!=0?(Muse.assets.required.splice(h,1),"undefined"!=typeof b[i]&&(k!=b[i]>>>24||l!=(b[i]&16777215))&&Muse.assets.outOfDate.push(i)):h++;f.className="version";break;case "js":h++;break;default:throw Error("Unsupported file type: "+l);}}d?d().jquery!="1.8.3"&&Muse.assets.outOfDate.push("jquery-1.8.3.min.js"):Muse.assets.required.push("jquery-1.8.3.min.js");
 f.parentNode.removeChild(f);if(Muse.assets.outOfDate.length||Muse.assets.required.length)f="Some files on the server may be missing or incorrect. Clear browser cache and try again. If the problem persists please contact website author.",g&&Muse.assets.outOfDate.length&&(f+="\nOut of date: "+Muse.assets.outOfDate.join(",")),g&&Muse.assets.required.length&&(f+="\nMissing: "+Muse.assets.required.join(",")),alert(f)};location&&location.search&&location.search.match&&location.search.match(/muse_debug/gi)?setTimeout(function(){g(!0)},5E3):g()}};
-var muse_init=function(){require.config({baseUrl:""});require(["jquery","museutils","whatinput","jquery.musemenu","jquery.watch","jquery.museresponsive"],function(d){var $ = d;$(document).ready(function(){try{
+var muse_init=function(){require.config({baseUrl:""});require(["jquery","museutils","whatinput","jquery.musemenu","jquery.watch","jquery.musepolyfill.bgsize","jquery.museresponsive"],function(d){var $ = d;$(document).ready(function(){try{
 window.Muse.assets.check($);/* body */
 Muse.Utils.transformMarkupToFixBrowserProblemsPreInit();/* body */
 Muse.Utils.prepHyperlinks(true);/* body */
 Muse.Utils.fullPage('#page');/* 100% height page */
-Muse.Utils.initWidget('.MenuBar', ['#bp_infinity', '#bp_922', '#bp_829', '#bp_758', '#bp_667', '#bp_540', '#bp_523', '#bp_506', '#bp_444', '#bp_387', '#bp_340'], function(elem) { return $(elem).museMenu(); });/* unifiedNavBar */
+Muse.Utils.initWidget('.MenuBar', ['#bp_infinity', '#bp_922', '#bp_829', '#bp_758', '#bp_667', '#bp_540', '#bp_522', '#bp_506', '#bp_444', '#bp_387', '#bp_340'], function(elem) { return $(elem).museMenu(); });/* unifiedNavBar */
 $( '.breakpoint' ).registerBreakpoint();/* Register breakpoints */
 Muse.Utils.transformMarkupToFixBrowserProblems();/* body */
 }catch(b){if(b&&"function"==typeof b.notify?b.notify():Muse.Assert.fail("Error calling selector function: "+b),false)throw b;}})})};

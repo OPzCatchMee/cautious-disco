@@ -11,18 +11,18 @@
 document.documentElement.className = document.documentElement.className.replace(/\bnojs\b/g, 'js');
 
 // Check that all required assets are uploaded and up-to-date
-if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["museutils.js", "museconfig.js", "jquery.musemenu.js", "jquery.watch.js", "jquery.museresponsive.js", "require.js", "edit-team.css"], "outOfDate":[]};
+if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["museutils.js", "museconfig.js", "jquery.musemenu.js", "jquery.watch.js", "jquery.museresponsive.js", "require.js", "delete-team.css"], "outOfDate":[]};
 </script>
   
-  <title>Edit Team</title>
+  <title>Delete Team</title>
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="css/site_global.css?crc=443350757"/>
   <link rel="stylesheet" type="text/css" href="css/master_admin.css?crc=87852724"/>
-  <link rel="stylesheet" type="text/css" href="css/edit-team.css?crc=241486977" id="pagesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/delete-team.css?crc=4050657008" id="pagesheet"/>
   <!-- IE-only CSS -->
   <!--[if lt IE 9]>
   <link rel="stylesheet" type="text/css" href="css/nomq_preview_master_admin.css?crc=366379701"/>
-  <link rel="stylesheet" type="text/css" href="css/nomq_edit-team.css?crc=301649568" id="nomq_pagesheet"/>
+  <link rel="stylesheet" type="text/css" href="css/nomq_delete-team.css?crc=190842780" id="nomq_pagesheet"/>
   <![endif]-->
   <!-- JS includes -->
   <!--[if lt IE 9]>
@@ -74,13 +74,12 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_img_src" id="u36979-4" alt="Edit Team" data-orig-src="images/u36979-4.png?crc=4171664582" data-image-width="630" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <div class="colelem shared_content" id="u37108" data-content-guid="u37108_content"><!-- custom html -->
+     <img class="colelem temp_no_img_src" id="u36976-4" alt="Delete Team" data-orig-src="images/u36976-4.png?crc=272606186" data-image-width="630" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <div class="colelem shared_content" id="u37103" data-content-guid="u37103_content"><!-- custom html -->
       <?php # edit_team.php
 // This page is for editing a team record.
 // This page is accessed through admin_team.php.
-$page_title = 'Edit a Team';
-include ('includes/header.html');
+
 echo '<h1>Edit a Team</h1>';
 // Check for a valid team id, through GET or POST:
 if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) {
@@ -173,7 +172,7 @@ if (mysqli_num_rows($r) == 1) { // Valid team id, show the form.
     echo '<p class="error">Error outputting table.</p>';
 }
 mysqli_close($dbc);
-include ('includes/footer.html');
+
 ?>
      </div>
     </div>
@@ -243,8 +242,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-42.png?crc=487657021" data-image-width="605" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Delete Team" data-orig-src="images/u36976-42.png?crc=186074842" data-image-width="605" data-orig-id="u36976-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37103_content"><!-- placeholder node --></span>
     </div>
     <span class="verticalspacer placeholder" data-placeholder-for="page_3_content"><!-- placeholder node --></span>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -308,8 +307,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-43.png?crc=371667990" data-image-width="544" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Delete Team" data-orig-src="images/u36976-43.png?crc=96998871" data-image-width="544" data-orig-id="u36976-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37103_content"><!-- placeholder node --></span>
     </div>
     <span class="verticalspacer placeholder" data-placeholder-for="page_3_content"><!-- placeholder node --></span>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -373,8 +372,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-44.png?crc=322844839" data-image-width="497" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Delete Team" data-orig-src="images/u36976-44.png?crc=333066688" data-image-width="497" data-orig-id="u36976-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37103_content"><!-- placeholder node --></span>
     </div>
     <span class="verticalspacer placeholder" data-placeholder-for="page_3_content"><!-- placeholder node --></span>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -438,8 +437,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-45.png?crc=4043635322" data-image-width="437" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Delete Team" data-orig-src="images/u36976-45.png?crc=4294288883" data-image-width="437" data-orig-id="u36976-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37103_content"><!-- placeholder node --></span>
     </div>
     <div class="verticalspacer shared_content" data-offset-top="539" data-content-above-spacer="539" data-content-below-spacer="49" data-content-guid="page_2_content"></div>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -462,7 +461,7 @@ include ('includes/footer.html');
     <img class="preload temp_no_img_src" data-orig-src="images/u26452-r.png?crc=517667874" alt="" src="images/blank.gif?crc=4208392903"/>
    </div>
   </div>
-  <div class="breakpoint" id="bp_540" data-min-width="524" data-max-width="540"><!-- responsive breakpoint node -->
+  <div class="breakpoint" id="bp_540" data-min-width="522" data-max-width="540"><!-- responsive breakpoint node -->
    <div class="rgba-background clearfix borderbox temp_no_id" data-orig-id="page"><!-- group -->
     <a class="nonblock nontext clip_frame grpelem temp_no_id" href="admin.html" data-orig-id="u2368"><!-- image --><img class="block temp_no_id temp_no_img_src" data-orig-src="images/website_logo.png?crc=3983792562" alt="" data-image-width="43" data-image-height="57" data-orig-id="u2368_img" src="images/blank.gif?crc=4208392903"/></a>
     <div class="clearfix grpelem temp_no_id" data-orig-id="ppu2370"><!-- column -->
@@ -505,8 +504,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-46.png?crc=432692875" data-image-width="354" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Delete Team" data-orig-src="images/u36976-46.png?crc=4160930797" data-image-width="354" data-orig-id="u36976-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37103_content"><!-- placeholder node --></span>
     </div>
     <span class="verticalspacer placeholder" data-placeholder-for="page_2_content"><!-- placeholder node --></span>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -529,7 +528,7 @@ include ('includes/footer.html');
     <img class="preload temp_no_img_src" data-orig-src="images/u26452-r.png?crc=517667874" alt="" src="images/blank.gif?crc=4208392903"/>
    </div>
   </div>
-  <div class="breakpoint" id="bp_523" data-min-width="507" data-max-width="523"><!-- responsive breakpoint node -->
+  <div class="breakpoint" id="bp_521" data-min-width="507" data-max-width="521"><!-- responsive breakpoint node -->
    <div class="rgba-background clearfix borderbox temp_no_id" data-orig-id="page"><!-- group -->
     <a class="nonblock nontext clip_frame grpelem temp_no_id" href="admin.html" data-orig-id="u2368"><!-- image --><img class="block temp_no_id temp_no_img_src" data-orig-src="images/website_logo.png?crc=3983792562" alt="" data-image-width="42" data-image-height="55" data-orig-id="u2368_img" src="images/blank.gif?crc=4208392903"/></a>
     <div class="clearfix grpelem temp_no_id" data-orig-id="ppu2370"><!-- column -->
@@ -570,13 +569,13 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-47.png?crc=4090765258" data-image-width="343" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Delete Team" data-orig-src="images/u36976-47.png?crc=206197113" data-image-width="341" data-orig-id="u36976-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37103_content"><!-- placeholder node --></span>
     </div>
-    <div class="verticalspacer shared_content" data-offset-top="733" data-content-above-spacer="733" data-content-below-spacer="49" data-content-guid="page_2_content1"></div>
+    <div class="verticalspacer shared_content" data-offset-top="724" data-content-above-spacer="724" data-content-below-spacer="49" data-content-guid="page_2_content1"></div>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
     <span class="grpelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
-    <img class="grpelem temp_no_id temp_no_img_src" alt="Cougar Gymnastics, Team 13" data-orig-src="images/u4055-4.png?crc=4117722694" data-image-width="155" data-orig-id="u4055-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+    <img class="grpelem temp_no_id temp_no_img_src" alt="Cougar Gymnastics, Team 13" data-orig-src="images/u4055-4.png?crc=4117722694" data-image-width="154" data-orig-id="u4055-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
    </div>
    <div class="preload_images">
     <img class="preload temp_no_img_src" data-orig-src="images/u2445-m.png?crc=233360317" alt="" src="images/blank.gif?crc=4208392903"/>
@@ -637,8 +636,8 @@ include ('includes/footer.html');
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-48.png?crc=3791272353" data-image-width="332" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-     <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+     <img class="colelem temp_no_id temp_no_img_src" alt="Delete Team" data-orig-src="images/u36976-48.png?crc=3894822683" data-image-width="332" data-orig-id="u36976-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     <span class="colelem placeholder" data-placeholder-for="u37103_content"><!-- placeholder node --></span>
     </div>
     <span class="verticalspacer placeholder" data-placeholder-for="page_2_content1"><!-- placeholder node --></span>
     <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -701,9 +700,9 @@ include ('includes/footer.html');
       </div>
      </nav>
     </div>
-    <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-49.png?crc=4147028649" data-image-width="291" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-    <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
-    <div class="verticalspacer" data-offset-top="733" data-content-above-spacer="733" data-content-below-spacer="50"></div>
+    <img class="colelem temp_no_id temp_no_img_src" alt="Delete Team" data-orig-src="images/u36976-49.png?crc=100567151" data-image-width="291" data-orig-id="u36976-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+    <span class="colelem placeholder" data-placeholder-for="u37103_content"><!-- placeholder node --></span>
+    <div class="verticalspacer" data-offset-top="724" data-content-above-spacer="724" data-content-below-spacer="50"></div>
     <div class="clearfix colelem" id="pu14346"><!-- group -->
      <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
      <span class="grpelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
@@ -767,9 +766,9 @@ include ('includes/footer.html');
       </div>
      </div>
     </nav>
-    <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-410.png?crc=4086887156" data-image-width="253" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-    <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
-    <div class="verticalspacer shared_content" data-offset-top="733" data-content-above-spacer="733" data-content-below-spacer="50" data-content-guid="page_4_content"></div>
+    <img class="colelem temp_no_id temp_no_img_src" alt="Delete Team" data-orig-src="images/u36976-410.png?crc=4008865044" data-image-width="253" data-orig-id="u36976-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+    <span class="colelem placeholder" data-placeholder-for="u37103_content"><!-- placeholder node --></span>
+    <div class="verticalspacer shared_content" data-offset-top="724" data-content-above-spacer="724" data-content-below-spacer="50" data-content-guid="page_4_content"></div>
     <div class="clearfix colelem temp_no_id" data-orig-id="pu14346"><!-- group -->
      <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
      <span class="grpelem placeholder" data-placeholder-for="u14329_content"><!-- placeholder node --></span>
@@ -833,8 +832,8 @@ include ('includes/footer.html');
       </div>
      </div>
     </nav>
-    <img class="colelem temp_no_id temp_no_img_src" alt="Edit Team" data-orig-src="images/u36979-411.png?crc=4114975170" data-image-width="223" data-orig-id="u36979-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
-    <span class="colelem placeholder" data-placeholder-for="u37108_content"><!-- placeholder node --></span>
+    <img class="colelem temp_no_id temp_no_img_src" alt="Delete Team" data-orig-src="images/u36976-411.png?crc=283524642" data-image-width="223" data-orig-id="u36976-4" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+    <span class="colelem placeholder" data-placeholder-for="u37103_content"><!-- placeholder node --></span>
     <span class="verticalspacer placeholder" data-placeholder-for="page_4_content"><!-- placeholder node --></span>
     <div class="clearfix colelem temp_no_id" data-orig-id="pu14346"><!-- group -->
      <span class="grpelem placeholder" data-placeholder-for="u14346_content"><!-- placeholder node --></span>
@@ -869,7 +868,7 @@ window.Muse.assets.check($);/* body */
 Muse.Utils.transformMarkupToFixBrowserProblemsPreInit();/* body */
 Muse.Utils.prepHyperlinks(true);/* body */
 Muse.Utils.fullPage('#page');/* 100% height page */
-Muse.Utils.initWidget('.MenuBar', ['#bp_infinity', '#bp_922', '#bp_829', '#bp_758', '#bp_667', '#bp_540', '#bp_523', '#bp_506', '#bp_444', '#bp_387', '#bp_340'], function(elem) { return $(elem).museMenu(); });/* unifiedNavBar */
+Muse.Utils.initWidget('.MenuBar', ['#bp_infinity', '#bp_922', '#bp_829', '#bp_758', '#bp_667', '#bp_540', '#bp_521', '#bp_506', '#bp_444', '#bp_387', '#bp_340'], function(elem) { return $(elem).museMenu(); });/* unifiedNavBar */
 $( '.breakpoint' ).registerBreakpoint();/* Register breakpoints */
 Muse.Utils.transformMarkupToFixBrowserProblems();/* body */
 }catch(b){if(b&&"function"==typeof b.notify?b.notify():Muse.Assert.fail("Error calling selector function: "+b),false)throw b;}})})};
