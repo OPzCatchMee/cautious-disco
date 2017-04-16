@@ -71,7 +71,57 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
      </div>
      <img class="colelem temp_no_img_src" id="u36940-4" alt="Manage Account" data-orig-src="images/u36940-4.png?crc=48785160" data-image-width="630" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
      <div class="colelem shared_content" id="u37033" data-content-guid="u37033_content"><!-- custom html -->
-      <? php><?>
+      <?php
+//This will be how staff that are logged in view and edit their info
+$page_title = 'View Information';
+include ('includes/header.html');
+echo '<h1>View Personal Information</h1>';
+if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
+{
+    require ('mysqli_connect.php');
+        $staff_ID = $_SESSION['Staff_ID'];
+        $q = "SELECT a.Staff, a.User, b.ID_Login, b.Email, b.First_Name, b.Last_Name, DATE_FORMAT(b.Date_Of_Birth, '%M %d, %Y') AS DOB, 
+b.Phone, b.Street, b.City, b.State, b.ZIP
+              FROM STAFF_ID as a, LOGIN as b
+              WHERE a.Staff=$staff_ID && a.User=b.ID_Login && b.Deleted=0";
+        $r = @mysqli_query ($dbc, $q);
+        $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
+        echo '<p>Email: '.$row['Email'].'</p>
+              <p>First Name: '.$row['First_Name'].'</p>
+              <p>Last Name: '.$row['Last_Name'].'</p>
+              <p>DOB: '.$row['DOB'].'</p>
+              <p>Phone: '.$row['Phone'].'</p>
+              <p>Address: '.$row['Street'].' '.$row['City'].' '.$row['State'].' '.$row['ZIP'].'</p>';
+        //free the result to start second query
+        mysqli_free_result ($r);
+}
+elseif ((isset($_SESSION['Competitor_ID'])))//if logged in as competitor
+{
+    require ('mysqli_connect.php');
+        $staff_ID = $_SESSION['Competitor_ID'];
+        $q = "SELECT a.Staff, a.User, b.ID_Login, b.Email, b.First_Name, b.Last_Name, DATE_FORMAT(b.Date_Of_Birth, '%M %d, %Y') AS DOB, 
+b.Phone, b.Street, b.City, b.State, b.ZIP
+              FROM STAFF_ID as a, LOGIN as b
+              WHERE a.Staff=$staff_ID && a.User=b.ID_Login && b.Deleted=0";
+        $r = @mysqli_query ($dbc, $q);
+        $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
+        echo '<p>Email: '.$row['Email'].'</p>
+              <p>First Name: '.$row['First_Name'].'</p>
+              <p>Last Name: '.$row['Last_Name'].'</p>
+              <p>DOB: '.$row['DOB'].'</p>
+              <p>Phone: '.$row['Phone'].'</p>
+              <p>Address: '.$row['Street'].' '.$row['City'].' '.$row['State'].' '.$row['ZIP'].'</p>';
+        //free the result to start second query
+        mysqli_free_result ($r);
+}
+else
+{
+    echo 'You are not logged in as a staff member or ID is not valid';
+}
+mysqli_close($dbc);
+
+?>
+
      </div>
     </div>
     <div class="verticalspacer shared_content" data-offset-top="539" data-content-above-spacer="539" data-content-below-spacer="49" data-content-guid="page_3_content"></div>
