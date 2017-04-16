@@ -1,9 +1,9 @@
 <?php
 //This will be how staff that are logged in view and edit their info
 
-$page_title = 'Edit Information';
+$page_title = 'View Information';
 include ('includes/header.html');
-echo '<h1>Edit Personal Information</h1>';
+echo '<h1>View Personal Information</h1>';
 
 
 if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff

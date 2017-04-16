@@ -105,7 +105,7 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
             <p>Phone: <input type="text" name="Phone" size="15" maxlength="15" value="' . $row['Phone'] . '" /></p>
             <p>Street: <input type="text" name="Street" size="15" maxlength="30" value="' . $row['Street'] . '" /></p>
             <p>City: <input type="text" name="City" size="20" maxlength="60" value="' . $row['City'] . '"  /> </p>
-            <p>State (Abbreviated): <input type="text" name="State" size="2" maxlength="60" value="' . $row['State'] . '"  /> </p>\
+            <p>State (Abbreviated): <input type="text" name="State" size="2" maxlength="60" value="' . $row['State'] . '"  /> </p>
             <p>ZIP: <input type="text" name="ZIP" size="20" maxlength="60" value="' . $row['ZIP'] . '"  /> </p>
         
         <p><input type="submit" name="submit" value="Submit" /></p>
