@@ -117,7 +117,7 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
 
         $r = @mysqli_query($dbc, $q);
         $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
-        echo '<form action="edit_meet.php" method="post">
+        echo '<form action="edit_staff.php" method="post">
             <p>Email: <input type="text" name="Email" size="15" maxlength="15" value="' . $row['Email'] . '" /></p>
             <p>First Name: <input type="text" name="First_Name" size="15" maxlength="15" value="' . $row['First_Name'] . '" /></p>
             <p>Last Name: <input type="text" name="Last_Name" size="15" maxlength="15" value="' . $row['Last_Name'] . '" /></p>
