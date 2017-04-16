@@ -17,10 +17,10 @@ if($_GET['report']=='year')
         AVG(Difficulty_Score) AS AVGDif, 
         MIN(Difficulty_Score) AS MINDif, 
         MAX(Difficulty_Score) AS MAXDif
-        FROM EVENT 
+        FROM (EVENT INNER JOIN SCORES ON EVENT.Event_Id=SCORES.Event_ID)
         WHERE YEAR(Date) = YEAR(CURRENT_DATE())";
-        $q2 = "SELECT Competitor_ID, Event_Type, Exec_Score, Difficulty_Score,DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time
-        FROM EVENT
+        $q2 = "SELECT Competitor_ID, Event_Type, Exec_Score, Diff_Score, DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time
+        FROM (EVENT INNER JOIN SCORES ON EVENT.Event_Id=SCORES.Event_ID)
         WHERE YEAR(Date) = YEAR(CURRENT_DATE())
         ORDER BY Date ASC";
 
@@ -41,7 +41,7 @@ if($_GET['report']=='year')
 			<td>' . $row['Competitor_ID'] . '</a></td>
 			<td>' . $row['Event_Type'] . '</td>
 			<td>' . $row['Exec_Score'] .'</td>
-			<td>' . $row['Difficulty_Score'] . '</td>
+			<td>' . $row['Diff_Score'] . '</td>
 			<td>' . $row['Date'] . '</td>
 			<td>' . $row['Time'] . '</td>';
     }// End of WHILE loop.
@@ -73,7 +73,7 @@ if($_GET['report']=='year')
     }// End of WHILE loop.
     echo '</tr>';
     echo '</table>';
-    echo '<p><a href="reports.php?report=month">View Monthly Report</a></p>';
+    echo '<p style="text-align:center"><a href="reports.php?report=month">View Monthly Report</a></p>';
 }
 else
 {
@@ -82,13 +82,13 @@ else
         AVG(Exec_Score) AS AVGEx, 
         MIN(Exec_Score) AS MINEx, 
         MAX(Exec_Score) AS MAXEx, 
-        AVG(Difficulty_Score) AS AVGDif, 
-        MIN(Difficulty_Score) AS MINDif, 
-        MAX(Difficulty_Score) AS MAXDif
-        FROM EVENT 
+        AVG(Diff_Score) AS AVGDif, 
+        MIN(Diff_Score) AS MINDif, 
+        MAX(Diff_Score) AS MAXDif
+        FROM (EVENT INNER JOIN SCORES ON EVENT.Event_Id=SCORES.Event_ID)
         WHERE MONTH(Date) = MONTH(CURRENT_DATE()) && YEAR(Date) = YEAR(CURRENT_DATE())";
-    $q2 = "SELECT Competitor_ID, Event_Type, Exec_Score, Difficulty_Score,DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time
-        FROM EVENT
+    $q2 = "SELECT Competitor_ID, Event_Type, Exec_Score, Diff_Score, DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time
+        FROM (EVENT INNER JOIN SCORES ON EVENT.Event_Id=SCORES.Event_ID)
         WHERE MONTH(Date) = MONTH(CURRENT_DATE()) && YEAR(Date) = YEAR(CURRENT_DATE())
         ORDER BY Date ASC"; // default is month
 
@@ -109,7 +109,7 @@ else
 			<td>' . $row['Competitor_ID'] . '</a></td>
 			<td>' . $row['Event_Type'] . '</td>
 			<td>' . $row['Exec_Score'] .'</td>
-			<td>' . $row['Difficulty_Score'] . '</td>
+			<td>' . $row['Diff_Score'] . '</td>
 			<td>' . $row['Date'] . '</td>
 			<td>' . $row['Time'] . '</td>';
     }// End of WHILE loop.
