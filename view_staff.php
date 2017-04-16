@@ -15,7 +15,7 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
 b.Phone, b.Street, b.City, b.State, b.Zip
               FROM STAFF_ID as a, LOGIN as b
               WHERE a.Staff=$staff_ID && a.User=b.ID_Login && b.Deleted=0";
-
+        $r = @mysqli_query ($dbc, $q);
         $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
         echo '<p>Email: '.$row['b.Email'].'</p>
               <p>First Name: '.$row['b.First_Name'].'</p>
