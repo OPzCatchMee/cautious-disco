@@ -11,7 +11,7 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
     if ($_SERVER['REQUEST_METHOD'] == 'POST') //if post then modify
     {
         $errors = array();
-        $staff_ID = 2;//$_SESSION['Staff_ID'];
+        $staff_ID = $_SESSION['Staff_ID'];
         // Check for the email:
         if (!isset($_POST['Email'])) {
             $errors[] = 'You forgot to enter an email.';
@@ -48,14 +48,19 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
         }
         // Check for email:
         if (!isset($_POST['Street'])) {
-            $errors[] = 'You forgot to enter the email.';
+            $errors[] = 'You forgot to enter the Street.';
         } else {
             $street = mysqli_real_escape_string($dbc, trim($_POST['Street']));
         }
         if (!isset($_POST['City'])) {
-            $errors[] = 'You forgot to enter the email.';
+            $errors[] = 'You forgot to enter the City.';
         } else {
             $city = mysqli_real_escape_string($dbc, trim($_POST['City']));
+        }
+	    if (!isset($_POST['State'])) {
+            $errors[] = 'You forgot to enter the State.';
+        } else {
+            $state = mysqli_real_escape_string($dbc, trim($_POST['State]));
         }
         if (!isset($_POST['ZIP'])) {
             $errors[] = 'You forgot to enter the postal code.';
@@ -64,7 +69,7 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
         }
 
         if (empty($errors)) { // If everything's OK.
-
+	
             //  Test for unique email address:
             $q = "SELECT LOGIN.ID_Login, STAFF_ID.Staff
 			FROM (LOGIN INNER JOIN STAFF_ID ON LOGIN.Staff_ID=STAFF_ID.Staff)
@@ -109,7 +114,7 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
     {
 
 
-        $staff_ID = 2;//$_SESSION['Staff_ID'];
+        $staff_ID = $_SESSION['Staff_ID'];
         $q = "SELECT a.Staff, a.User, b.ID_Login, b.Email, b.First_Name, b.Last_Name, DATE_FORMAT(b.Date_Of_Birth, '%M %d, %Y') AS DOB, 
         b.Phone, b.Street, b.City, b.State, b.ZIP
                       FROM STAFF_ID as a, LOGIN as b
