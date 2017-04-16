@@ -133,9 +133,9 @@ echo '<table>
 	<th>Delete</th>';
 	}
 	echo '
-	<th><a href="view_users.php?sort=ln">Last Name</a></th>
-	<th><a href="view_users.php?sort=fn">First Name</a></th>
-	<th><a href="view_users.php?sort=rd">Date Registered</a></th>
+	<th><a href="view-and-edit-competitor.php?sort=ln">Last Name</a></th>
+	<th><a href="view-and-edit-competitor.php?sort=fn">First Name</a></th>
+	<th><a href="view-and-edit-competitor.php?sort=rd">Date Registered</a></th>
 </thead>
 ';
 // Fetch and print all the records....
@@ -144,8 +144,8 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
 	echo '<tr>';
 		if ($_SESSION['Is_Admin']) {
 			echo '
-		<td><a href="edit_user.php?id=' . $row['ID_Login'] . '">Edit</a></td>
-		<td><a href="delete_user.php?id=' . $row['ID_Login'] . '">Delete</a></td>';
+		<td><a href="edit-competitor.php?id=' . $row['ID_Login'] . '">Edit</a></td>
+		//<td><a href="delete-competitor.php?id=' . $row['ID_Login'] . '">Delete</a></td>';
 		}
 		echo '
 		<td>' . $row['Last_Name'] . '</td>
@@ -169,13 +169,13 @@ if ($pages > 1) {
 	
 	// If it's not the first page, make a Previous button:
 	if ($current_page != 1) {
-		echo '<a href="view_users.php?s=' . ($start - $display) . '&p=' . $pages . '&sort=' . $sort . '">Previous</a> ';
+		echo '<a href="view-and-edit-competitor.php?s=' . ($start - $display) . '&p=' . $pages . '&sort=' . $sort . '">Previous</a> ';
 	}
 	
 	// Make all the numbered pages:
 	for ($i = 1; $i <= $pages; $i++) {
 		if ($i != $current_page) {
-			echo '<a href="view_users.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '&sort=' . $sort . '">' . $i . '</a> ';
+			echo '<a href="view-and-edit-competitor.php?s=' . (($display * ($i - 1))) . '&p=' . $pages . '&sort=' . $sort . '">' . $i . '</a> ';
 		} else {
 			echo $i . ' ';
 		}
@@ -183,7 +183,7 @@ if ($pages > 1) {
 	
 	// If it's not the last page, make a Next button:
 	if ($current_page != $pages) {
-		echo '<a href="view_users.php?s=' . ($start + $display) . '&p=' . $pages . '&sort=' . $sort . '">Next</a>';
+		echo '<a href="view-and-edit-competitor.php?s=' . ($start + $display) . '&p=' . $pages . '&sort=' . $sort . '">Next</a>';
 	}
 	
 	echo '</p>'; // Close the paragraph.
