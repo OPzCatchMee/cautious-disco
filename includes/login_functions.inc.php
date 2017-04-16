@@ -10,7 +10,7 @@ function redirect_user ($page = 'index.php') {
 
 	session_start();
 	if (isset($_SESSION['Is_Admin'])) {
-		header("Location: http://http://104.237.136.12/admin.php");
+		header("Location: http://104.237.136.12/admin.php");
 		exit();
 	}
 	// Start defining the URL...
