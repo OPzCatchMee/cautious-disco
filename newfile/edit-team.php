@@ -80,7 +80,6 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
 // This page is for editing a team record.
 // This page is accessed through admin_team.php.
 $page_title = 'Edit a Team';
-include ('includes/header.html');
 echo '<h1>Edit a Team</h1>';
 // Check for a valid team id, through GET or POST:
 if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) {
@@ -173,7 +172,7 @@ if (mysqli_num_rows($r) == 1) { // Valid team id, show the form.
     echo '<p class="error">Error outputting table.</p>';
 }
 mysqli_close($dbc);
-include ('includes/footer.html');
+
 ?>
      </div>
     </div>
