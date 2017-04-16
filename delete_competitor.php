@@ -24,7 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if ($_POST['sure'] == 'Yes') { // Delete the record.
 
 		// Make the query:
-    $q = "UPDATE COMPETITOR SET Deleted = '1' WHERE ID=$id";
+		$q = "UPDATE COMPETITOR AS c INNER JOIN LOGIN AS l ON (c.Deleted = l.Deleted)
+				SET c.Deleted = '1', l.Deleted = '1'
+				WHERE c.ID = $id AND l.COMPETITOR_ID = $id";
 		$r = @mysqli_query ($dbc, $q);
 		if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
 
@@ -33,7 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		} else { // If the query did not run OK.
 			echo '<p class="error">The competitor could not be deleted due to a system error.</p>'; // Public message.
-			echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+			if ($_SESSION['Is_Admin'])
+			{
+				echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+			}
 		}
 
 	} else { // No confirmation of deletion.
@@ -43,7 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else { // Show the form.
 
 	// Retrieve the competitor's information:
-	$q = "SELECT ID FROM COMPETITOR WHERE ID=$id";
+	$q = "SELECT ID, COMPETITOR_ID
+			FROM (COMPETITOR INNER JOIN LOGIN ON COMPETITOR.ID=LOGIN.COMPETITOR_ID)
+			WHERE COMPETITOR.ID = $id AND LOGIN.COMPETITOR_ID = $id";
 	$r = @mysqli_query ($dbc, $q);
 
 	if (mysqli_num_rows($r) == 1) { // Valid competitor ID, show the form.
