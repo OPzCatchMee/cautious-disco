@@ -60,7 +60,7 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
 	    if (!isset($_POST['State'])) {
             $errors[] = 'You forgot to enter the State.';
         } else {
-            $state = mysqli_real_escape_string($dbc, trim($_POST['State]));
+            $state = mysqli_real_escape_string($dbc, trim($_POST['State']));
         }
         if (!isset($_POST['ZIP'])) {
             $errors[] = 'You forgot to enter the postal code.';
