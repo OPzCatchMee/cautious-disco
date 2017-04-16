@@ -12,7 +12,7 @@ if ((isset($_SESSION['Staff_ID'])))//if logged in as Staff
 
         $staff_ID = $_SESSION['Staff_ID'];
         $q = "SELECT a.Staff, a.User, b.ID_Login, b.Email, b.First_Name, b.Last_Name, DATE_FORMAT(b.Date_Of_Birth, '%M %d, %Y') AS DOB, 
-b.Phone, b.Street, b.City, b.State, b.Zip
+b.Phone, b.Street, b.City, b.State, b.ZIP
               FROM STAFF_ID as a, LOGIN as b
               WHERE a.Staff=$staff_ID && a.User=b.ID_Login && b.Deleted=0";
         $r = @mysqli_query ($dbc, $q);
