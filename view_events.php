@@ -9,12 +9,12 @@ require ('mysqli_connect.php');
 $competitor_id = (isset($_GET['competitor'])) ? $_GET['competitor'] : 'none';
 $meet_id = (isset($_GET['meet'])) ? $_GET['meet'] : 'none';
 
-	$q = "SELECT Event_ID, Event_Type, Exec_Score, Difficulty_Score, DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time";
+	$q = "SELECT EVENT.Event_ID, Event_Type, SCORES.Exec_Score, SCORES.Diff_Score, DATE_FORMAT(Date, '%M %d, %Y') AS Date, TIME_FORMAT(Time, '%H:%i') AS Time";
 	if ($competitor_id == 'none')
 		$q .= ", Competitor_ID";
 	if ($meet_id == 'none')
 		$q .= ", Meet_ID";
-	$q .= " FROM EVENT";
+	$q .= " FROM (EVENT INNER JOIN SCORES ON EVENT.Event_ID=SCORES.Event_ID)";
 	if ($competitor_id != 'none' && $meet_id != 'none')
 		$q .= " WHERE Competitor_ID=$competitor_id AND Meet_ID=$meet_id";
 	else if ($competitor_id != 'none')
@@ -53,7 +53,7 @@ $meet_id = (isset($_GET['meet'])) ? $_GET['meet'] : 'none';
 					echo '<td><a href="view_meet.php?id=' . $row['Meet_ID'] . '">' . $row['Meet_ID'] . '</a></td>';
 				echo '<td>' . $row['Event_Type'] . '</td>
 				<td>' . $row['Exec_Score'] .'</td>
-		        <td>' . $row['Difficulty_Score'] . '</td>
+		        <td>' . $row['Diff_Score'] . '</td>
 				<td>' . $row['Date'] . '</td>
 				<td>' . $row['Time'] . '</td>
 			</tr>
