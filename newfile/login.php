@@ -99,8 +99,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	mysqli_close($dbc); // Close the database connection.
 } // End of the main submit conditional.
 // Create the page:
-include ('login_page.inc.php');
-?>
+if (isset($errors) && !empty($errors)) {
+	echo '<h1>Error!</h1>
+	<p class="error">The following error(s) occurred:<br />';
+	foreach ($errors as $msg) {
+		echo " - $msg<br />\n";
+	}
+	echo '</p><p>Please try again.</p>';
+}
+// Display the form:
+?><h1>Login</h1>
+<form action="login.php" method="post">
+	<p>Email Address: <input type="text" name="Email" size="20" maxlength="60" /> </p>
+	<p>Password: <input type="password" name="Password" size="20" maxlength="20" /></p>
+	<p><input type="submit" name="submit" value="Login" /></p>
+</form>
+
      </div>
     </div>
     <div class="verticalspacer shared_content" data-offset-top="539" data-content-above-spacer="539" data-content-below-spacer="49" data-content-guid="page_3_content"></div>
