@@ -84,22 +84,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Make the query:
 			
 			// nothing to update in COMPETITOR after moving stuff to LOGIN ?
-			//~$q = "UPDATE COMPETITOR
-				//~SET Street='$street', City='$city', State='$state', ZIP='$zip', Phone='$phone'
-				//~WHERE ID=$competitor_id
-				//~LIMIT 1";
-			//~$r = @mysqli_query ($dbc, $q);
-			//~if (mysql_affected_rows($dbc) == 0 || mysqli_affected_rows($dbc) == 1) { // if no row updated, or only 1 row
-//~
-			//~} else { // If it did not run OK.
-				//~echo '<p class="error">The user could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
-				//~if ($_SESSION['Is_Admin'])
-				//~{
-					//~echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
-				//~}
-			//~}
-//~
-			//~mysqli_free_result ($r);
 			
 			// update LOGIN
 			$q = "UPDATE LOGIN

@@ -7,11 +7,11 @@ echo '<h1>Delete a Competitor</h1>';
 
 // Check for a valid competitor ID, through GET or POST:
 if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) { // From view_competitors.php
-	$id = $_GET['id'];
+	$competitor_id = $_GET['id'];
 } elseif ( (isset($_POST['id'])) && (is_numeric($_POST['id'])) ) { // Form submission.
-	$id = $_POST['id'];
+	$competitor_id = $_POST['id'];
 } else { // No valid ID, kill the script.
-	echo '<p class="error">There was an issue reading the ID = '. $id.'</p>';
+	echo '<p class="error">There was an issue reading the ID = '. $competitor_id.'</p>';
 	include ('includes/footer.html');
 	exit();
 }
@@ -22,11 +22,44 @@ require ('mysqli_connect.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 	if ($_POST['sure'] == 'Yes') { // Delete the record.
+		
+		$q = "SELECT ID_Login, User
+			FROM (LOGIN INNER JOIN COMPETITOR_ID ON LOGIN.ID_Login=COMPETITOR_ID.User)
+			WHERE COMPETITOR_ID.Competitor = $competitor_id";
+		$r = @mysqli_query ($dbc, $q);
+		if (mysqli_num_rows($r) == 1) { // If it ran OK.
+			$row = mysqli_fetch_array($r, MYSQLI_NUM);
+			$user_id = $row[0];
+		} else { // If the query did not run OK.
+			echo '<p class="error">The competitor could not be deleted due to a system error.</p>'; // Public message.
+			if ($_SESSION['Is_Admin'])
+			{
+				echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+			}
+			include ('includes/footer.html');
+			exit();
+		}
 
 		// Make the query:
-		$q = "UPDATE COMPETITOR AS c INNER JOIN LOGIN AS l ON (c.Deleted = l.Deleted)
-				SET c.Deleted = '1', l.Deleted = '1'
-				WHERE c.ID = $id AND l.COMPETITOR_ID = $id";
+		$q = "UPDATE COMPETITOR
+				SET Deleted=1
+				WHERE ID = $competitor_id";
+		$r = @mysqli_query ($dbc, $q);
+		if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
+			
+		} else { // If the query did not run OK.
+			echo '<p class="error">The competitor could not be deleted due to a system error.</p>'; // Public message.
+			if ($_SESSION['Is_Admin'])
+			{
+				echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
+			}
+			include ('includes/footer.html');
+			exit();
+		}
+		
+		$q = "UPDATE LOGIN
+				SET Deleted=1
+				WHERE ID_Login = $user_id";
 		$r = @mysqli_query ($dbc, $q);
 		if (mysqli_affected_rows($dbc) == 1) { // If it ran OK.
 
@@ -39,6 +72,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			{
 				echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
 			}
+			include ('includes/footer.html');
+			exit();
 		}
 
 	} else { // No confirmation of deletion.
@@ -48,9 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else { // Show the form.
 
 	// Retrieve the competitor's information:
-	$q = "SELECT ID, COMPETITOR_ID
-			FROM (COMPETITOR INNER JOIN LOGIN ON COMPETITOR.ID=LOGIN.COMPETITOR_ID)
-			WHERE COMPETITOR.ID = $id AND LOGIN.COMPETITOR_ID = $id";
+	$q = "SELECT ID_Login, Competitor_ID
+			FROM (LOGIN INNER JOIN COMPETITOR_ID ON LOGIN.ID_Login=COMPETITOR_ID.User)
+			WHERE COMPETITOR_ID.Competitor = $competitor_id";
 	$r = @mysqli_query ($dbc, $q);
 
 	if (mysqli_num_rows($r) == 1) { // Valid competitor ID, show the form.
@@ -65,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	<input type="radio" name="sure" value="Yes" /> Yes
 	<input type="radio" name="sure" value="No" checked="checked" /> No
 	<input type="submit" name="submit" value="Submit" />
-	<input type="hidden" name="id" value="' . $id . '" />
+	<input type="hidden" name="id" value="' . $competitor_id . '" />
 	</form>';
 
 	} else { // Not a valid competitor ID.
