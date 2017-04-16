@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	</div>
 	<div>
 		<select name="Event_Type" id="event" required>
-			<option value="floor exercise">Floor Exercise</option>
+			<option value="floor">Floor Exercise</option>
 			<option value="balance beam">Balance Beam</option>
 			<option value="vault">Vault</option>
 			<option value="uneven bars">Uneven Bars</option>
