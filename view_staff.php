@@ -17,12 +17,12 @@ b.Phone, b.Street, b.City, b.State, b.Zip
               WHERE a.Staff=$staff_ID && a.User=b.ID_Login && b.Deleted=0";
         $r = @mysqli_query ($dbc, $q);
         $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
-        echo '<p>Email: '.$row['b.Email'].'</p>
-              <p>First Name: '.$row['b.First_Name'].'</p>
-              <p>Last Name: '.$row['b.Last_Name'].'</p>
-              <p>DOB: '.$row['b.DOB'].'</p>
-              <p>Phone: '.$row['b.Phone'].'</p>
-              <p>Address: '.$row['b.Street'].' '.$row['b.City'].' '.$row['b.State'].' '.$row['b.ZIP'].'</p>';
+        echo '<p>Email: '.$row['Email'].'</p>
+              <p>First Name: '.$row['First_Name'].'</p>
+              <p>Last Name: '.$row['Last_Name'].'</p>
+              <p>DOB: '.$row['DOB'].'</p>
+              <p>Phone: '.$row['Phone'].'</p>
+              <p>Address: '.$row['Street'].' '.$row['City'].' '.$row['State'].' '.$row['ZIP'].'</p>';
         //free the result to start second query
         mysqli_free_result ($r);
         echo'<a href="edit_staff.php"> Edit info</a>';
