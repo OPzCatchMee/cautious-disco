@@ -29,11 +29,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
 		//Check if admin
 		if(!is_null($_SESSION['Staff_ID'])&&is_null($_SESSION['Is_Admin'])||(!is_null($_SESSION['Staff_ID'])&&$_SESSION['Is_Admin']==0)) {
-			redirect_user('staff.php');
+			redirect_user('./newfile/staff.php');
 		}else if(!is_null($_SESSION['Is_Admin'])) {
-			redirect_user('admin.php');
+			redirect_user('./newfile/admin.php');
 		}else{
-			redirect_user('competitor.php');
+			redirect_user('./newfile/competitor.php');
 		}
 	} else { // Unsuccessful!
 		// Assign $data to $errors for login_page.inc.php:
