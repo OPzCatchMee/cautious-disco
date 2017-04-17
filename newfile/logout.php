@@ -14,7 +14,7 @@ document.documentElement.className = document.documentElement.className.replace(
 if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["museutils.js", "museconfig.js", "jquery.musemenu.js", "jquery.musepolyfill.bgsize.js", "jquery.watch.js", "jquery.museresponsive.js", "require.js", "competitions.css"], "outOfDate":[]};
 </script>
   
-  <title>Competitions</title>
+  <title>Logged Out</title>
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="css/site_global.css?crc=443350757"/>
   <link rel="stylesheet" type="text/css" href="css/master_public.css?crc=3921867154"/>
@@ -54,7 +54,7 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
       <a class="nonblock nontext clip_frame grpelem shared_content" id="u31966" href="login.php" data-content-guid="u31966_content"><!-- image --><img class="block temp_no_img_src" id="u31966_img" data-orig-src="images/lock.png?crc=4016009377" alt="" data-image-width="12" data-image-height="13" src="images/blank.gif?crc=4208392903"/></a>
      </div>
 <span class="nonblock nontext colelem placeholder" data-placeholder-for="u31965-4_content"><!-- placeholder node --></span>
-     <img class="colelem temp_no_id temp_no_img_src" alt="You are logged out!" data-orig-src="images/u36931-42.png?crc=3985284164" data-image-width="605" data-orig-id="u36931-4" src="images/blank.gif?crc=4208392903"/>     <?php # logout.php #2
+   <?php # logout.php #2
 // This page lets the user logout.
 // This version uses sessions.
 session_start(); // Access the existing session.
