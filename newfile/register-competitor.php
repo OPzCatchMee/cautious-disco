@@ -56,7 +56,7 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
       <a class="nonblock nontext grpelem shared_content" id="u31965-4" href="login.php" data-content-guid="u31965-4_content"><!-- rasterized frame --><img class="temp_no_img_src" id="u31965-4_img" alt="Login" data-orig-src="images/u31965-4.png?crc=4214639081" data-image-width="40" src="images/blank.gif?crc=4208392903"/></a>
       <a class="nonblock nontext clip_frame grpelem shared_content" id="u31966" href="login.php" data-content-guid="u31966_content"><!-- image --><img class="block temp_no_img_src" id="u31966_img" data-orig-src="images/lock.png?crc=4016009377" alt="" data-image-width="12" data-image-height="13" src="images/blank.gif?crc=4208392903"/></a>
      </div>
-     <img class="colelem temp_no_img_src" id="u36931-4" alt="Logged Out" data-orig-src="images/u36931-4.png?crc=4268490803" data-image-width="630" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     
      <div class="colelem shared_content" id="u37028" data-content-guid="u37028_content"><!-- custom html -->
     <?php # register.php #2
 // This script performs an INSERT query to add a record to the users table.
