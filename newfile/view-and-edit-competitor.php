@@ -74,7 +74,7 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
      </div>
      <img class="colelem temp_no_img_src" id="u36955-4" alt="Manage Account" data-orig-src="images/u36955-4.png?crc=48785160" data-image-width="630" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
      <div class="colelem shared_content" id="u37048" data-content-guid="u37048_content"><!-- custom html -->
-<?php # edit_competitor.php
+<?php 
 // This page is for editing a user record.
 // Check for a valid user ID, through GET or POST:
 if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) { // From view_users.php
@@ -86,7 +86,6 @@ if ( (isset($_GET['id'])) && (is_numeric($_GET['id'])) ) { // From view_users.ph
 } else{
 // No valid ID, kill the script.
 	echo '<p class="error">This page has been accessed in error.</p>';
-	
 	exit();
 }
 // ensure that it's an admin or a competitor editing themselves
@@ -95,7 +94,14 @@ require ('mysqli_connect.php');
 // Check if the form has been submitted:
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$errors = array();
-	echo 'posting';
+         $competitor_id = $_SESSION['Competitor_ID'];
+        		$q = "SELECT ID_Login
+	                      FROM (LOGIN INNER JOIN COMPETITOR_ID ON LOGIN.ID_Login=COMPETITOR_ID.User INNER JOIN COMPETITOR ON COMPETITOR_ID.Competitor=COMPETITOR.ID)
+	                    WHERE COMPETITOR_ID.Competitor=$competitor_id";
+                        $r = @mysqli_query ($dbc, $q);
+                       $row = mysqli_fetch_array($r, MYSQLI_ASSOC);
+			$user_id = $row[ID_Login];
+                        mysqli_free_result ($r);
 	// Check for the street:
 	if (!isset($_POST['Address'])) {
 		$errors[] = 'You forgot to enter the street.';
@@ -107,7 +113,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	if (!!isset($_POST['Address_2'])) {
 		$street .= " " . mysqli_real_escape_string($dbc, trim($_POST['Address_2']));
 	}
-	
 	// Check for city:
 	if (!isset($_POST['City'])) {
 		$errors[] = 'You forgot to enter the city.';
@@ -145,28 +150,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			WHERE LOGIN.Email='$email' AND COMPETITOR_ID.Competitor != $competitor_id";
 		$r = @mysqli_query($dbc, $q);
 		if (mysqli_num_rows($r) == 0) {
-			$row = mysqli_fetch_array($r, MYSQLI_ASSOC);
-			$user_id = $_POST['id'];
+			$row = mysqli_fetch_array($r, MYSQLI_ASSOC);			
 			mysqli_free_result ($r);
-			// Make the query:
-			
-			// nothing to update in COMPETITOR after moving stuff to LOGIN ?
-			
+
 			// update LOGIN
 			$q = "UPDATE LOGIN
 				SET Email='$email', Street='$street', City='$city', State='$state', ZIP='$zip', Phone='$phone'
 				WHERE ID_Login=$user_id
 				LIMIT 1";
 			$r = @mysqli_query ($dbc, $q);
-			if (mysql_affected_rows($dbc) == 0 || mysqli_affected_rows($dbc) == 1) { // if no row updated, or only 1 row
+			if (mysqli_affected_rows($dbc) == 0 || mysqli_affected_rows($dbc) == 1) { 
+// if no row updated,or only 1 row
 				// Print a message:
 				echo '<p>The user has been edited.</p>';
 			} else { // If it did not run OK.
 				echo '<p class="error">The user could not be edited due to a system error. We apologize for any inconvenience.</p>'; // Public message.
-				if ($_SESSION['Is_Admin'])
-				{
-					echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging message.
-				}
+				//if ($_SESSION['Is_Admin'])
+				//{
+					echo '<p>' . mysqli_error($dbc) . '<br />Query: ' . $q . '</p>'; // Debugging //message.
+				//}
 			}
 			mysqli_free_result ($r);
 		} else { // Already registered.
