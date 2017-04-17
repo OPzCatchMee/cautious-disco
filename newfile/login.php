@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Store the HTTP_USER_AGENT:
 		$_SESSION['agent'] = md5($_SERVER['HTTP_USER_AGENT']);
 		//Check if admin
-		if(!is_null($_SESSION['Staff_ID'])&&is_null($_SESSION['Is_Admin'])) {
+		if(!is_null($_SESSION['Staff_ID'])&&is_null($_SESSION['Is_Admin'])||(!is_null($_SESSION['Staff_ID'])&&$_SESSION['Is_Admin']==0)) {
 			redirect_user('staff.php');
 		}else if(!is_null($_SESSION['Is_Admin'])) {
 			redirect_user('admin.php');
