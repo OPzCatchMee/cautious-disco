@@ -117,6 +117,7 @@ if ($num > 0) { // If it ran OK, display the records.
 mysqli_close($dbc); // Close the database connection.
 
 ?>
+	     <a href="edit-fees.php">Edit Fees </a>
      </div>
     </div>
     <div class="verticalspacer shared_content" data-offset-top="539" data-content-above-spacer="539" data-content-below-spacer="49" data-content-guid="page_3_content"></div>
