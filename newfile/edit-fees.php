@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	mysqli_close($dbc); // Close the database connection.
 
 } // End of the main Submit conditional.
-?>
+
 
 <h1>Change cost rates</h1>
 <form action="edit-fees.php" method="post">
