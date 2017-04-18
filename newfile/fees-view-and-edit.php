@@ -79,8 +79,44 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
      </div>
      <img class="colelem temp_no_img_src" id="u36997-4" alt="Fees" data-orig-src="images/u36997-4.png?crc=151659953" data-image-width="630" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
      <div class="colelem shared_content" id="u37083" data-content-guid="u37083_content"><!-- custom html -->
-       <p> Entrance Fee: $5 <br></br> Level 1 Competitor: $5 <br></br> Level 2 Competitor: $10 <br> <br>Level 3 Competitor: $52<br></br> Level 4 Competitor: $20<br></br> Level 5 Competitor: $25<br> </br> </p>
+     <?php
+// This script retrieves all the records from the users table.
 
+require ('./mysqli_connect.php'); // Connect to the db.
+		
+// Make the query:
+$q = "SELECT level, cost FROM FEE ORDER BY level ASC";		
+$r = @mysqli_query ($dbc, $q); // Run the query.
+
+// Count the number of returned rows:
+$num = mysqli_num_rows($r);
+
+if ($num > 0) { // If it ran OK, display the records.
+
+	// Table header.
+	echo '<table align="center" cellspacing="3" cellpadding="3" width="75%">
+	<tr><td align="left"><b>Level</b></td><td align="left"><b>Price</b></td></tr>
+';
+	
+	// Fetch and print all the records:
+	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+		echo '<tr><td align="left">' . $row['level'] . '</td><td align="left">' . $row['cost'] . '</td></tr>
+		';
+	}
+
+	echo '</table>'; // Close the table.
+	
+	mysqli_free_result ($r); // Free up the resources.	
+
+} else { // If no records were returned.
+
+	echo '<p class="error">There are currently no fees.</p>';
+
+}
+
+mysqli_close($dbc); // Close the database connection.
+
+?>
      </div>
     </div>
     <div class="verticalspacer shared_content" data-offset-top="539" data-content-above-spacer="539" data-content-below-spacer="49" data-content-guid="page_3_content"></div>
