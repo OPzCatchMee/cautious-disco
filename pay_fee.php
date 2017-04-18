@@ -145,7 +145,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		mysqli_close($dbc); // Close the database connection.
 
 		// Include the footer and quit the script:
-		include ('includes/footer.html');
 		exit();
 		
 	} else { // Report the errors.
@@ -293,4 +292,4 @@ mysqli_close($dbc); // Close the database connection.
 	</div>
 	<input type="submit" name="submit" value="Submit">
 </form>
-<?php include ('includes/footer.html'); ?>
+<?php  ?>
