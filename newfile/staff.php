@@ -54,7 +54,7 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
     <div class="clearfix grpelem" id="ppu32072"><!-- column -->
      <div class="clearfix colelem" id="pu32072"><!-- group -->
       <div class="clip_frame grpelem shared_content" id="u32072" data-content-guid="u32072_content"><!-- image -->
-       <img class="block temp_no_img_src" id="u32072_img" data-orig-src="images/person.png?crc=362030680" alt="" width="35" height="23" src="images/blank.gif?crc=4208392903"/>
+       <img class="block temp_no_img_src" id="u32072_img" data-orig-src="images/person.png?crc=362030680" alt="" width="20" height="20" src="images/blank.gif?crc=4208392903"/>
       </div>
       <nav class="MenuBar clearfix grpelem" id="menuu32133"><!-- horizontal box -->
        <div class="MenuItemContainer clearfix grpelem" id="u32134"><!-- vertical box -->
