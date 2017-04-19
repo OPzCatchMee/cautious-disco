@@ -347,7 +347,7 @@ mysqli_close($dbc);
 
 ?>
 	<a href="password.php">Change Password</a><br>
-<a href="reports.php">Score Report</a>
+
     <div class="verticalspacer shared_content" data-offset-top="539" data-content-above-spacer="539" data-content-below-spacer="49" data-content-guid="page_3_content"></div>
     <div class="grpelem shared_content" id="u14346" data-content-guid="u14346_content"><!-- content -->
      <div class="fluid_height_spacer"></div>
