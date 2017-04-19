@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'  && $_SESSION['Is_Admin'] ) {
         $row = mysqli_fetch_array ($r, MYSQLI_NUM);
         // Display the record being deleted:
         echo "<h3>Name: $row[0]</h3>
-		Are you sure you want to delete this event?";
+		Are you sure you want to delete this team?";
         // Create the form:
         echo '<form action="delete-team.php" method="post">
 	<input type="radio" name="sure" value="Yes" /> Yes
