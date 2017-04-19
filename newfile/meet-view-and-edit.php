@@ -170,9 +170,10 @@ echo '<table>
 
 // Fetch and print all the records....
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+	
+	echo '<tr>
 	if($row['Deleted']==0)
 	{
-	echo '<tr>
 		<td>' . $row['Location_Name'] . '</td>
 		<td>' . $row['Street'] . '</td>
 		<td>' . $row['City'] . '</td>
