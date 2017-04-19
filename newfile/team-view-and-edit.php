@@ -147,7 +147,7 @@ echo '<table>
 
 // Fetch and print all the records....
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-	if(Deleted==0){
+	if(['Deleted']==0){
     echo '<tr>
 		<td>' . $row['Team_Name'] . '</td>
 		<td>' . $row['Street'] . '</td>
