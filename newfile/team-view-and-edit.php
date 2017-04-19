@@ -129,7 +129,7 @@ switch ($sort) {
         break;
 }
 // Define the query:
-$q = "SELECT Team_ID,Team_Name, Street, City, State, ZIP
+$q = "SELECT Team_ID,Team_Name, Street, City, State, ZIP, Deleted
 	FROM TEAM
 	ORDER BY $order_by
 	LIMIT $start, $display";
@@ -144,8 +144,10 @@ echo '<table>
 	<th><a href="team-view-and-edit.php?sort=zip">ZIP</a></th>
 </thead>
 ';
+
 // Fetch and print all the records....
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+	if(Deleted==0){
     echo '<tr>
 		<td>' . $row['Team_Name'] . '</td>
 		<td>' . $row['Street'] . '</td>
@@ -156,7 +158,9 @@ while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
   <td><a href="delete-team.php?id=' . $row['Team_ID'] . '">Delete</a></td>
 	</tr>
 	';
-} // End of WHILE loop.
+	}
+} 
+// End of WHILE loop.
 echo '</table>';
 mysqli_free_result ($r);
 mysqli_close($dbc);
