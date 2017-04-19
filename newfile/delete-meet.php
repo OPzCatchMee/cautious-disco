@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'  && $_SESSION['Is_Admin'] ) {
         echo "<h3>Name: $row[0]</h3>
 		Are you sure you want to delete this meet?";
         // Create the form:
-        echo '<form action="delete_meet.php" method="post">
+        echo '<form action="delete-meet.php" method="post">
 	<input type="radio" name="sure" value="Yes" /> Yes
 	<input type="radio" name="sure" value="No" checked="checked" /> No
 	<input type="submit" name="submit" value="Submit" />
