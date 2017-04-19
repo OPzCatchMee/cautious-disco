@@ -239,7 +239,7 @@ echo '</p>'; // Close the paragraph.
 
 
 ?>
-
+<a href="reports.php">Score Report</a>
 
      </div>
     </div>
