@@ -148,7 +148,7 @@ switch ($sort) {
 }
 
 // Define the query:
-$q = "SELECT Location_Name, Street, City, State, ZIP, Date, Time, Competition_Name, ID
+$q = "SELECT Location_Name, Street, City, State, ZIP, Date, Time, Competition_Name, ID, Deleted
 	FROM MEET
 	ORDER BY $order_by
 	LIMIT $start, $display";
@@ -170,10 +170,10 @@ echo '<table>
 
 // Fetch and print all the records....
 while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-	
-	echo '<tr>
 	if($row['Deleted']==0)
 	{
+	echo '<tr>
+	
 		<td>' . $row['Location_Name'] . '</td>
 		<td>' . $row['Street'] . '</td>
 		<td>' . $row['City'] . '</td>
