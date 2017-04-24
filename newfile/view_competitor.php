@@ -116,12 +116,8 @@ if(isset($_GET['id']))
 			echo '<p>Team: <a href="view_team.php?id=' . $row['Team_ID'] . '">' . $row['Team_ID'] . '</a></p>';
 		}
 		
-		echo '<p><a href="view_events.php?competitor=' . $competitor_id . '">View this competitor\'s events</a></p>';
-		if ($_SESSION['Competitor_ID'] == $competitor_id) {
-			echo '<p><a href="edit_competitor.php?id=' . $competitor_id . '">Edit your information</a></p>';
-		} else if ($_SESSION['Is_Admin']) {
-			echo '<p><a href="edit_competitor.php?id=' . $competitor_id . '">Edit this competitor\'s information</a></p>';
-		}
+		
+		
 	}
 	else
 	{
