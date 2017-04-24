@@ -17,7 +17,7 @@ document.documentElement.className = document.documentElement.className.replace(
 if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required":["museutils.js", "museconfig.js", "jquery.musemenu.js", "jquery.musepolyfill.bgsize.js", "jquery.watch.js", "jquery.museresponsive.js", "require.js", "meet-view-and-edit.css"], "outOfDate":[]};
 </script>
   
-  <title>Meet View and Edit</title>
+  <title>View Events</title>
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="css/site_global.css?crc=443350757"/>
   <link rel="stylesheet" type="text/css" href="css/master_admin.css?crc=87852724"/>
@@ -131,7 +131,7 @@ $meet_id = (isset($_GET['meet'])) ? $_GET['meet'] : 'none';
 				if ($competitor_id == 'none')
 					echo '<td><a href="view_competitor.php?id=' . $row['Competitor_ID'] . '">' . $row['Competitor_ID'] . '</a></td>';
 				if ($meet_id == 'none')
-					echo '<td><a href="view_meet.php?id=' . $row['Meet_ID'] . '">' . $row['Meet_ID'] . '</a></td>';
+					echo '<td>' . $row['Meet_ID'] . '</td>';
 				echo '<td>' . $row['Event_Type'] . '</td>
 				<td>' . $row['Exec_Score'] .'</td>
 		        <td>' . $row['Diff_Score'] . '</td>
