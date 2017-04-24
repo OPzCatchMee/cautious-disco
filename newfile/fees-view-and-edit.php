@@ -100,7 +100,7 @@ if ($num > 0) { // If it ran OK, display the records.
 	
 	// Fetch and print all the records:
 	while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
-		echo '<tr><td align="left">' . $row['level'] . '</td><td align="left">' . $row['cost'] . '</td></tr>
+		echo '<tr><td align="left">' . $row['level'] . '</td><td align="left">$' . $row['cost'] . '</td></tr>
 		';
 	}
 
