@@ -85,7 +85,6 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
 // Page to view events, filterable by competitor and meet
 
 $page_title = 'View Events';
-include ('includes/header.html');
 
 require ('mysqli_connect.php');
 
@@ -148,7 +147,7 @@ $meet_id = (isset($_GET['meet'])) ? $_GET['meet'] : 'none';
 mysqli_free_result ($r);
 mysqli_close($dbc);
 
-include ('includes/footer.html');
+
 ?>
 
 ?>
