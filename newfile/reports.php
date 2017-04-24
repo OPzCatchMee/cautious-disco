@@ -4,7 +4,11 @@ session_start()
 <!DOCTYPE html>
 <html class="nojs html css_verticalspacer" lang="en-US">
  <head>
-
+ <style>
+table{
+width:100%
+}
+ </style>
   <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
   <meta name="generator" content="2017.0.2.363"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -105,22 +109,22 @@ if($_GET['report']=='year')
     $r = @mysqli_query ($dbc, $q2); // Run the query.
     echo '<table align="center">
 	<thead>
-		<th>Competitor ID</th>
-		<th>Event Type</th>
-		<th>Execution Score</th>
-		<th>Difficulty Score</th>
-		<th>Date</th>
-		<th>Time</th>
+		<th style="padding:5px; border: 1px solid black;">Competitor ID</th>
+		<th style="padding:5px; border: 1px solid black;">Event Type</th>
+		<th style="padding:5px; border: 1px solid black;">Execution Score</th>
+		<th style="padding:5px; border: 1px solid black;">Difficulty Score</th>
+		<th style="padding:5px; border: 1px solid black;">Date</th>
+		<th style="padding:5px; border: 1px solid black;">Time</th>
 	</thead>
 	';
     while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
         echo '<tr>
-			<td>' . $row['Competitor_ID'] . '</a></td>
-			<td>' . $row['Event_Type'] . '</td>
-			<td>' . $row['Exec_Score'] .'</td>
-			<td>' . $row['Diff_Score'] . '</td>
-			<td>' . $row['Date'] . '</td>
-			<td>' . $row['Time'] . '</td>';
+			<td style="padding:5px; border: 1px solid black;">' . $row['Competitor_ID'] . '</a></td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Event_Type'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Exec_Score'] .'</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Diff_Score'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Date'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Time'] . '</td>';
     }// End of WHILE loop.
     echo '</tr>';
     echo '</table>';
@@ -128,28 +132,69 @@ if($_GET['report']=='year')
     $r = @mysqli_query ($dbc, $q); // Run the query.
     echo '<table align="center">
 	<thead>
-		<th>Average Execution Score</th>
-		<th>Lowest Execution Score</th>
-		<th>Highest Execution Score</th>
-		<th>Average Difficulty Score</th>
-		<th>Lowest Difficulty Score</th>
-		<th>Highest Difficulty Score</th>
+		<th style="padding:5px; border: 1px solid black;">Average Execution Score</th>
+		<th style="padding:5px; border: 1px solid black;">Lowest Execution Score</th>
+		<th style="padding:5px; border: 1px solid black;">Highest Execution Score</th>
+		<th style="padding:5px; border: 1px solid black;">Average Difficulty Score</th>
+		<th style="padding:5px; border: 1px solid black;">Lowest Difficulty Score</th>
+		<th style="padding:5px; border: 1px solid black;">Highest Difficulty Score</th>
 	</thead>
 	';
     while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
         echo '<tr>
-			<td>' . $row['AVGEx'] . '</a></td>
-			<td>' . $row['MINEx'] . '</td>
-			<td>' . $row['MAXEx'] .'</td>
-			<td>' . $row['AVGDif'] . '</a></td>
-			<td>' . $row['MINDif'] . '</td>
-			<td>' . $row['MAXDif'] .'</td>';
+			<td style="padding:5px; border: 1px solid black;">' . $row['AVGEx'] . '</a></td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['MINEx'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['MAXEx'] .'</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['AVGDif'] . '</a></td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['MINDif'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['MAXDif'] .'</td>';
     }// End of WHILE loop.
     echo '</tr>';
     echo '</table>';
-    echo '<p style="text-align:center"><a href="reports.php?report=month">View Monthly Report</a></p>';
+    echo '<br /><br /><p style="text-align:center"><a href="reports.php?report=month">View Monthly Report</a></p>';
+    echo '<p style="text-align:center"><a href="reports.php?report=fees">View Fee Report</a></p>';
 }
-else
+//Fees Report
+elseif($_GET['report']=='fees')
+{
+
+	echo '<h1>Total Fees Paid for the Current Year</h1><br />';
+        $q = "SELECT e.First_Name, e.Last_Name, d.Competition_Name, b.Level, c.cost 
+             FROM COMPETITOR_COMPETES_AT AS a, COMPETITOR AS b, FEE AS c, MEET AS d, LOGIN as e, COMPETITOR_ID as f
+             WHERE a.Competitor_ID=b.id && b.Level=c.level && a.MEET_ID=d.ID && a.Competitor_ID=f.Competitor && f.User=e.ID_Login && b.Deleted=0 && YEAR(d.Date)=YEAR(CURRENT_DATE)";
+        $totalFees=0;
+    $r = @mysqli_query ($dbc, $q); // Run the query.
+    echo '<table align="center">
+	<thead>
+		<th style="padding:5px; border: 1px solid black;">Competitor First Name</th>
+		<th style="padding:5px; border: 1px solid black;">Competitor Last Name</th>
+		<th style="padding:5px; border: 1px solid black;">Competition Paid For</th>
+		<th style="padding:5px; border: 1px solid black;">Experience Level</th>
+		<th style="padding:5px; border: 1px solid black;">Amount Paid</th>
+	</thead>
+	';
+    while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+       
+        echo '<tr>
+			<td style="padding:5px; border: 1px solid black;">' . $row['First_Name'] . '</a></td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Last_Name'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Competition_Name'] .'</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Level'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">$' . $row['cost'] . '</td>';
+         $totalFees+=$row['cost'];
+    }// End of WHILE loop.
+    
+    echo '</tr>';
+    echo '</table>';
+   echo '<p align="right"><br />Total Fees Collected: $' . $totalFees . '';
+    mysqli_free_result ($r);
+   
+
+
+echo '<br/><br/><p style="text-align:center"><a href="reports.php?report=year">View Yearly Report</a></p>';
+echo '<p style="text-align:center"><a href="reports.php?report=month">View Monthly Report</a></p>';
+}
+else//monthly report will always be shown as default
 {
 	echo '<h1>Statistics for the Current Month</h1><br />';
     $q = "SELECT 
@@ -168,22 +213,22 @@ else
     $r = @mysqli_query ($dbc, $q2); // Run the query.
     echo '<table align="center">
 	<thead>
-		<th>Competitor ID</th>
-		<th>Event Type</th>
-		<th>Execution Score</th>
-		<th>Difficulty Score</th>
-		<th>Date</th>
-		<th>Time</th>
+		<th style="padding:5px; border: 1px solid black;">Competitor ID</th>
+		<th style="padding:5px; border: 1px solid black;">Event Type</th>
+		<th style="padding:5px; border: 1px solid black;">Execution Score</th>
+		<th style="padding:5px; border: 1px solid black;">Difficulty Score</th>
+		<th style="padding:5px; border: 1px solid black;">Date</th>
+		<th style="padding:5px; border: 1px solid black;">Time</th>
 	</thead>
 	';
     while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
         echo '<tr>
-			<td>' . $row['Competitor_ID'] . '</a></td>
-			<td>' . $row['Event_Type'] . '</td>
-			<td>' . $row['Exec_Score'] .'</td>
-			<td>' . $row['Diff_Score'] . '</td>
-			<td>' . $row['Date'] . '</td>
-			<td>' . $row['Time'] . '</td>';
+			<td style="padding:5px; border: 1px solid black;">' . $row['Competitor_ID'] . '</a></td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Event_Type'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Exec_Score'] .'</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Diff_Score'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Date'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['Time'] . '</td>';
     }// End of WHILE loop.
     echo '</tr>';
     echo '</table>';
@@ -191,30 +236,30 @@ else
     $r = @mysqli_query ($dbc, $q); // Run the query.
     echo '<table align="center">
 	<thead>
-		<th>Average Execution Score</th>
-		<th>Lowest Execution Score</th>
-		<th>Highest Execution Score</th>
-		<th>Average Difficulty Score</th>
-		<th>Lowest Difficulty Score</th>
-		<th>Highest Difficulty Score</th>
+		<th style="padding:5px; border: 1px solid black;">Average Execution Score</th>
+		<th style="padding:5px; border: 1px solid black;">Lowest Execution Score</th>
+		<th style="padding:5px; border: 1px solid black;">Highest Execution Score</th>
+		<th style="padding:5px; border: 1px solid black;">Average Difficulty Score</th>
+		<th style="padding:5px; border: 1px solid black;">Lowest Difficulty Score</th>
+		<th style="padding:5px; border: 1px solid black;">Highest Difficulty Score</th>
 	</thead>
 	';
     while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
         echo '<tr>
-			<td>' . $row['AVGEx'] . '</a></td>
-			<td>' . $row['MINEx'] . '</td>
-			<td>' . $row['MAXEx'] .'</td>
-			<td>' . $row['AVGDif'] . '</a></td>
-			<td>' . $row['MINDif'] . '</td>
-			<td>' . $row['MAXDif'] .'</td>';
+			<td style="padding:5px; border: 1px solid black;">' . $row['AVGEx'] . '</a></td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['MINEx'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['MAXEx'] .'</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['AVGDif'] . '</a></td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['MINDif'] . '</td>
+			<td style="padding:5px; border: 1px solid black;">' . $row['MAXDif'] .'</td>';
     }// End of WHILE loop.
     echo '</tr>';
     echo '</table>';
-    echo '<p style="text-align:center"><a href="reports.php?report=year">View Yearly Report</a></p>';
+    echo '<br /><br /><p style="text-align:center"><a href="reports.php?report=year">View Yearly Report</a></p>';
+   echo '<p style="text-align:center"><a href="reports.php?report=fees">View Fee Report</a></p>';
 }
 mysqli_free_result ($r);
 mysqli_close($dbc);
-include ('includes/footer.html');
 ?>
 
      </div>
