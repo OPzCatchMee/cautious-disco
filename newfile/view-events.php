@@ -79,7 +79,6 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
      </div>
      <img class="colelem temp_no_img_src" id="u36985-4" alt="Meets" data-orig-src="images/u36985-4.png?crc=3985404496" data-image-width="630" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
      <div class="colelem shared_content" id="u37078" data-content-guid="u37078_content"><!-- custom html -->
-     <?php
 
 <?php
 // Page to view events, filterable by competitor and meet
@@ -147,8 +146,6 @@ $meet_id = (isset($_GET['meet'])) ? $_GET['meet'] : 'none';
 mysqli_free_result ($r);
 mysqli_close($dbc);
 
-
-?>
 
 ?>
      </div>
