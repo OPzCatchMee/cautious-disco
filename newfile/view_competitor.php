@@ -72,7 +72,7 @@ if(typeof Muse == "undefined") window.Muse = {}; window.Muse.assets = {"required
        </div>
       </nav>
      </div>
-     <img class="colelem temp_no_img_src" id="u36958-4" alt="Pay Fees" data-orig-src="images/u36958-4.png?crc=4051004682" data-image-width="630" src="images/blank.gif?crc=4208392903"/><!-- rasterized frame -->
+     
      <div class="colelem shared_content" id="u37053" data-content-guid="u37053_content"><!-- custom html -->
 <?php
 // Page to view a single competitor's details, or search for a competitor
