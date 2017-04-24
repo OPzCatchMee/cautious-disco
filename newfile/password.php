@@ -85,7 +85,7 @@ $page_title = 'Change Your Password';
 
 if (!isset($_SESSION['ID_Login'])) {
 	echo '<p>You must be logged in to change your password.</p>';
-	include ('includes/footer.html');
+	include ('includes/footer.php');
 	exit();	
 }
 // Check for form submission:
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			}
 			mysqli_close($dbc); // Close the database connection.
 			// Include the footer and quit the script (to not show the form).
-			include ('includes/footer.html'); 
+			include ('includes/footer.php'); 
 			exit();
 				
 		} else { // Invalid password.
