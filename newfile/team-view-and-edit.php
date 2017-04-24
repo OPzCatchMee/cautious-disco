@@ -4,7 +4,11 @@ session_start()
 <!DOCTYPE html>
 <html class="nojs html css_verticalspacer" lang="en-US">
  <head>
-
+	<style>
+		table{
+			width:100%;
+		}
+	 </style>
   <meta http-equiv="Content-type" content="text/html;charset=UTF-8"/>
   <meta name="generator" content="2017.0.2.363"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
